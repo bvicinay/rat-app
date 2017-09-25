@@ -6,14 +6,19 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
+import java.util.HashMap;
+
 import cs2340.rat_app.R;
 
 public class LoginActivity extends AppCompatActivity {
+    private HashMap<String, String> users;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
+
 
         //Button goToRegister = (Button) findViewById(R.id.button2);
         /*goToRegister.setOnClickListener((view) -> {
