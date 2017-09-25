@@ -129,13 +129,13 @@
         app:layout_constraintRight_toRightOf="parent" />
     <EditText
         android:id="@+id/Error"
-        android:layout_width="0dp"
-        android:layout_height="48dp"
-        android:text="test"
+        android:layout_width="302dp"
+        android:layout_height="32dp"
+        android:text=""
         app:layout_constraintBottom_toBottomOf="parent"
         android:layout_marginBottom="45dp"
         android:layout_marginLeft="39dp"
         app:layout_constraintLeft_toLeftOf="parent"
-        />
+        tools:layout_editor_absoluteY="434dp" />
 
 </android.support.constraint.ConstraintLayout>
