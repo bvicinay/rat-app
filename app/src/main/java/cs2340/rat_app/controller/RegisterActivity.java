@@ -25,7 +25,7 @@ public class RegisterActivity extends AppCompatActivity {
         lastname = (EditText) findViewById(R.id.editLast);
         username = (EditText) findViewById(R.id.editUsername);
         password = (EditText) findViewById(R.id.editPassword);
-        errorMessage = (EditText) findViewById(R.id.Error);
+        errorMessage = (TextView) findViewById(R.id.Error);
     }
 
     public void goToLogin(View view) {
