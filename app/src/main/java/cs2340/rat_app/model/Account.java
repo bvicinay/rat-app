@@ -1,4 +1,4 @@
-package cs2340.rat_app.cs2340.rat_app.model;
+package cs2340.rat_app.model;
 
 /**
  * Created by Borja Vicinay on 9/24/2017.
