@@ -104,7 +104,9 @@
         tools:layout_constraintLeft_creator="1"
         app:layout_constraintLeft_toRightOf="@+id/button"
         android:layout_marginLeft="8dp"
-        android:layout_marginRight="1dp" />
+        android:layout_marginRight="1dp"
+        android:onClick="goToRegister"
+        />
 
 
 </android.support.constraint.ConstraintLayout>
