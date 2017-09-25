@@ -13,6 +13,7 @@ public class Account {
     //private String email;
 
     private static HashMap<String, Account> userList;
+    private static int size = 0;
 
     public Account(String username, String password, String firstName,
                    String lastName) {
@@ -20,6 +21,7 @@ public class Account {
         this.password = password;
         this.firstName = firstName;
         this.lastName = lastName;
+        size++;
         userList.put(userName, this);
     }
 
@@ -29,5 +31,9 @@ public class Account {
 
     public String getPassword() {
         return password;
+    }
+
+    public static int getSize() {
+        return size;
     }
 }

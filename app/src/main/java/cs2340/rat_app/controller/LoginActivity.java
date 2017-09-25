@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -37,7 +36,10 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     public boolean checkLogin() {
-        if (Account.getUserList().containsKey(username.getText().toString())) {
+        if (Account.getSize() == 0) {
+            errorMessage.setText("There are no registered users!");
+            return false;
+        } else if (Account.getUserList().containsKey(username.getText().toString())) {
             String storedPassword = password.getText().toString();
             if (storedPassword.equals(Account.getUserList().get(username.getText().toString()).getPassword())) {
                 errorMessage.setText("Login successfull!");
