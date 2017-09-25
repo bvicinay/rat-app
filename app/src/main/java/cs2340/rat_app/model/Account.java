@@ -12,7 +12,7 @@ public class Account {
     private String lastName;
     //private String email;
 
-    private static HashMap<String, Account> userList;
+    protected static HashMap<String, Account> userList = new HashMap<>();
     private static int size = 0;
 
     public Account(String username, String password, String firstName,
