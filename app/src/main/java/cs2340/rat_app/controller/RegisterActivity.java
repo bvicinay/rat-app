@@ -6,8 +6,6 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 
-import java.util.HashMap;
-
 import cs2340.rat_app.R;
 import cs2340.rat_app.model.Account;
 
@@ -27,8 +25,12 @@ public class RegisterActivity extends AppCompatActivity {
     }
 
     public void goToLogin(View view) {
-        Account person = new Account(username.getText().toString(), password.getText().toString(),
-                firstname.getText().toString(), lastname.getText().toString());
+        if(Account.getUserList().containsKey(username)) {
+            System.out.println("Sorry this username has already been selected please choose a new one!");
+        } else {
+            Account person = new Account(username.getText().toString(), password.getText().toString(),
+                    firstname.getText().toString(), lastname.getText().toString());
+        }
         Intent intent = new Intent(this, LoginActivity.class);
         startActivity(intent);
     }
