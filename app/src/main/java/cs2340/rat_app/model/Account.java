@@ -22,7 +22,6 @@ public class Account {
         this.firstName = firstName;
         this.lastName = lastName;
         size++;
-        userList.put(userName, this);
     }
 
     public static HashMap<String, Account> getUserList() {

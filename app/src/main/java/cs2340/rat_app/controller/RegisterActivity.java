@@ -32,6 +32,7 @@ public class RegisterActivity extends AppCompatActivity {
         if (validateData()) {
             Account newPerson = new Account(username.getText().toString(), password.getText().toString(),
                     firstname.getText().toString(), lastname.getText().toString());
+            Account.getUserList().put(username.getText().toString(), newPerson);
             Intent intent = new Intent(this, LoginActivity.class);
             startActivity(intent);
         }
