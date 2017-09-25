@@ -34,16 +34,19 @@ public class LoginActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    public void login() {
+    public boolean login() {
         if (Account.getUserList().containsKey(username.getText().toString())) {
             String storedPassword = password.getText().toString();
             if (storedPassword.equals(Account.getUserList().get(username))) {
                 System.out.println("Login successfull!");
+                return true;
             } else {
                 System.out.println("Invalid password");
+                return false;
             }
         } else {
             System.out.println("Invalid username");
+            return false;
         }
     }
 }

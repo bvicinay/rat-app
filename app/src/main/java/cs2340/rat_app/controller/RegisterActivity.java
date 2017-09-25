@@ -35,4 +35,17 @@ public class RegisterActivity extends AppCompatActivity {
         Intent intent = new Intent(this, LoginActivity.class);
         startActivity(intent);
     }
+    public boolean validateData() {
+        String first = firstname.getText().toString();
+        String last = lastname.getText().toString();
+        String user = username.getText().toString();
+        String pass = password.getText().toString();
+
+        if (first.equals("") || last.equals("") || user.equals("") || pass.equals("")) {
+            System.out.println("All fields must be filled");
+            return false;
+        }
+
+
+    }
 }
