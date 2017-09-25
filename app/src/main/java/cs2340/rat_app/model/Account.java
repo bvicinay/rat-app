@@ -6,7 +6,7 @@ package cs2340.rat_app.model;
 
 public class Account {
     //Credentials
-    private String username;
+    private String userName;
     private String password;
 
     //User Data
@@ -16,7 +16,7 @@ public class Account {
 
     public Account(String username, String password, String firstName,
                    String lastName) {
-        this.username = username;
+        this.userName = username;
         this.password = password;
         this.firstName = firstName;
         this.lastName = lastName;
