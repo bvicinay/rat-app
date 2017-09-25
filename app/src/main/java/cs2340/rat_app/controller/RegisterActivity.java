@@ -31,9 +31,9 @@ public class RegisterActivity extends AppCompatActivity {
         if (validateData()) {
             Account newPerson = new Account(username.getText().toString(), password.getText().toString(),
                     firstname.getText().toString(), lastname.getText().toString());
+            Intent intent = new Intent(this, LoginActivity.class);
+            startActivity(intent);
         }
-        Intent intent = new Intent(this, LoginActivity.class);
-        startActivity(intent);
     }
 
     public void backButton(View view) {
