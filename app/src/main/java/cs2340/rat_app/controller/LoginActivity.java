@@ -25,7 +25,7 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     public void login(View view) {
-        if (login()) {
+        if (checkLogin()) {
             Intent intent = new Intent(this, WelcomeActivity.class);
             startActivity(intent);
         }
@@ -36,7 +36,7 @@ public class LoginActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    public boolean login() {
+    public boolean checkLogin() {
         if (Account.getUserList().containsKey(username.getText().toString())) {
             String storedPassword = password.getText().toString();
             if (storedPassword.equals(Account.getUserList().get(username.getText().toString()).getPassword())) {
