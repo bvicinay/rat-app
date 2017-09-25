@@ -19,16 +19,8 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-
-
-
-        //Button goToRegister = (Button) findViewById(R.id.button2);
-        /*goToRegister.setOnClickListener((view) -> {
-            Intent intent = new Intent(this, RegisterActivity.class);
-            startActivity(intent);
-        });*/
-
     }
+
     public void goToRegister(View view) {
         Intent intent = new Intent(this, RegisterActivity.class);
         startActivity(intent);
@@ -37,7 +29,7 @@ public class LoginActivity extends AppCompatActivity {
     public boolean login() {
         if (Account.getUserList().containsKey(username.getText().toString())) {
             String storedPassword = password.getText().toString();
-            if (storedPassword.equals(Account.getUserList().get(username))) {
+            if (storedPassword.equals(Account.getUserList().get(username.getText().toString()).getPassword())) {
                 System.out.println("Login successfull!");
                 return true;
             } else {

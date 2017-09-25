@@ -33,6 +33,7 @@ public class RegisterActivity extends AppCompatActivity {
         Intent intent = new Intent(this, LoginActivity.class);
         startActivity(intent);
     }
+
     public boolean validateData() {
         String first = firstname.getText().toString();
         String last = lastname.getText().toString();

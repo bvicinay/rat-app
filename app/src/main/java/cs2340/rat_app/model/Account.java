@@ -2,10 +2,6 @@ package cs2340.rat_app.model;
 
 import java.util.HashMap;
 
-/**
- * Created by Borja Vicinay on 9/24/2017.
- */
-
 public class Account {
     //Credentials
     private String userName;
@@ -16,7 +12,7 @@ public class Account {
     private String lastName;
     //private String email;
 
-    private static HashMap<String, String> userList;
+    private static HashMap<String, Account> userList;
 
     public Account(String username, String password, String firstName,
                    String lastName) {
@@ -24,10 +20,14 @@ public class Account {
         this.password = password;
         this.firstName = firstName;
         this.lastName = lastName;
-        userList.put(userName, password);
+        userList.put(userName, this);
     }
 
-    public static HashMap<String, String> getUserList() {
+    public static HashMap<String, Account> getUserList() {
         return userList;
+    }
+
+    public String getPassword() {
+        return password;
     }
 }
