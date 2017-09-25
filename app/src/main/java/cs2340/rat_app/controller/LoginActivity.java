@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import cs2340.rat_app.model.Account;
 import cs2340.rat_app.R;
@@ -14,11 +15,23 @@ public class LoginActivity extends AppCompatActivity {
 
     private EditText username;
     private EditText password;
+    private TextView errorMessage;
+    private Button login;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+        errorMessage = (TextView) findViewById(R.id.ErrorMessage);
+        login = (Button) findViewById(R.id.Login);
+        login.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                if(login()) {
+                    Intent intent = new Intent(this, WeclomeActivity.class);
+                    startActivity(intent);
+                }
+            }
+        });
     }
 
     public void goToRegister(View view) {
@@ -30,14 +43,14 @@ public class LoginActivity extends AppCompatActivity {
         if (Account.getUserList().containsKey(username.getText().toString())) {
             String storedPassword = password.getText().toString();
             if (storedPassword.equals(Account.getUserList().get(username.getText().toString()).getPassword())) {
-                System.out.println("Login successfull!");
+                errorMessage.setText("Login successfull!");
                 return true;
             } else {
-                System.out.println("Invalid password");
+                errorMessage.setText("Invalid password");
                 return false;
             }
         } else {
-            System.out.println("Invalid username");
+            errorMessage.setText("Invalid username");
             return false;
         }
     }

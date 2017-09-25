@@ -108,5 +108,21 @@
         tools:layout_constraintRight_creator="1"
         tools:layout_editor_absoluteY="303dp" />
 
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="TextView"
+        tools:layout_editor_absoluteX="39dp"
+        tools:layout_editor_absoluteY="528dp" />
+
+    <TextView
+        android:id="@+id/ErrorMessage"
+        android:layout_width="95dp"
+        android:layout_height="19dp"
+        android:text=""
+        tools:layout_editor_absoluteX="29dp"
+        tools:layout_editor_absoluteY="449dp" />
+
 
 </android.support.constraint.ConstraintLayout>
