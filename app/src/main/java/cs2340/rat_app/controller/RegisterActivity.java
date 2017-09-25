@@ -26,10 +26,8 @@ public class RegisterActivity extends AppCompatActivity {
     }
 
     public void goToLogin(View view) {
-        if(Account.getUserList().containsKey(username)) {
-            System.out.println("Sorry this username has already been selected please choose a new one!");
-        } else {
-            Account person = new Account(username.getText().toString(), password.getText().toString(),
+        if (validateData()) {
+            Account newPerson = new Account(username.getText().toString(), password.getText().toString(),
                     firstname.getText().toString(), lastname.getText().toString());
         }
         Intent intent = new Intent(this, LoginActivity.class);
@@ -45,7 +43,14 @@ public class RegisterActivity extends AppCompatActivity {
             System.out.println("All fields must be filled");
             return false;
         }
-
-
+        if (pass.length() < 8) {
+            System.out.println("Password must be at least 8 characters long");
+            return false;
+        }
+        if (Account.getUserList().containsKey(user)) {
+            System.out.println("Sorry this username has already been taken please choose a new one!");
+            return false;
+        }
+        return true;
     }
 }
