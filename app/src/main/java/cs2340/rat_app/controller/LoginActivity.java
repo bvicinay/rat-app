@@ -16,22 +16,17 @@ public class LoginActivity extends AppCompatActivity {
     private EditText username;
     private EditText password;
     private TextView errorMessage;
-    private Button login;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         errorMessage = (TextView) findViewById(R.id.ErrorMessage);
-        login = (Button) findViewById(R.id.Login);
-        login.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                if(login()) {
-                    Intent intent = new Intent(this, WeclomeActivity.class);
-                    startActivity(intent);
-                }
-            }
-        });
+    }
+
+    public void login(View view) {
+        Intent intent = new Intent(this, WelcomeActivity.class);
+        startActivity(intent);
     }
 
     public void goToRegister(View view) {
