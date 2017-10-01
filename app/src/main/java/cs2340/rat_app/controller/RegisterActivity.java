@@ -9,6 +9,7 @@ import android.widget.TextView;
 
 import cs2340.rat_app.R;
 import cs2340.rat_app.model.Account;
+import cs2340.rat_app.model.UserList;
 
 public class RegisterActivity extends AppCompatActivity {
     private EditText firstname;
@@ -30,6 +31,7 @@ public class RegisterActivity extends AppCompatActivity {
 
     public void goToLogin(View view) {
         if (validateData()) {
+            UserList.getUserList().put(username.getText().toString(), password.getText().toString());
             Account newPerson = new Account(username.getText().toString(), password.getText().toString(),
                     firstname.getText().toString(), lastname.getText().toString());
             Account.getUserList().put(username.getText().toString(), newPerson);
@@ -57,8 +59,8 @@ public class RegisterActivity extends AppCompatActivity {
             errorMessage.setText("Password must be at least 8 characters long");
             return false;
         }
-        if (Account.getSize() != 0) {
-            if (Account.getUserList().containsKey(user)) {
+        if (UserList.getUserList().getSize() != 0) {
+            if (UserList.getUserList().containsKey(user)) {
                 errorMessage.setText("Sorry this username has already been taken please choose a new one!");
                 return false;
             }

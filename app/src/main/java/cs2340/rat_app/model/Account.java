@@ -10,29 +10,18 @@ public class Account {
     //User Data
     private String firstName;
     private String lastName;
-    //private String email;
-
-    protected static HashMap<String, Account> userList = new HashMap<>();
-    private static int size = 0;
+    private String email;
 
     public Account(String username, String password, String firstName,
-                   String lastName) {
+                   String lastName, String email) {
         this.userName = username;
         this.password = password;
         this.firstName = firstName;
         this.lastName = lastName;
-        size++;
+        this.email = email;
     }
 
-    public static HashMap<String, Account> getUserList() {
-        return userList;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public static int getSize() {
-        return size;
+    public Account getThis() {
+        return this;
     }
 }
