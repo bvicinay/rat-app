@@ -28,7 +28,9 @@ public class LoginActivity extends AppCompatActivity {
     public void login(View view) {
         if (checkLogin()) {
             Intent intent = new Intent(this, WelcomeActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             startActivity(intent);
+            this.finish();
         }
     }
 

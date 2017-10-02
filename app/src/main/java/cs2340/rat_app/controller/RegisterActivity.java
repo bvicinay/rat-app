@@ -29,8 +29,6 @@ public class RegisterActivity extends AppCompatActivity {
 
     private AccountList AccountList = new AccountList();
 
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -57,13 +55,17 @@ public class RegisterActivity extends AppCompatActivity {
                     firstname.getText().toString(), lastname.getText().toString(), email.getText().toString());
             AccountList.add(newPerson);
             Intent intent = new Intent(this, LoginActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             startActivity(intent);
+            this.finish();
         }
     }
 
     public void backButton(View view) {
         Intent intent = new Intent(this, LoginActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(intent);
+        this.finish();
     }
 
     public boolean validateData() {

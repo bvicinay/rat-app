@@ -1,6 +1,5 @@
 package cs2340.rat_app.model;
 
-import java.util.HashMap;
 import java.io.Serializable;
 
 public class Account implements Serializable {
