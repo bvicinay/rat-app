@@ -39,7 +39,7 @@ captures/
 .idea/gradle.xml
 .idea/dictionaries
 .idea/libraries
-.idea/vcs.xml //BORJA
+#.idea/vcs.xml //BORJA
 
 # Keystore files
 *.jks
