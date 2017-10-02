@@ -7,9 +7,8 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import cs2340.rat_app.model.Account;
 import cs2340.rat_app.R;
-import cs2340.rat_app.model.UserList;
+import cs2340.rat_app.model.AccountList;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -39,12 +38,12 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     public boolean checkLogin() {
-        if (UserList.getUserList().getSize() == 0) {
+        if (AccountList.size() == 0) {
             errorMessage.setText("There are no registered users!");
             return false;
-        } else if (UserList.getUserList().containsKey(username.getText().toString())) {
+        } else if (AccountList.getAccounts().containsKey(username.getText().toString())) {
             String storedPassword = password.getText().toString();
-            if (storedPassword.equals(UserList.getUserList().get(username.getText().toString()).getPassword())) {
+            if (storedPassword.equals(AccountList.getAccounts().get(username.getText().toString()).getPassword())) {
                 errorMessage.setText("Login successfull!");
                 return true;
             } else {
