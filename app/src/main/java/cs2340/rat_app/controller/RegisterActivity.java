@@ -14,6 +14,9 @@ import cs2340.rat_app.model.Account;
 import cs2340.rat_app.model.AccountType;
 import cs2340.rat_app.model.AccountList;
 
+/**
+ * RegisterActivity is the controller for the activity_register screen (registration screen).
+ */
 public class RegisterActivity extends AppCompatActivity {
     private EditText firstname;
     private EditText lastname;
@@ -49,10 +52,16 @@ public class RegisterActivity extends AppCompatActivity {
 
     }
 
+    /**
+     * Returns to login screen if registration was completed successfully.
+     * @param view the view that calls the method.
+     */
     public void goToLogin(View view) {
         if (validateData()) {
-            Account newPerson = new Account((AccountType) accountType.getSelectedItem(), username.getText().toString(), password.getText().toString(),
-                    firstname.getText().toString(), lastname.getText().toString(), email.getText().toString());
+            Account newPerson = new Account((AccountType) accountType.getSelectedItem(),
+                    username.getText().toString(), password.getText().toString(),
+                    firstname.getText().toString(), lastname.getText().toString(),
+                    email.getText().toString());
             AccountList.add(newPerson);
             Intent intent = new Intent(this, LoginActivity.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
@@ -61,6 +70,10 @@ public class RegisterActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * This cancels the registration when the Back button was pressed.
+     * @param view the view that calls the method.
+     */
     public void backButton(View view) {
         Intent intent = new Intent(this, LoginActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
@@ -68,6 +81,11 @@ public class RegisterActivity extends AppCompatActivity {
         this.finish();
     }
 
+    /**
+     * This method ensures that the information passed into the registration fields
+     * are acceptable. Prints on the app what needs to be fixed if something is wrong.
+     * @return true if all data is acceptable, false otherwise.
+     */
     public boolean validateData() {
         String first = firstname.getText().toString();
         String last = lastname.getText().toString();
