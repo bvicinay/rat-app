@@ -17,6 +17,10 @@ public class AccountList {
 
     public AccountList() {};
 
+    /**
+     *
+     * @param act
+     */
     public static void add(Account act) {
         AccountList.accounts.put(act.getUsername(), act);
         size++;
