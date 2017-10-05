@@ -16,6 +16,7 @@ import cs2340.rat_app.model.AccountList;
  */
 public class LoginActivity extends AppCompatActivity {
 
+    //instance variables
     private EditText username;
     private EditText password;
     private TextView errorMessage;
@@ -30,7 +31,9 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     /**
-     * login is the method called when the login button is pressed.
+     * Login method that is run when login button is pressed- if a correct
+     * username and password have been entered, will login- otherwise,
+     * produces an error message
      * @param view the view that calls the method.
      */
     public void login(View view) {
@@ -44,7 +47,7 @@ public class LoginActivity extends AppCompatActivity {
 
     /**
      * goToRegister is the method that is called when the register button
-     * is pressed.
+     * is pressed- brings the user to the register screen
      * @param view the view that calls the method.
      */
     public void goToRegister(View view) {
@@ -53,11 +56,11 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     /**
-     * checkLogin checks to see that there is at least one registered user, then
-     * checks to see if the username exists, if it does then if the password matches, if
-     * not, then it returns true and prints invalid password. If the username doesn't exist, returns
-     * false and prints invalid username.
-     * @return true if login was successful, false otherwise.
+     * checkLogin is run when a user attempts to login- if there are no registered users, it will
+     * throw an error message; it will then check username, and if that is valid, will then
+     * check password- if a valid username/password combination are entered, will return true (which
+     * will log the user in), else it will return false and produce an error message
+     * @return true if combination is  was valid, false otherwise.
      */
     public boolean checkLogin() {
         if (AccountList.size() == 0) {

@@ -18,6 +18,8 @@ import cs2340.rat_app.model.AccountList;
  * RegisterActivity is the controller for the activity_register screen (registration screen).
  */
 public class RegisterActivity extends AppCompatActivity {
+
+    //instance variables
     private EditText firstname;
     private EditText lastname;
     private EditText username;
@@ -30,6 +32,7 @@ public class RegisterActivity extends AppCompatActivity {
     private String[] accountTypes;
     private ArrayAdapter<String> spinnerAdapter;
 
+    //reference to the accountList singleton
     private AccountList AccountList = new AccountList();
 
     @Override
@@ -47,13 +50,17 @@ public class RegisterActivity extends AppCompatActivity {
 
         //Add options to spinner
         //accountTypes = new String[] {AccountType.USER, AccountType.ADMIN};
-        spinnerAdapter = new ArrayAdapter(this, android.R.layout.simple_spinner_item, AccountType.values());
+        spinnerAdapter = new ArrayAdapter(this, android.R.layout.simple_spinner_item,
+                AccountType.values());
         accountType.setAdapter(spinnerAdapter);
 
     }
 
     /**
-     * Returns to login screen if registration was completed successfully.
+     * Method that is called when a user clicks register- checks to see if all registration fields
+     * have been properly filled out- if they have, will create a new account with the corresponding
+     * attributes, add this account to the userList, and return the user to the login screen; if
+     * fields are not properly filled, will produce error message and stay on same screen
      * @param view the view that calls the method.
      */
     public void goToLogin(View view) {
@@ -71,7 +78,8 @@ public class RegisterActivity extends AppCompatActivity {
     }
 
     /**
-     * This cancels the registration when the Back button was pressed.
+     * Called when the back button is pressed- will cancel the registration, not storing the
+     * information in the data fields, and return the user to the login screen
      * @param view the view that calls the method.
      */
     public void backButton(View view) {
@@ -83,7 +91,7 @@ public class RegisterActivity extends AppCompatActivity {
 
     /**
      * This method ensures that the information passed into the registration fields
-     * are acceptable. Prints on the app what needs to be fixed if something is wrong.
+     * are acceptable. Produces error message is a field is not properly filled
      * @return true if all data is acceptable, false otherwise.
      */
     public boolean validateData() {
