@@ -10,36 +10,92 @@ import android.widget.TextView;
 import cs2340.rat_app.R;
 import cs2340.rat_app.model.AccountList;
 
+//Firebase
+import com.google.android.gms.tasks.Task;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import android.support.annotation.NonNull;
+import android.util.Log;
+import android.widget.Toast;
+
 /**
  * LoginActivity is the controller for the activity_login screen (first
  * screen where you can choose to either login or register).
  */
 public class LoginActivity extends AppCompatActivity {
 
-    private EditText username;
+    private EditText email;
     private EditText password;
     private TextView errorMessage;
+
+    //Firebase
+    private FirebaseAuth mAuth;
+    private FirebaseAuth.AuthStateListener mAuthListener;
+    private static final String TAG = "LoginActivity";
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         errorMessage = (TextView) findViewById(R.id.ErrorMessage);
-        username = (EditText) findViewById(R.id.usernameField);
+        email = (EditText) findViewById(R.id.usernameField);
         password = (EditText) findViewById(R.id.passwordField);
+
+        //Firebase
+        mAuth = FirebaseAuth.getInstance();
+        mAuthListener = new FirebaseAuth.AuthStateListener() {
+            @Override
+            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+                FirebaseUser user = firebaseAuth.getCurrentUser();
+                if (user != null) {
+                    // User is signed in
+                    Log.d(TAG, "onAuthStateChanged:signed_in:" + user.getUid());
+                } else {
+                    // User is signed out
+                    Log.d(TAG, "onAuthStateChanged:signed_out");
+                }
+                // ...
+            }
+        };
     }
+    @Override
+    public void onStart() { //made public for firebase
+        super.onStart();
+        mAuth.addAuthStateListener(mAuthListener);
+    }
+
+    @Override
+    public void onStop() { //made public for firebase
+        super.onStop();
+        if (mAuthListener != null) {
+            mAuth.removeAuthStateListener(mAuthListener);
+        }
+    }
+
 
     /**
      * login is the method called when the login button is pressed.
      * @param view the view that calls the method.
      */
     public void login(View view) {
-        if (checkLogin()) {
-            Intent intent = new Intent(this, WelcomeActivity.class);
-            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            startActivity(intent);
-            this.finish();
+        if (validateData()) {
+            signin(email.getText().toString(), password.getText().toString());
+        } else {
+            abortLogin();
         }
+    }
+
+    public void proceedLogin() {
+        Intent intent = new Intent(this, WelcomeActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(intent);
+        this.finish();
+    }
+    public void abortLogin() {
+        password.setText("");
     }
 
     /**
@@ -59,22 +115,36 @@ public class LoginActivity extends AppCompatActivity {
      * false and prints invalid username.
      * @return true if login was successful, false otherwise.
      */
-    public boolean checkLogin() {
-        if (AccountList.size() == 0) {
-            errorMessage.setText("There are no registered users!");
-            return false;
-        } else if (AccountList.getAccounts().containsKey(username.getText().toString())) {
-            String storedPassword = password.getText().toString();
-            if (storedPassword.equals(AccountList.getAccounts().get(username.getText().toString()).getPassword())) {
-                errorMessage.setText("Login successfull!");
-                return true;
-            } else {
-                errorMessage.setText("Invalid password");
-                return false;
-            }
-        } else {
-            errorMessage.setText("Invalid username");
+    public boolean validateData() {
+        String eMail = email.getText().toString();
+        String pass = password.getText().toString();
+
+        if (eMail.length() == 0 || pass.length() == 0 ) {
+            errorMessage.setText("Password must be at least 8 characters long");
             return false;
         }
+        return true;
+    }
+
+    public void signin(String email, String password) {
+        mAuth.signInWithEmailAndPassword(email, password)
+                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        Log.d(TAG, "signInWithEmail:onComplete:" + task.isSuccessful());
+                        // If sign in fails, display a message to the user. If sign in succeeds
+                        // the auth state listener will be notified and logic to handle the
+                        // signed in user can be handled in the listener.
+                        if (!task.isSuccessful()) {
+                            Log.w(TAG, "signInWithEmail:failed", task.getException());
+                            Toast.makeText(LoginActivity.this, "Sign-in failed",
+                                    Toast.LENGTH_SHORT).show();
+                            abortLogin();
+                        }
+                        else {
+                            proceedLogin();
+                        }
+                    }
+                });
     }
 }
