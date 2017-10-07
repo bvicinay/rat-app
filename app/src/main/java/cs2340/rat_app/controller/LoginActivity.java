@@ -8,7 +8,6 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import cs2340.rat_app.R;
-import cs2340.rat_app.model.AccountList;
 
 //Firebase
 import com.google.android.gms.tasks.Task;
@@ -57,7 +56,6 @@ public class LoginActivity extends AppCompatActivity {
                     // User is signed out
                     Log.d(TAG, "onAuthStateChanged:signed_out");
                 }
-                // ...
             }
         };
     }
@@ -88,7 +86,7 @@ public class LoginActivity extends AppCompatActivity {
         }
     }
 
-    public void proceedLogin() {
+    public void proceedLogin(FirebaseUser user) {
         Intent intent = new Intent(this, WelcomeActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(intent);
@@ -118,7 +116,6 @@ public class LoginActivity extends AppCompatActivity {
     public boolean validateData() {
         String eMail = email.getText().toString();
         String pass = password.getText().toString();
-
         if (eMail.length() == 0 || pass.length() == 0 ) {
             errorMessage.setText("Password must be at least 8 characters long");
             return false;
@@ -132,17 +129,19 @@ public class LoginActivity extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         Log.d(TAG, "signInWithEmail:onComplete:" + task.isSuccessful());
-                        // If sign in fails, display a message to the user. If sign in succeeds
-                        // the auth state listener will be notified and logic to handle the
-                        // signed in user can be handled in the listener.
-                        if (!task.isSuccessful()) {
+                        // If sign in succeeds the auth state listener will be notified and logic
+                        // to handle the signed in user can be handled in the listener.
+                        if (task.isSuccessful()) {
+                            // Sign-in successful, proceed passing user as parameter
+                            FirebaseUser user = mAuth.getCurrentUser();
+                            proceedLogin(user);
+                        }
+                        else {
+                            // Sign-in failed, display message to user
                             Log.w(TAG, "signInWithEmail:failed", task.getException());
                             Toast.makeText(LoginActivity.this, "Sign-in failed",
                                     Toast.LENGTH_SHORT).show();
                             abortLogin();
-                        }
-                        else {
-                            proceedLogin();
                         }
                     }
                 });

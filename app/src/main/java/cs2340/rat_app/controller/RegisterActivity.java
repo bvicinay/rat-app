@@ -1,7 +1,6 @@
 package cs2340.rat_app.controller;
 
 import android.content.Intent;
-import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -18,6 +17,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import android.widget.Toast;
 import android.util.Log;
+import android.support.annotation.NonNull;
 
 import cs2340.rat_app.R;
 import cs2340.rat_app.model.AccountType;
@@ -36,8 +36,6 @@ public class RegisterActivity extends AppCompatActivity {
 
     //Spinner
     private Spinner accountType;
-
-    private AccountList accountList = new AccountList();
 
     //Firebase
     private FirebaseAuth mAuth;
@@ -58,8 +56,8 @@ public class RegisterActivity extends AppCompatActivity {
         errorMessage = (TextView) findViewById(R.id.Error);
 
         //Add options to spinner
-        //accountTypes = new String[] {AccountType.USER, AccountType.ADMIN};
-        ArrayAdapter<String> spinnerAdapter = new ArrayAdapter(this, android.R.layout.simple_spinner_item, AccountType.values());
+        ArrayAdapter<String> spinnerAdapter = new ArrayAdapter(this,
+                android.R.layout.simple_spinner_item, AccountType.values());
         accountType.setAdapter(spinnerAdapter);
 
         //Firebase
@@ -75,7 +73,6 @@ public class RegisterActivity extends AppCompatActivity {
                     // User is signed out
                     Log.d(TAG, "onAuthStateChanged:signed_out");
                 }
-                // ...
             }
         };
     }
@@ -106,14 +103,13 @@ public class RegisterActivity extends AppCompatActivity {
         }
     }
 
-    public void proceedRegister(String email, String password) {
+    public void proceedRegister(String email, String password, FirebaseUser user) {
         Intent intent = new Intent(this, LoginActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(intent);
         this.finish();
     }
     public void abortRegister() {
-        // if login fails
         password.setText("");
     }
 
@@ -163,34 +159,30 @@ public class RegisterActivity extends AppCompatActivity {
 
     //Firebase
     private void createAccount(String email, String password) {
+        // Data is already validated
         Log.d(TAG, "createAccount:" + email);
         final String emailFinal = email;
         final String passFinal = password;
-        // Data is already validated
-        // [START create_user_with_email]
+
+        // Create user on database
         mAuth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
-                            // Sign in success, update UI with the signed-in user's information
+                            // Registration successful, proceed passing user as parameter
                             Log.d(TAG, "createUserWithEmail:success");
                             FirebaseUser user = mAuth.getCurrentUser();
-                            proceedRegister(emailFinal, passFinal);
+                            proceedRegister(emailFinal, passFinal, user);
                         } else {
-                            // If sign in fails, display a message to the user.
+                            // Registration failed, display message to the user, abort.
                             Log.w(TAG, "createUserWithEmail:failure", task.getException());
                             Toast.makeText(RegisterActivity.this, "Authentication failed.",
                                     Toast.LENGTH_SHORT).show();
                             abortRegister();
                         }
-
-                        // [START_EXCLUDE]
-                        //hideProgressDialog();
-                        // [END_EXCLUDE]
                     }
                 });
-        // [END create_user_with_email]
     }
 
 
