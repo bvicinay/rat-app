@@ -23,6 +23,8 @@ import cs2340.rat_app.R;
 import cs2340.rat_app.model.AccountType;
 import cs2340.rat_app.model.AccountList;
 
+// TODO Add missing JavaDocs
+
 /**
  * RegisterActivity is the controller for the activity_register screen (registration screen).
  */

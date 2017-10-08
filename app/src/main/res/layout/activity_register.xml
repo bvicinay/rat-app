@@ -8,6 +8,9 @@
     tools:layout_editor_absoluteY="81dp"
     tools:layout_editor_absoluteX="0dp">
 
+    <!--TODO fix UI using new template-->
+    <!--TODO interface the new template with the app-->
+
     <TextView
         android:id="@+id/textView4"
         android:layout_width="0dp"

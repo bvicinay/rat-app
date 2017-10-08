@@ -19,6 +19,8 @@ import android.support.annotation.NonNull;
 import android.util.Log;
 import android.widget.Toast;
 
+// TODO Add missing JavaDocs
+
 /**
  * LoginActivity is the controller for the activity_login screen (first
  * screen where you can choose to either login or register).
