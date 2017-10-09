@@ -1,13 +1,12 @@
 package cs2340.rat_app.controller;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
-
-import cs2340.rat_app.R;
 
 //Firebase
 import com.google.android.gms.tasks.Task;
@@ -19,17 +18,15 @@ import android.support.annotation.NonNull;
 import android.util.Log;
 import android.widget.Toast;
 
-// TODO Add missing JavaDocs
+import cs2340.rat_app.R;
 
 /**
- * LoginActivity is the controller for the activity_login screen (first
- * screen where you can choose to either login or register).
+ * A login screen that offers login via email/password.
  */
 public class LoginActivity extends AppCompatActivity {
 
-    private EditText email;
-    private EditText password;
-    private TextView errorMessage;
+    private EditText emailField;
+    private EditText passwordField;
 
     //Firebase
     private FirebaseAuth mAuth;
@@ -41,9 +38,29 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-        errorMessage = (TextView) findViewById(R.id.ErrorMessage);
-        email = (EditText) findViewById(R.id.usernameField);
-        password = (EditText) findViewById(R.id.passwordField);
+        // Set up the login form.
+        emailField = (EditText) findViewById(R.id.email);
+        passwordField = (EditText) findViewById(R.id.password);
+
+        // When sign-in button is pressed
+        Button signInButton = (Button) findViewById(R.id.sign_in_button);
+        signInButton.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                login();
+            }
+        });
+
+        // When register button is pressed
+        Button toRegisterButton = (Button) findViewById(R.id.toRegister_button);
+        toRegisterButton.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getOuter(), RegisterActivity.class);
+                startActivity(intent);
+            }
+        });
+
 
         //Firebase
         mAuth = FirebaseAuth.getInstance();
@@ -60,7 +77,9 @@ public class LoginActivity extends AppCompatActivity {
                 }
             }
         };
+
     }
+
     @Override
     public void onStart() { //made public for firebase
         super.onStart();
@@ -75,57 +94,71 @@ public class LoginActivity extends AppCompatActivity {
         }
     }
 
-
     /**
      * login is the method called when the login button is pressed.
-     * @param view the view that calls the method.
      */
-    public void login(View view) {
+    public void login() {
+        // Reset errors
+        emailField.setError(null);
+        passwordField.setError(null);
         if (validateData()) {
-            signin(email.getText().toString(), password.getText().toString());
+            signin(emailField.getText().toString(), passwordField.getText().toString());
         } else {
             abortLogin();
         }
     }
 
     public void proceedLogin(FirebaseUser user) {
-        Intent intent = new Intent(this, WelcomeActivity.class);
+        Toast.makeText(LoginActivity.this, "Signed-in",
+                Toast.LENGTH_SHORT).show();
+        Intent intent = new Intent(this, HomeActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(intent);
         this.finish();
     }
     public void abortLogin() {
-        password.setText("");
+        passwordField.setText("");
     }
 
     /**
-     * goToRegister is the method that is called when the register button
-     * is pressed.
-     * @param view the view that calls the method.
+     * Attempts to sign in or register the account specified by the login form.
+     * If there are form errors (invalid email, missing fields, etc.), the
+     * errors are presented and no actual login attempt is made.
      */
-    public void goToRegister(View view) {
-        Intent intent = new Intent(this, RegisterActivity.class);
-        startActivity(intent);
-    }
+    private boolean validateData() {
+        // Store input values
+        String email = emailField.getText().toString();
+        String password = passwordField.getText().toString();
 
-    /**
-     * checkLogin checks to see that there is at least one registered user, then
-     * checks to see if the username exists, if it does then if the password matches, if
-     * not, then it returns true and prints invalid password. If the username doesn't exist, returns
-     * false and prints invalid username.
-     * @return true if login was successful, false otherwise.
-     */
-    public boolean validateData() {
-        String eMail = email.getText().toString();
-        String pass = password.getText().toString();
-        if (eMail.length() == 0 || pass.length() == 0 ) {
-            errorMessage.setText("Password must be at least 8 characters long");
-            return false;
+        boolean valid = true;
+        View focusView = null; //the view to be highlighted in case of error
+
+        if (password.length() == 0) {
+            passwordField.setError(getString(R.string.error_field_required));
+            focusView = passwordField;
+            valid = false;
+        } else if (password.length() < 8) {
+            emailField.setError(getString(R.string.error_invalid_email));
+            focusView = passwordField;
+            valid = false;
         }
-        return true;
+        if (email.length() == 0) {
+            emailField.setError(getString(R.string.error_field_required));
+            focusView = emailField;
+            valid = false;
+        } else if (!email.contains("@") || !email.contains(".")) {
+            emailField.setError(getString(R.string.error_invalid_email));
+            focusView = emailField;
+            valid = false;
+        }
+        if (!valid) {
+            // There was an error, highlight field with error
+            focusView.requestFocus();
+        }
+        return valid;
     }
 
-    public void signin(String email, String password) {
+     public void signin(String email, String password) {
         mAuth.signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
@@ -148,4 +181,9 @@ public class LoginActivity extends AppCompatActivity {
                     }
                 });
     }
+
+    private LoginActivity getOuter() {
+        return this;
+    }
 }
+

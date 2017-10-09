@@ -1,66 +1,70 @@
 package cs2340.rat_app.controller;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
-import android.widget.TextView;
 
 //Firebase
-import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import android.widget.Toast;
-import android.util.Log;
 import android.support.annotation.NonNull;
+import android.util.Log;
+import android.widget.Toast;
 
 import cs2340.rat_app.R;
 import cs2340.rat_app.model.AccountType;
-import cs2340.rat_app.model.AccountList;
-
-// TODO Add missing JavaDocs
 
 /**
- * RegisterActivity is the controller for the activity_register screen (registration screen).
+ * A login screen that offers login via email/password.
  */
 public class RegisterActivity extends AppCompatActivity {
-    private EditText firstname;
-    private EditText lastname;
-    private EditText username;
-    private EditText password;
-    private EditText email;
-    private TextView errorMessage;
 
-    //Spinner
-    private Spinner accountType;
+    private EditText firstField;
+    private EditText lastField;
+    private EditText emailField;
+    private EditText passwordField;
+    private Spinner actTypeField;
 
     //Firebase
     private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener mAuthListener;
-    private static final String TAG = "RegisterActivity";
+    private static final String TAG = "LoginActivity";
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
-        firstname = (EditText) findViewById(R.id.editFirst);
-        lastname = (EditText) findViewById(R.id.editLast);
-        username = (EditText) findViewById(R.id.editUsername);
-        password = (EditText) findViewById(R.id.editPassword);
-        email = (EditText) findViewById(R.id.editEmail);
-        accountType = (Spinner) findViewById(R.id.edit_accountType);
-        errorMessage = (TextView) findViewById(R.id.Error);
+        // Set up the login form.
+        firstField = (EditText) findViewById(R.id.first_name);
+        lastField = (EditText) findViewById(R.id.last_name);
+        emailField = (EditText) findViewById(R.id.email);
+        passwordField = (EditText) findViewById(R.id.password);
+        actTypeField = (Spinner) findViewById(R.id.account_type_spinner);
 
-        //Add options to spinner
+        //Add options to account type spinner
         ArrayAdapter<String> spinnerAdapter = new ArrayAdapter(this,
                 android.R.layout.simple_spinner_item, AccountType.values());
-        accountType.setAdapter(spinnerAdapter);
+        actTypeField.setAdapter(spinnerAdapter);
+
+        // When register button is pressed
+        Button registerButton = (Button) findViewById(R.id.register_button);
+        registerButton.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                register();
+            }
+        });
+
 
         //Firebase
         mAuth = FirebaseAuth.getInstance();
@@ -77,16 +81,17 @@ public class RegisterActivity extends AppCompatActivity {
                 }
             }
         };
+
     }
 
     @Override
-    public void onStart() {
+    public void onStart() { //made public for firebase
         super.onStart();
         mAuth.addAuthStateListener(mAuthListener);
     }
 
     @Override
-    public void onStop() {
+    public void onStop() { //made public for firebase
         super.onStop();
         if (mAuthListener != null) {
             mAuth.removeAuthStateListener(mAuthListener);
@@ -95,11 +100,10 @@ public class RegisterActivity extends AppCompatActivity {
 
     /**
      * Returns to login screen if registration was completed successfully.
-     * @param view the view that calls the method.
      */
-    public void goToLogin(View view) {
+    public void register() {
         if (validateData()) {
-            createAccount(email.getText().toString(), password.getText().toString());
+            createAccount(emailField.getText().toString(), passwordField.getText().toString());
         } else {
             abortRegister();
         }
@@ -111,19 +115,9 @@ public class RegisterActivity extends AppCompatActivity {
         startActivity(intent);
         this.finish();
     }
-    public void abortRegister() {
-        password.setText("");
-    }
 
-    /**
-     * This cancels the registration when the Back button was pressed.
-     * @param view the view that calls the method.
-     */
-    public void backButton(View view) {
-        Intent intent = new Intent(this, LoginActivity.class);
-        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        startActivity(intent);
-        this.finish();
+    public void abortRegister() {
+        passwordField.setText("");
     }
 
     /**
@@ -132,31 +126,47 @@ public class RegisterActivity extends AppCompatActivity {
      * @return true if all data is acceptable, false otherwise.
      */
     public boolean validateData() {
-        String first = firstname.getText().toString();
-        String last = lastname.getText().toString();
-        String user = username.getText().toString();
-        String pass = password.getText().toString();
-        String emailStr = email.getText().toString();
+        String first = firstField.getText().toString();
+        String last = lastField.getText().toString();
+        String email = emailField.getText().toString();
+        String password = passwordField.getText().toString();
 
-        if (first.equals("") || last.equals("") || user.equals("") || pass.equals("")) {
-            errorMessage.setText("All fields must be filled");
-            return false;
+        boolean valid = true;
+        View focusView = null; //the view to be highlighted in case of error
+
+        if (first.length() == 0) {
+            firstField.setError(getString(R.string.error_field_required));
+            focusView = firstField;
+            valid = false;
         }
-        if (pass.length() < 8) {
-            errorMessage.setText("Password must be at least 8 characters long");
-            return false;
+        if (last.length() == 0) {
+            lastField.setError(getString(R.string.error_field_required));
+            focusView = lastField;
+            valid = false;
         }
-        if (emailStr.isEmpty() || !emailStr.contains("@") || !emailStr.contains(".")) {
-            errorMessage.setText("Invalid email!");
-            return false;
+        if (password.length() == 0) {
+            passwordField.setError(getString(R.string.error_field_required));
+            focusView = passwordField;
+            valid = false;
+        } else if (password.length() < 8) {
+            emailField.setError(getString(R.string.error_invalid_email));
+            focusView = passwordField;
+            valid = false;
         }
-        if (!AccountList.isEmpty()) {
-            if (AccountList.getAccounts().containsKey(user)) {
-                errorMessage.setText("Sorry this username has already been taken please choose a new one!");
-                return false;
-            }
+        if (email.length() == 0) {
+            emailField.setError(getString(R.string.error_field_required));
+            focusView = emailField;
+            valid = false;
+        } else if (!email.contains("@") || !email.contains(".")) {
+            emailField.setError(getString(R.string.error_invalid_email));
+            focusView = emailField;
+            valid = false;
         }
-        return true;
+        if (!valid) {
+            // There was an error, highlight field with error
+            focusView.requestFocus();
+        }
+        return valid;
     }
 
     //Firebase
@@ -175,17 +185,21 @@ public class RegisterActivity extends AppCompatActivity {
                             // Registration successful, proceed passing user as parameter
                             Log.d(TAG, "createUserWithEmail:success");
                             FirebaseUser user = mAuth.getCurrentUser();
+                            Toast.makeText(RegisterActivity.this, "Account created",
+                                    Toast.LENGTH_SHORT).show();
                             proceedRegister(emailFinal, passFinal, user);
                         } else {
                             // Registration failed, display message to the user, abort.
                             Log.w(TAG, "createUserWithEmail:failure", task.getException());
-                            Toast.makeText(RegisterActivity.this, "Authentication failed.",
+                            Toast.makeText(RegisterActivity.this, "Failed to register",
                                     Toast.LENGTH_SHORT).show();
                             abortRegister();
                         }
                     }
                 });
     }
-
-
+    private RegisterActivity getOuter() {
+        return this;
+    }
 }
+
