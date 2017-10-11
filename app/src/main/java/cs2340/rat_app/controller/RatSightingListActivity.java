@@ -3,7 +3,9 @@ package cs2340.rat_app.controller;
 import android.app.ListActivity;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.widget.ListView;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -18,6 +20,7 @@ public class RatSightingListActivity extends ListActivity {
 
     private static final String TAG = "RatSightingListActivity";
     public ArrayList<RatSighting> ratSightings = new ArrayList<>();
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
