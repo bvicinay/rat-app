@@ -2,7 +2,6 @@ package cs2340.rat_app.controller;
 
 import android.app.ListActivity;
 import android.os.AsyncTask;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 
@@ -23,7 +22,7 @@ public class RatSightingListActivity extends ListActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_sightings_list);
+        setContentView(R.layout.activity_rat_sightings_list);
 
         new LoadLocalData().execute();
 
