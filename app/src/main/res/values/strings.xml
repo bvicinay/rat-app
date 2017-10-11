@@ -115,4 +115,6 @@
         "when a user tries to pick up one of cards.\n\n"
     </string>
     <string name="action_settings">Settings</string>
+    <string name="title_ratsighting_list">RatSightings</string>
+    <string name="title_ratsighting_detail">RatSighting Detail</string>
 </resources>

@@ -5,10 +5,22 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="cs2340.rat_app.controller.HomeActivity">
-    
+
     <TextView
         android:layout_width="344dp"
         android:layout_height="wrap_content"
-        android:text="Welcome to our app!"/>
+        android:text="Welcome to our app!"
+        android:textAlignment="center"
+        tools:layout_editor_absoluteX="8dp"
+        tools:layout_editor_absoluteY="63dp" />
+
+    <Button
+        android:id="@+id/view_sightings"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="View Rat Sightings"
+        tools:layout_editor_absoluteX="99dp"
+        tools:layout_editor_absoluteY="231dp" />
+
 
 </android.support.constraint.ConstraintLayout>

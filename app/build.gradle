@@ -17,6 +17,7 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+    sourceSets { main { res.srcDirs = ['src/main/res', 'src/main/res/raw'] } }
 }
 
 dependencies {
@@ -29,8 +30,10 @@ dependencies {
     compile 'com.google.firebase:firebase-auth:10.0.1'
     compile 'com.android.support:support-v4:26.+'
     compile 'com.android.support:design:26.+'
+    compile 'com.android.support:recyclerview-v7:26.+'
     testCompile 'junit:junit:4.12'
 }
+
 
 
 
