@@ -1,5 +1,6 @@
 package cs2340.rat_app.controller;
 
+import android.app.ListActivity;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -14,7 +15,7 @@ import java.util.ArrayList;
 import cs2340.rat_app.R;
 import cs2340.rat_app.model.RatSighting;
 
-public class RatSightingListActivity extends AppCompatActivity {
+public class RatSightingListActivity extends ListActivity {
 
     private static final String TAG = "RatSightingListActivity";
     public ArrayList<RatSighting> ratSightings = new ArrayList<>();
