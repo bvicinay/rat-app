@@ -103,4 +103,9 @@ public class RatSighting {
     public static String getTAG() {
         return TAG;
     }
+
+    @Override
+    public String toString() {
+        return Integer.toString(key);
+    }
 }

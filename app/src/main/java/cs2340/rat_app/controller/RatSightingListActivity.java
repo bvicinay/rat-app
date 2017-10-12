@@ -1,9 +1,15 @@
 package cs2340.rat_app.controller;
 
-import android.app.ListActivity;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.TextView;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -14,7 +20,11 @@ import java.util.ArrayList;
 import cs2340.rat_app.R;
 import cs2340.rat_app.model.RatSighting;
 
-public class RatSightingListActivity extends ListActivity {
+public class RatSightingListActivity extends AppCompatActivity {
+
+    private RecyclerView sightingsRecyclerView;
+    private RecyclerView.Adapter adapter;
+    private RecyclerView.LayoutManager layoutManager;
 
     private static final String TAG = "RatSightingListActivity";
     public ArrayList<RatSighting> ratSightings = new ArrayList<>();
@@ -24,10 +34,62 @@ public class RatSightingListActivity extends ListActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_rat_sightings_list);
 
+        sightingsRecyclerView = (RecyclerView) findViewById(R.id.RatSightings_list);
+
         new LoadLocalData().execute();
+
+        layoutManager = new LinearLayoutManager(this);
+        sightingsRecyclerView.setLayoutManager(layoutManager);
+
+        adapter = new RatSightingAdapter(ratSightings);
+        sightingsRecyclerView.setAdapter(adapter);
+
+        //sightingsRecyclerView.setHasFixedSize(true);
 
     }
 
+    public class RatSightingAdapter extends RecyclerView.Adapter<RatSightingAdapter.ViewHolder> {
+        private ArrayList<RatSighting> dataSet;
+
+        public class ViewHolder extends RecyclerView.ViewHolder {
+            public TextView key;
+            public ViewHolder(View v) {
+                super(v);
+                key = v.findViewById(R.id.item_title);
+            }
+        }
+        public RatSightingAdapter(ArrayList<RatSighting> data) {
+            dataSet = data;
+        }
+        // Create new views (invoked by the layout manager)
+        @Override
+        public RatSightingAdapter.ViewHolder onCreateViewHolder(ViewGroup parent,
+                                                       int viewType) {
+            // create a new view
+            View v = LayoutInflater.from(parent.getContext())
+                    .inflate(R.layout.content_rat_sightings_list_item, parent, false);
+            // set the view's size, margins, paddings and layout parameters
+
+            ViewHolder vh = new ViewHolder(v);
+            return vh;
+        }
+
+        // Replace the contents of a view (invoked by the layout manager)
+        @Override
+        public void onBindViewHolder(ViewHolder holder, int position) {
+            // - get element from your dataset at this position
+            // - replace the contents of the view with that element
+            holder.key.setText(dataSet.get(position).toString());
+
+        }
+        // Return the size of your dataset (invoked by the layout manager)
+        @Override
+        public int getItemCount() {
+            return dataSet.size();
+        }
+
+
+    }
     public class LoadLocalData extends AsyncTask<String, Void, Integer> {
         @Override
         protected void onPreExecute() {
