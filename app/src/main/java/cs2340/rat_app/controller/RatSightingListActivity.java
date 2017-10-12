@@ -36,13 +36,13 @@ public class RatSightingListActivity extends AppCompatActivity {
 
         sightingsRecyclerView = (RecyclerView) findViewById(R.id.RatSightings_list);
 
-        new LoadLocalData().execute();
-
         layoutManager = new LinearLayoutManager(this);
         sightingsRecyclerView.setLayoutManager(layoutManager);
 
         adapter = new RatSightingAdapter(ratSightings);
         sightingsRecyclerView.setAdapter(adapter);
+
+        new LoadLocalData().execute();
 
         //sightingsRecyclerView.setHasFixedSize(true);
 
@@ -104,15 +104,22 @@ public class RatSightingListActivity extends AppCompatActivity {
                 String line = br.readLine();
                 String[] data;
 
-                while (line != null && count <= 20) {
+                while (line != null && count <= 50) {
                     if (isCancelled()) break;
                     data = line.split(",");
-                    RatSighting newr = new RatSighting(Integer.parseInt(data[0]), data[1], data[7],
-                            data[9], data[23], Integer.parseInt(data[8]), data[16], data[49], data[50]);
-                    ratSightings.add(newr);
+                    try {
+                        RatSighting newr = new RatSighting(Integer.parseInt(data[0]), data[1], data[7],
+                                data[9], data[23], Integer.parseInt(data[8]), data[16], data[49], data[50]);
+                        ratSightings.add(newr);
+                    } catch (ArrayIndexOutOfBoundsException e) {
+                        Log.d(TAG, "Could not parse data point: " + e.getMessage(), e);
+                    }
+
+                    //adapter.notifyDataSetChanged();
                     line = br.readLine();
                     count++;
                     Log.d(TAG, data[0]);
+
                 }
                 return count;
 
