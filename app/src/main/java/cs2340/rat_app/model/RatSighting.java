@@ -14,7 +14,7 @@ import java.util.Locale;
 /**
  * Created by Borja Vicinay on 10/9/2017.
  */
-
+// TODO: finish implementing Parcelable
 public class RatSighting implements Parcelable {
 
     private int key;

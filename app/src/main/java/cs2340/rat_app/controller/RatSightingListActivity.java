@@ -89,12 +89,9 @@ public class RatSightingListActivity extends AppCompatActivity {
             return vh;
         }
 
-        // Replace the contents of a view (invoked by the layout manager)
+        // TODO: pass RatSighting to intent
         @Override
         public void onBindViewHolder(ViewHolder holder, int position) {
-            // - get element from your dataset at this position
-            // - replace the contents of the view with that element
-
             holder.key.setText(dataSet.get(position).toString());
             holder.key.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View v) {
