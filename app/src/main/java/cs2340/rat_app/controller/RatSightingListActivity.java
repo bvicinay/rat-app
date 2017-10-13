@@ -48,7 +48,6 @@ public class RatSightingListActivity extends AppCompatActivity {
 
         new LoadLocalData().execute();
 
-        //sightingsRecyclerView.setHasFixedSize(true);
 
     }
 
@@ -159,8 +158,6 @@ public class RatSightingListActivity extends AppCompatActivity {
             System.out.println("FIISHED " + result);
 
         }
-
-
 
     }
     public RatSightingListActivity getOuter() {
