@@ -1,5 +1,6 @@
 package cs2340.rat_app.controller;
 
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -9,7 +10,9 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
+import android.content.Intent;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -49,15 +52,26 @@ public class RatSightingListActivity extends AppCompatActivity {
     }
 
     public class RatSightingAdapter extends RecyclerView.Adapter<RatSightingAdapter.ViewHolder> {
+
         private ArrayList<RatSighting> dataSet;
 
         public class ViewHolder extends RecyclerView.ViewHolder {
+
             public TextView key;
+
             public ViewHolder(View v) {
                 super(v);
                 key = v.findViewById(R.id.item_title);
+                key.setOnClickListener(new View.OnClickListener() {
+                    public void onClick(View v) {
+                        Intent intent = new Intent(getOuter(), RatReportActivity.class);
+                        intent.putExtra("RatReport", );
+                        startActivity(intent);
+                    }
+                });
             }
         }
+
         public RatSightingAdapter(ArrayList<RatSighting> data) {
             dataSet = data;
         }
@@ -104,13 +118,14 @@ public class RatSightingListActivity extends AppCompatActivity {
                 String line = br.readLine();
                 String[] data;
 
-                while (line != null && count <= 50) {
+                while (line != null && count <= 500) {
                     if (isCancelled()) break;
                     data = line.split(",");
                     try {
                         RatSighting newr = new RatSighting(Integer.parseInt(data[0]), data[1], data[7],
                                 data[9], data[23], Integer.parseInt(data[8]), data[16], data[49], data[50]);
                         ratSightings.add(newr);
+                        adapter.notifyDataSetChanged();
                     } catch (ArrayIndexOutOfBoundsException e) {
                         Log.d(TAG, "Could not parse data point: " + e.getMessage(), e);
                     }
@@ -137,6 +152,9 @@ public class RatSightingListActivity extends AppCompatActivity {
 
 
 
+    }
+    public RatSightingListActivity getOuter() {
+        return this;
     }
 
 }

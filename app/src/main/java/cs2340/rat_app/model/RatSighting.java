@@ -1,6 +1,8 @@
 package cs2340.rat_app.model;
 
 import android.location.Location;
+import android.os.Parcel;
+import android.os.Parcelable;
 import android.util.Log;
 
 import java.text.DateFormat;
@@ -13,7 +15,7 @@ import java.util.Locale;
  * Created by Borja Vicinay on 10/9/2017.
  */
 
-public class RatSighting {
+public class RatSighting implements Parcelable {
 
     private int key;
     private Date creation_date;
@@ -107,5 +109,23 @@ public class RatSighting {
     @Override
     public String toString() {
         return Integer.toString(key);
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString("Key : " + Integer.toString(key));
+        dest.writeString("Date : " + creation_date.toString());
+        dest.writeString("Loc Type : " + location_type);
+        dest.writeString("Zip code : " + address.getZip());
+        dest.writeString("Address : " + address.getStreet());
+        dest.writeString("City : " + address.getCity());
+        dest.writeString("Borough : " + address.getBorough());
+        dest.writeString("Longitude : " + location.getLongitude());
+        dest.writeString("Latitude : " + location.getLatitude());
     }
 }
