@@ -14,8 +14,8 @@ import java.util.Locale;
 /**
  * Created by Borja Vicinay on 10/9/2017.
  */
-// TODO: finish implementing Parcelable
-public class RatSighting implements Parcelable {
+
+public class RatSighting {
 
     private int key;
     private Date creation_date;
@@ -111,7 +111,7 @@ public class RatSighting implements Parcelable {
         return Integer.toString(key);
     }
 
-    @Override
+    /*@Override
     public int describeContents() {
         return 0;
     }
@@ -128,4 +128,13 @@ public class RatSighting implements Parcelable {
         dest.writeString("Longitude : " + location.getLongitude());
         dest.writeString("Latitude : " + location.getLatitude());
     }
+    public static final Parcelable.Creator CREATOR = new Parcelable.Creator() {
+        public RatSighting createFromParcel(Parcel in) {
+            return new RatSighting(in);
+        }
+
+        public RatSighting[] newArray(int size) {
+            return new RatSighting[size];
+        }
+    };*/
 }

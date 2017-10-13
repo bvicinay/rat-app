@@ -14,6 +14,7 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.content.Intent;
 
+import java.text.DecimalFormat;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -62,14 +63,6 @@ public class RatSightingListActivity extends AppCompatActivity {
             public ViewHolder(View v) {
                 super(v);
                 key = v.findViewById(R.id.item_title);
-                /*key.setOnClickListener(new View.OnClickListener() {
-                    public void onClick(View v) {
-                        Intent intent = new Intent(getOuter(), RatReportActivity.class);
-                        //intent.putExtra("RatReport", );
-
-                        startActivity(intent);
-                    }
-                });*/
             }
         }
 
@@ -89,15 +82,25 @@ public class RatSightingListActivity extends AppCompatActivity {
             return vh;
         }
 
-        // TODO: pass RatSighting to intent
         @Override
-        public void onBindViewHolder(ViewHolder holder, int position) {
+        public void onBindViewHolder(ViewHolder holder, final int position) {
             holder.key.setText(dataSet.get(position).toString());
             holder.key.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View v) {
                     Intent intent = new Intent(getOuter(), RatReportActivity.class);
-                    //intent.putExtra("RatReport", );
-
+                    RatSighting curr = dataSet.get(position);
+                    intent.putExtra("Key", Integer.toString(curr.getKey()));
+                    intent.putExtra("Date", curr.getCreation_date().toString());
+                    intent.putExtra("LocType", curr.getLocation_type());
+                    intent.putExtra("ZipCode", Integer.toString(curr.getAddress().getZip()));
+                    intent.putExtra("Address", curr.getAddress().getStreet());
+                    intent.putExtra("City", curr.getAddress().getCity());
+                    intent.putExtra("Borough", curr.getAddress().getBorough());
+                    DecimalFormat df = new DecimalFormat("#.###");
+                    intent.putExtra("Latitude", Double.toString(Double.parseDouble(df.format
+                            (curr.getLocation().getLatitude()))));
+                    intent.putExtra("Longitude", Double.toString(Double.parseDouble(df.format
+                            (curr.getLocation().getLongitude()))));
                     startActivity(intent);
                 }
             });

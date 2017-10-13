@@ -30,26 +30,38 @@ public class RatReportActivity extends AppCompatActivity{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.rat_report);
+        Intent in = getIntent();
+        Bundle b = in.getExtras();
 
         backButton = (Button) findViewById(R.id.get_started_button);
+
         key = (TextView) findViewById(R.id.key);
-        key.setText("");
+        key.setText("Key : " + b.getString("Key"));
+
         date = (TextView) findViewById(R.id.date);
-        date.setText("");
+        date.setText("Date : " + b.getString("Date"));
+
         locType = (TextView) findViewById(R.id.loc_type);
-        locType.setText("");
+        locType.setText("Location : " + b.getString("LocType"));
+
         zipCode = (TextView) findViewById(R.id.zip_code);
-        zipCode.setText("");
+        zipCode.setText("Zip Code : " + b.getString("ZipCode"));
+
         address = (TextView) findViewById(R.id.address);
-        address.setText("");
+        address.setText("Address : " + b.getString("Address"));
+
         city = (TextView) findViewById(R.id.city);
-        city.setText("");
+        city.setText("City : " + b.getString("City"));
+
         borough = (TextView) findViewById(R.id.borough);
-        borough.setText("");
+        borough.setText("Borough : " + b.getString("Borough"));
+
         latitude = (TextView) findViewById(R.id.latitude);
-        latitude.setText("");
+        latitude.setText("Latitude : " + b.getString("Latitude"));
+
         longitude = (TextView) findViewById(R.id.longitude);
-        longitude.setText("");
+        longitude.setText("Longitude : " + b.getString("Longitude"));
+
         backButton = (Button) findViewById(R.id.back);
 
         backButton.setOnClickListener(new View.OnClickListener() {
@@ -57,7 +69,7 @@ public class RatReportActivity extends AppCompatActivity{
                 Intent intent = new Intent(getOuter(), RatSightingListActivity.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(intent);
-                //this.finish();
+                getOuter().finish();
             }
         });
     }
