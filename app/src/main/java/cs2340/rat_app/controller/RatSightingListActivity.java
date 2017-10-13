@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 import android.content.Intent;
+import android.widget.LinearLayout;
 
 import java.text.DecimalFormat;
 import java.io.BufferedReader;
@@ -60,9 +61,11 @@ public class RatSightingListActivity extends AppCompatActivity {
             public TextView itemTitle;
             public TextView itemDate;
             public TextView itemSubtitle;
+            public LinearLayout layout;
 
             public ViewHolder(View v) {
                 super(v);
+                layout = (LinearLayout) v.findViewById(R.id.ratList);
                 itemTitle = v.findViewById(R.id.item_title);
                 itemDate = v.findViewById(R.id.item_date);
                 itemSubtitle = v.findViewById(R.id.item_subtitle);
@@ -85,13 +88,12 @@ public class RatSightingListActivity extends AppCompatActivity {
             return vh;
         }
 
-        // TODO: pass RatSighting to intent
         @Override
         public void onBindViewHolder(ViewHolder holder, final int position) {
             holder.itemTitle.setText(dataSet.get(position).getTitle());
             holder.itemDate.setText(dataSet.get(position).getDateStr());
             holder.itemSubtitle.setText(dataSet.get(position).getStreet());
-            holder.itemTitle.setOnClickListener(new View.OnClickListener() {
+            holder.layout.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View v) {
                     Intent intent = new Intent(getOuter(), RatReportActivity.class);
                     RatSighting curr = dataSet.get(position);
@@ -121,9 +123,11 @@ public class RatSightingListActivity extends AppCompatActivity {
 
     }
     public class LoadLocalData extends AsyncTask<String, Void, Integer> {
+
         @Override
         protected void onPreExecute() {
         }
+
         @Override
         protected Integer doInBackground(String... params) {
             int count = 1;
@@ -141,13 +145,14 @@ public class RatSightingListActivity extends AppCompatActivity {
                         RatSighting newr = new RatSighting(Integer.parseInt(data[0]), data[1], data[7],
                                 data[9], data[23], Integer.parseInt(data[8]), data[16], data[49], data[50]);
                         ratSightings.add(newr);
-                        //adapter.notifyDataSetChanged();
+                        if (count % 100 == 0) {
+                            adapter.notifyDataSetChanged();
+                        }
                     } catch (Exception e) {
                         // Skip item if data is invalid
                         Log.d(TAG, "Could not parse data point: " + e.getMessage(), e);
                     }
 
-                    //adapter.notifyDataSetChanged();
                     line = br.readLine();
                     count++;
                     Log.d(TAG, data[0]);
@@ -160,7 +165,6 @@ public class RatSightingListActivity extends AppCompatActivity {
             }
             return count;
         }
-        //protected void onProgressUpdate(Progress...) {}
 
         protected void onPostExecute(int result) {
             System.out.println("FIISHED " + result);
