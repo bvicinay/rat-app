@@ -48,7 +48,6 @@ public class RatSightingListActivity extends AppCompatActivity {
 
         new LoadLocalData().execute();
 
-        //sightingsRecyclerView.setHasFixedSize(true);
 
     }
 
@@ -67,14 +66,6 @@ public class RatSightingListActivity extends AppCompatActivity {
                 itemTitle = v.findViewById(R.id.item_title);
                 itemDate = v.findViewById(R.id.item_date);
                 itemSubtitle = v.findViewById(R.id.item_subtitle);
-                /*key.setOnClickListener(new View.OnClickListener() {
-                    public void onClick(View v) {
-                        Intent intent = new Intent(getOuter(), RatReportActivity.class);
-                        //intent.putExtra("RatReport", );
-
-                        startActivity(intent);
-                    }
-                });*/
             }
         }
 

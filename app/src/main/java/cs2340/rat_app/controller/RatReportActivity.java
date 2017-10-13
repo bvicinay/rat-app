@@ -33,8 +33,6 @@ public class RatReportActivity extends AppCompatActivity{
         Intent in = getIntent();
         Bundle b = in.getExtras();
 
-        backButton = (Button) findViewById(R.id.get_started_button);
-
         key = (TextView) findViewById(R.id.key);
         key.setText("Key : " + b.getString("Key"));
 
@@ -62,16 +60,6 @@ public class RatReportActivity extends AppCompatActivity{
         longitude = (TextView) findViewById(R.id.longitude);
         longitude.setText("Longitude : " + b.getString("Longitude"));
 
-        backButton = (Button) findViewById(R.id.back);
-
-        backButton.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                Intent intent = new Intent(getOuter(), RatSightingListActivity.class);
-                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                startActivity(intent);
-                getOuter().finish();
-            }
-        });
     }
 
     public RatReportActivity getOuter() {

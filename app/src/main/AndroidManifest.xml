@@ -37,10 +37,13 @@
         <activity android:name=".controller.HomeActivity" />
         <activity
             android:name=".controller.RatSightingListActivity"
-            android:label="@string/title_activity_rat_sightings_list"/>
+            android:label="@string/title_activity_rat_sightings_list"
+            android:parentActivityName=".controller.HomeActivity"/>
         <activity
             android:name=".controller.RatReportActivity"
-            android:label="@string/title_activity_rat_sighting_report"/>
+            android:label="@string/title_activity_rat_sighting_report"
+            android:parentActivityName=".controller.RatSightingListActivity"
+            />
     </application>
 
 </manifest>
