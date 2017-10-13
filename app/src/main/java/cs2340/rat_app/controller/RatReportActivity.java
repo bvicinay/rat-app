@@ -33,23 +33,23 @@ public class RatReportActivity extends AppCompatActivity{
 
         backButton = (Button) findViewById(R.id.get_started_button);
         key = (TextView) findViewById(R.id.key);
-        key.setText();
+        key.setText("");
         date = (TextView) findViewById(R.id.date);
-        date.setText();
+        date.setText("");
         locType = (TextView) findViewById(R.id.loc_type);
-        locType.setText();
+        locType.setText("");
         zipCode = (TextView) findViewById(R.id.zip_code);
-        zipCode.setText();
+        zipCode.setText("");
         address = (TextView) findViewById(R.id.address);
-        address.setText();
+        address.setText("");
         city = (TextView) findViewById(R.id.city);
-        city.setText();
+        city.setText("");
         borough = (TextView) findViewById(R.id.borough);
-        borough.setText();
+        borough.setText("");
         latitude = (TextView) findViewById(R.id.latitude);
-        latitude.setText();
+        latitude.setText("");
         longitude = (TextView) findViewById(R.id.longitude);
-        longitude.setText();
+        longitude.setText("");
         backButton = (Button) findViewById(R.id.back);
 
         backButton.setOnClickListener(new View.OnClickListener() {

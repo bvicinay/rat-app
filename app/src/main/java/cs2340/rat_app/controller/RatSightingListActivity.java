@@ -62,13 +62,14 @@ public class RatSightingListActivity extends AppCompatActivity {
             public ViewHolder(View v) {
                 super(v);
                 key = v.findViewById(R.id.item_title);
-                key.setOnClickListener(new View.OnClickListener() {
+                /*key.setOnClickListener(new View.OnClickListener() {
                     public void onClick(View v) {
                         Intent intent = new Intent(getOuter(), RatReportActivity.class);
-                        intent.putExtra("RatReport", );
+                        //intent.putExtra("RatReport", );
+
                         startActivity(intent);
                     }
-                });
+                });*/
             }
         }
 
@@ -93,7 +94,16 @@ public class RatSightingListActivity extends AppCompatActivity {
         public void onBindViewHolder(ViewHolder holder, int position) {
             // - get element from your dataset at this position
             // - replace the contents of the view with that element
+
             holder.key.setText(dataSet.get(position).toString());
+            holder.key.setOnClickListener(new View.OnClickListener() {
+                public void onClick(View v) {
+                    Intent intent = new Intent(getOuter(), RatReportActivity.class);
+                    //intent.putExtra("RatReport", );
+
+                    startActivity(intent);
+                }
+            });
 
         }
         // Return the size of your dataset (invoked by the layout manager)
@@ -125,8 +135,8 @@ public class RatSightingListActivity extends AppCompatActivity {
                         RatSighting newr = new RatSighting(Integer.parseInt(data[0]), data[1], data[7],
                                 data[9], data[23], Integer.parseInt(data[8]), data[16], data[49], data[50]);
                         ratSightings.add(newr);
-                        adapter.notifyDataSetChanged();
-                    } catch (ArrayIndexOutOfBoundsException e) {
+                        //adapter.notifyDataSetChanged();
+                    } catch (Exception e) {
                         Log.d(TAG, "Could not parse data point: " + e.getMessage(), e);
                     }
 
