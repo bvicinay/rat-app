@@ -6,6 +6,8 @@
     <string name="dummy_content">DUMMY\nCONTENT</string>
     <string name="title_activity_login">Sign in</string>
     <string name="title_activity_register">Sign Up</string>
+    <string name="title_activity_rat_sightings_list">All Rat Sightings</string>
+    <string name="title_activity_rat_sighting_report">Rat Sighting Details</string>
 
     <!-- Strings related to welcome screen -->
     <string name="get_started_msg">Get Started</string>

@@ -48,6 +48,7 @@ public class RatSightingListActivity extends AppCompatActivity {
 
         new LoadLocalData().execute();
 
+        //sightingsRecyclerView.setHasFixedSize(true);
 
     }
 
@@ -57,11 +58,23 @@ public class RatSightingListActivity extends AppCompatActivity {
 
         public class ViewHolder extends RecyclerView.ViewHolder {
 
-            public TextView key;
+            public TextView itemTitle;
+            public TextView itemDate;
+            public TextView itemSubtitle;
 
             public ViewHolder(View v) {
                 super(v);
-                key = v.findViewById(R.id.item_title);
+                itemTitle = v.findViewById(R.id.item_title);
+                itemDate = v.findViewById(R.id.item_date);
+                itemSubtitle = v.findViewById(R.id.item_subtitle);
+                /*key.setOnClickListener(new View.OnClickListener() {
+                    public void onClick(View v) {
+                        Intent intent = new Intent(getOuter(), RatReportActivity.class);
+                        //intent.putExtra("RatReport", );
+
+                        startActivity(intent);
+                    }
+                });*/
             }
         }
 
@@ -81,15 +94,18 @@ public class RatSightingListActivity extends AppCompatActivity {
             return vh;
         }
 
+        // TODO: pass RatSighting to intent
         @Override
         public void onBindViewHolder(ViewHolder holder, final int position) {
-            holder.key.setText(dataSet.get(position).toString());
-            holder.key.setOnClickListener(new View.OnClickListener() {
+            holder.itemTitle.setText(dataSet.get(position).getTitle());
+            holder.itemDate.setText(dataSet.get(position).getDateStr());
+            holder.itemSubtitle.setText(dataSet.get(position).getStreet());
+            holder.itemTitle.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View v) {
                     Intent intent = new Intent(getOuter(), RatReportActivity.class);
                     RatSighting curr = dataSet.get(position);
                     intent.putExtra("Key", Integer.toString(curr.getKey()));
-                    intent.putExtra("Date", curr.getCreation_date().toString());
+                    intent.putExtra("Date", curr.getDateStr());
                     intent.putExtra("LocType", curr.getLocation_type());
                     intent.putExtra("ZipCode", Integer.toString(curr.getAddress().getZip()));
                     intent.putExtra("Address", curr.getAddress().getStreet());
@@ -136,6 +152,7 @@ public class RatSightingListActivity extends AppCompatActivity {
                         ratSightings.add(newr);
                         //adapter.notifyDataSetChanged();
                     } catch (Exception e) {
+                        // Skip item if data is invalid
                         Log.d(TAG, "Could not parse data point: " + e.getMessage(), e);
                     }
 
@@ -158,6 +175,8 @@ public class RatSightingListActivity extends AppCompatActivity {
             System.out.println("FIISHED " + result);
 
         }
+
+
 
     }
     public RatSightingListActivity getOuter() {

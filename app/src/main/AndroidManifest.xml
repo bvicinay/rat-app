@@ -35,8 +35,12 @@
                 android:value="cs2340.rat_app.controller.LoginActivity" />
         </activity>
         <activity android:name=".controller.HomeActivity" />
-        <activity android:name=".controller.RatSightingListActivity"></activity>
-        <activity android:name=".controller.RatReportActivity"></activity>
+        <activity
+            android:name=".controller.RatSightingListActivity"
+            android:label="@string/title_activity_rat_sightings_list"/>
+        <activity
+            android:name=".controller.RatReportActivity"
+            android:label="@string/title_activity_rat_sighting_report"/>
     </application>
 
 </manifest>

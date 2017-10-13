@@ -8,6 +8,7 @@ import android.util.Log;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 
@@ -18,15 +19,35 @@ import java.util.Locale;
 public class RatSighting {
 
     private int key;
-    private Date creation_date;
+    private Calendar creation_date;
     private String location_type;
     private Address address;
     private Location location;
 
+    public int getKey() {
+        return key;
+    }
+
+    public Calendar getCreation_date() {
+        return creation_date;
+    }
+
+    public String getLocation_type() {
+        return location_type;
+    }
+
+    public Address getAddress() {
+        return address;
+    }
+
+    public Location getLocation() {
+        return location;
+    }
+
     private static final String TAG = "RatSighting";
 
 
-    public RatSighting(int key, Date creation_date, String location_type,
+    public RatSighting(int key, Calendar creation_date, String location_type,
                        Address address, Location location) {
         this.key = key;
         this.creation_date = creation_date;
@@ -41,16 +62,17 @@ public class RatSighting {
         this.key = key;
         this.location_type = location_type;
         this.address = new Address(street, borough, zip, city);
-
         // Parse string to Date (if possible)
-        DateFormat df = new SimpleDateFormat("M/d/yyyy K:mm", Locale.ENGLISH);
         try {
-            this.creation_date =  df.parse(creation_date);
-        } catch (ParseException e) {
-            this.creation_date =  new Date(0); // prevents future exceptions
-            Log.d(TAG, e.getMessage(), e);
-        } catch (Exception e) {
-            this.creation_date =  new Date(0); // prevents future exceptions
+            String[] dateData = creation_date.split("/");
+            dateData[2] = dateData[2].split(" ")[0];
+            Calendar calendar = Calendar.getInstance();
+            calendar.set(Integer.parseInt(dateData[2]), Integer.parseInt(dateData[0]), Integer.parseInt(dateData[1]));
+            this.creation_date = calendar;
+        } catch (Exception e) { // Add any date to keep data valid
+            Calendar calendar = Calendar.getInstance();
+            calendar.set(2000,0,0);
+            this.creation_date =  calendar;
             Log.d(TAG, e.getMessage(), e);
         }
 
@@ -62,54 +84,23 @@ public class RatSighting {
 
     }
 
-    public int getKey() {
-        return key;
-    }
-
-    public void setKey(int key) {
-        this.key = key;
-    }
-
-    public Date getCreation_date() {
-        return creation_date;
-    }
-
-    public void setCreation_date(Date creation_date) {
-        this.creation_date = creation_date;
-    }
-
-    public String getLocation_type() {
-        return location_type;
-    }
-
-    public void setLocation_type(String location_type) {
-        this.location_type = location_type;
-    }
-
-    public Address getAddress() {
-        return address;
-    }
-
-    public void setAddress(Address address) {
-        this.address = address;
-    }
-
-    public Location getLocation() {
-        return location;
-    }
-
-    public void setLocation(Location location) {
-        this.location = location;
-    }
-
-    public static String getTAG() {
-        return TAG;
-    }
-
     @Override
     public String toString() {
-        return Integer.toString(key);
+        return "Key: " + key + " - " + address.getBorough() + ", " + address.getCity();
     }
+    public String getTitle() {
+        return address.getCity();
+    }
+    public String getDateStr() {
+        String month = Integer.toString(creation_date.get(Calendar.MONTH));
+        String day = Integer.toString(creation_date.get(Calendar.DATE));
+        String year = Integer.toString(creation_date.get(Calendar.YEAR));
+        return month + "/" + day + "/" + year;
+    }
+    public String getStreet() {
+        return address.getStreet();
+    }
+
 
     /*@Override
     public int describeContents() {
