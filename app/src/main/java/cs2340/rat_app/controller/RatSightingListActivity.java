@@ -49,7 +49,6 @@ public class RatSightingListActivity extends AppCompatActivity {
 
         new LoadLocalData().execute();
 
-
     }
 
     public class RatSightingAdapter extends RecyclerView.Adapter<RatSightingAdapter.ViewHolder> {
@@ -65,7 +64,7 @@ public class RatSightingListActivity extends AppCompatActivity {
 
             public ViewHolder(View v) {
                 super(v);
-                layout = (LinearLayout) v.findViewById(R.id.ratList);
+                layout = v.findViewById(R.id.ratList);
                 itemTitle = v.findViewById(R.id.item_title);
                 itemDate = v.findViewById(R.id.item_date);
                 itemSubtitle = v.findViewById(R.id.item_subtitle);
@@ -96,19 +95,7 @@ public class RatSightingListActivity extends AppCompatActivity {
             holder.layout.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View v) {
                     Intent intent = new Intent(getOuter(), RatReportActivity.class);
-                    RatSighting curr = dataSet.get(position);
-                    intent.putExtra("Key", Integer.toString(curr.getKey()));
-                    intent.putExtra("Date", curr.getDateStr());
-                    intent.putExtra("LocType", curr.getLocation_type());
-                    intent.putExtra("ZipCode", Integer.toString(curr.getAddress().getZip()));
-                    intent.putExtra("Address", curr.getAddress().getStreet());
-                    intent.putExtra("City", curr.getAddress().getCity());
-                    intent.putExtra("Borough", curr.getAddress().getBorough());
-                    DecimalFormat df = new DecimalFormat("#.###");
-                    intent.putExtra("Latitude", Double.toString(Double.parseDouble(df.format
-                            (curr.getLocation().getLatitude()))));
-                    intent.putExtra("Longitude", Double.toString(Double.parseDouble(df.format
-                            (curr.getLocation().getLongitude()))));
+                    intent.putExtra("RatSighting", dataSet.get(position));
                     startActivity(intent);
                 }
             });

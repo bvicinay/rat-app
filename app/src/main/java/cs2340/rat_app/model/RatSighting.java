@@ -16,7 +16,7 @@ import java.util.Locale;
  * Created by Borja Vicinay on 10/9/2017.
  */
 
-public class RatSighting {
+public class RatSighting implements Parcelable {
 
     private int key;
     private Calendar creation_date;
@@ -46,6 +46,13 @@ public class RatSighting {
 
     private static final String TAG = "RatSighting";
 
+    public RatSighting(Parcel p) {
+        key = p.readInt();
+        creation_date = (Calendar) p.readSerializable();
+        location_type = p.readString();
+        address = p.readParcelable(Address.class.getClassLoader());
+        location = p.readParcelable(Location.class.getClassLoader());
+    }
 
     public RatSighting(int key, Calendar creation_date, String location_type,
                        Address address, Location location) {
@@ -54,8 +61,8 @@ public class RatSighting {
         this.location_type = location_type;
         this.address = address;
         this.location = location;
-
     }
+
     public RatSighting(int key, String creation_date, String location_type,
                        String street, String borough, int zip, String city,
                        String latitude, String longitude) {
@@ -102,23 +109,20 @@ public class RatSighting {
     }
 
 
-    /*@Override
+    @Override
     public int describeContents() {
         return 0;
     }
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-        dest.writeString("Key : " + Integer.toString(key));
-        dest.writeString("Date : " + creation_date.toString());
-        dest.writeString("Loc Type : " + location_type);
-        dest.writeString("Zip code : " + address.getZip());
-        dest.writeString("Address : " + address.getStreet());
-        dest.writeString("City : " + address.getCity());
-        dest.writeString("Borough : " + address.getBorough());
-        dest.writeString("Longitude : " + location.getLongitude());
-        dest.writeString("Latitude : " + location.getLatitude());
+        dest.writeInt(key);
+        dest.writeSerializable(creation_date);
+        dest.writeString(location_type);
+        dest.writeParcelable(address, flags);
+        dest.writeParcelable(location, flags);
     }
+
     public static final Parcelable.Creator CREATOR = new Parcelable.Creator() {
         public RatSighting createFromParcel(Parcel in) {
             return new RatSighting(in);
@@ -127,5 +131,5 @@ public class RatSighting {
         public RatSighting[] newArray(int size) {
             return new RatSighting[size];
         }
-    };*/
+    };
 }

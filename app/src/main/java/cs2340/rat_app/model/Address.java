@@ -1,10 +1,13 @@
 package cs2340.rat_app.model;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 /**
  * Created by Borja Vicinay on 10/9/2017.
  */
 
-public class Address {
+public class Address implements Parcelable {
 
     private String street;
     private String borough;
@@ -16,6 +19,13 @@ public class Address {
         this.borough = borough;
         this.zip = zip;
         this.city = city;
+    }
+
+    public Address(Parcel p) {
+        street = p.readString();
+        borough = p.readString();
+        zip = p.readInt();
+        city = p.readString();
     }
 
     public String getStreet() {
@@ -49,4 +59,27 @@ public class Address {
     public void setCity(String city) {
         this.city = city;
     }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel parcel, int i) {
+        parcel.writeString(street);
+        parcel.writeString(borough);
+        parcel.writeInt(zip);
+        parcel.writeString(city);
+    }
+    public static final Parcelable.Creator<Address> CREATOR = new Parcelable.Creator<Address>() {
+        public Address createFromParcel(Parcel in) {
+            return new Address(in);
+        }
+
+        public Address[] newArray(int size) {
+            return new Address[size];
+        }
+    };
+
 }
