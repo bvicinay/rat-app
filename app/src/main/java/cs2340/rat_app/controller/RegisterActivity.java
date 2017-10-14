@@ -28,6 +28,7 @@ import cs2340.rat_app.model.AccountType;
  */
 public class RegisterActivity extends AppCompatActivity {
 
+    //instance variables
     private EditText firstField;
     private EditText lastField;
     private EditText emailField;
@@ -108,6 +109,7 @@ public class RegisterActivity extends AppCompatActivity {
             abortRegister();
         }
     }
+
 
     public void proceedRegister(String email, String password, FirebaseUser user) {
         Intent intent = new Intent(this, LoginActivity.class);

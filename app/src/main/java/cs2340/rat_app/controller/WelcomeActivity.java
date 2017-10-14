@@ -25,6 +25,11 @@ public class WelcomeActivity extends AppCompatActivity {
             }
         });
     }
+
+    /**
+     * returns this activity
+     * @return WelcomeActivity
+     */
     private WelcomeActivity getOuter() {
         return this;
     }

@@ -65,6 +65,10 @@ public class RatReportActivity extends AppCompatActivity{
 
     }
 
+    /**
+     * return this activity
+     * @return RatReportActivity
+     */
     public RatReportActivity getOuter() {
         return this;
     }

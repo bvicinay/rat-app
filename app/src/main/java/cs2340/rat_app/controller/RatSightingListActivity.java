@@ -27,6 +27,7 @@ import cs2340.rat_app.model.RatSighting;
 
 public class RatSightingListActivity extends AppCompatActivity {
 
+    //instance variables
     private RecyclerView sightingsRecyclerView;
     private RecyclerView.Adapter adapter;
     private RecyclerView.LayoutManager layoutManager;
@@ -51,10 +52,12 @@ public class RatSightingListActivity extends AppCompatActivity {
 
     }
 
+    //RecyclerAdapeter for recycler view
     public class RatSightingAdapter extends RecyclerView.Adapter<RatSightingAdapter.ViewHolder> {
 
         private ArrayList<RatSighting> dataSet;
 
+        //ViewHolder for each entry in recyclerview
         public class ViewHolder extends RecyclerView.ViewHolder {
 
             public TextView itemTitle;
@@ -74,6 +77,7 @@ public class RatSightingListActivity extends AppCompatActivity {
         public RatSightingAdapter(ArrayList<RatSighting> data) {
             dataSet = data;
         }
+
         // Create new views (invoked by the layout manager)
         @Override
         public RatSightingAdapter.ViewHolder onCreateViewHolder(ViewGroup parent,
@@ -109,6 +113,8 @@ public class RatSightingListActivity extends AppCompatActivity {
 
 
     }
+
+    //AsynchTask that loads in csv file and creates RatSightings with each lines
     public class LoadLocalData extends AsyncTask<String, Void, Integer> {
 
         @Override
@@ -160,6 +166,11 @@ public class RatSightingListActivity extends AppCompatActivity {
         }
 
     }
+
+    /**
+     * return this activity
+     * @return RatSightingListActivity
+     */
     public RatSightingListActivity getOuter() {
         return this;
     }

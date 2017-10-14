@@ -9,6 +9,7 @@ import android.os.Parcelable;
 
 public class Address implements Parcelable {
 
+    //instance variables
     private String street;
     private String borough;
     private int zip;
@@ -28,6 +29,7 @@ public class Address implements Parcelable {
         city = p.readString();
     }
 
+    //Getters and setters
     public String getStreet() {
         return street;
     }
@@ -72,6 +74,8 @@ public class Address implements Parcelable {
         parcel.writeInt(zip);
         parcel.writeString(city);
     }
+
+    //For passing through an intent
     public static final Parcelable.Creator<Address> CREATOR = new Parcelable.Creator<Address>() {
         public Address createFromParcel(Parcel in) {
             return new Address(in);

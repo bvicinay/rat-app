@@ -5,12 +5,7 @@ import android.os.Parcel;
 import android.os.Parcelable;
 import android.util.Log;
 
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Date;
-import java.util.Locale;
 
 /**
  * Created by Borja Vicinay on 10/9/2017.
@@ -18,34 +13,14 @@ import java.util.Locale;
 
 public class RatSighting implements Parcelable {
 
+    //Instance Variables
     private int key;
     private Calendar creation_date;
     private String location_type;
     private Address address;
     private Location location;
 
-    public int getKey() {
-        return key;
-    }
-
-    public Calendar getCreation_date() {
-        return creation_date;
-    }
-
-    public String getLocation_type() {
-        return location_type;
-    }
-
-    public Address getAddress() {
-        return address;
-    }
-
-    public Location getLocation() {
-        return location;
-    }
-
-    private static final String TAG = "RatSighting";
-
+    //Constructor for when being passed through a parcel
     public RatSighting(Parcel p) {
         key = p.readInt();
         creation_date = (Calendar) p.readSerializable();
@@ -95,19 +70,48 @@ public class RatSighting implements Parcelable {
     public String toString() {
         return "Key: " + key + " - " + address.getBorough() + ", " + address.getCity();
     }
+
+    //Getters
+    public int getKey() {
+        return key;
+    }
+
+    public Calendar getCreation_date() {
+        return creation_date;
+    }
+
+    public String getLocation_type() {
+        return location_type;
+    }
+
+    public Address getAddress() {
+        return address;
+    }
+
+    public Location getLocation() {
+        return location;
+    }
+
+    private static final String TAG = "RatSighting";
+
     public String getTitle() {
         return address.getCity();
     }
+
+    public String getStreet() {
+        return address.getStreet();
+    }
+
+    /**
+     * String representation of date
+     * @return date
+     */
     public String getDateStr() {
         String month = Integer.toString(creation_date.get(Calendar.MONTH));
         String day = Integer.toString(creation_date.get(Calendar.DATE));
         String year = Integer.toString(creation_date.get(Calendar.YEAR));
         return month + "/" + day + "/" + year;
     }
-    public String getStreet() {
-        return address.getStreet();
-    }
-
 
     @Override
     public int describeContents() {
@@ -123,6 +127,7 @@ public class RatSighting implements Parcelable {
         dest.writeParcelable(location, flags);
     }
 
+    //For passing through an intent
     public static final Parcelable.Creator CREATOR = new Parcelable.Creator() {
         public RatSighting createFromParcel(Parcel in) {
             return new RatSighting(in);
