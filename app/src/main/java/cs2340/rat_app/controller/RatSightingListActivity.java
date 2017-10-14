@@ -126,6 +126,12 @@ public class RatSightingListActivity extends AppCompatActivity {
 
         @Override
         protected void onPreExecute() {
+
+        }
+
+        @Override
+        protected void onPostExecute(Integer result) {
+            adapter.notifyDataSetChanged();
         }
 
         @Override
