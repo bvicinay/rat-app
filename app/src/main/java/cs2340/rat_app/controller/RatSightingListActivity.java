@@ -3,6 +3,7 @@ package cs2340.rat_app.controller;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.*;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -50,9 +51,9 @@ public class RatSightingListActivity extends AppCompatActivity {
 
         new LoadLocalData().execute();
 
+
     }
 
-    //RecyclerAdapeter for recycler view
     public class RatSightingAdapter extends RecyclerView.Adapter<RatSightingAdapter.ViewHolder> {
 
         private ArrayList<RatSighting> dataSet;
@@ -91,6 +92,7 @@ public class RatSightingListActivity extends AppCompatActivity {
             return vh;
         }
 
+        // TODO: pass RatSighting to intent
         @Override
         public void onBindViewHolder(ViewHolder holder, final int position) {
             holder.itemTitle.setText(dataSet.get(position).getTitle());
@@ -152,6 +154,7 @@ public class RatSightingListActivity extends AppCompatActivity {
                         Log.d(TAG, "Could not parse data point: " + e.getMessage(), e);
                     }
 
+                    //adapter.notifyDataSetChanged();
                     line = br.readLine();
                     count++;
                     Log.d(TAG, data[0]);
