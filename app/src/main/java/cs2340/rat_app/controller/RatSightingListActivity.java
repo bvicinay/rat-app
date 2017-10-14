@@ -172,13 +172,6 @@ public class RatSightingListActivity extends AppCompatActivity {
             return count;
         }
 
-        protected void onPostExecute(int result) {
-            System.out.println("FIISHED " + result);
-
-        }
-
-
-
     }
     public RatSightingListActivity getOuter() {
         return this;
