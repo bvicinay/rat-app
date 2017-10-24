@@ -33,7 +33,7 @@ public class RatSightingListActivity extends AppCompatActivity {
     private RecyclerView.LayoutManager layoutManager;
 
     private static final String TAG = "RatSightingListActivity";
-    public ArrayList<RatSighting> ratSightings = new ArrayList<>();
+    public static ArrayList<RatSighting> ratSightings = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
