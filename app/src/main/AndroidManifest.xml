@@ -44,6 +44,11 @@
             android:label="@string/title_activity_rat_sighting_report"
             android:parentActivityName=".controller.RatSightingListActivity"
             />
+        <activity
+            android:name=".controller.AddSightingActivity"
+            android:label="Report Sighting"
+            android:parentActivityName=".controller.HomeActivity"
+            />
     </application>
 
 </manifest>

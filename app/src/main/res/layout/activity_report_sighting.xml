@@ -5,67 +5,92 @@
 
 
     <TextView
-        android:id="@+id/textView5"
+        android:id="@+id/header"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="33dp"
+        android:layout_marginTop="36dp"
         android:text="You've spotted a Rat!"
         android:layout_alignParentTop="true"
-        android:layout_toEndOf="@+id/textView7" />
+        android:layout_centerHorizontal="true" />
 
     <EditText
-        android:id="@+id/textView7"
+        android:id="@+id/key"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="15dp"
-        android:text="TextView"
-        android:layout_below="@+id/textView5"
+        android:text="key"
+        android:layout_below="@+id/header"
         android:layout_alignParentStart="true"
         android:layout_marginStart="20dp" />
 
     <EditText
-        android:id="@+id/textView8"
+        android:id="@+id/date"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="25dp"
-        android:text="TextView"
-        android:layout_below="@+id/textView7"
-        android:layout_alignStart="@+id/textView7" />
+        android:text="date"
+        android:layout_below="@+id/key"
+        android:layout_alignStart="@+id/key" />
 
     <EditText
-        android:id="@+id/textView9"
+        android:id="@+id/locType"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="22dp"
-        android:text="TextView"
-        android:layout_below="@+id/textView8"
-        android:layout_alignStart="@+id/textView8" />
+        android:text="Location Type"
+        android:layout_below="@+id/date"
+        android:layout_alignStart="@+id/date" />
 
     <EditText
-        android:id="@+id/textView10"
+        android:id="@+id/zipCode"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
-        android:text="TextView"
-        android:layout_below="@+id/textView9"
-        android:layout_alignStart="@+id/textView9" />
+        android:text="Zip Code"
+        android:layout_below="@+id/locType"
+        android:layout_alignStart="@+id/locType" />
 
     <EditText
-        android:id="@+id/textView11"
+        android:id="@+id/address"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="22dp"
-        android:text="TextView"
-        android:layout_below="@+id/textView10"
-        android:layout_alignStart="@+id/textView10" />
+        android:text="Address"
+        android:layout_below="@+id/zipCode"
+        android:layout_alignStart="@+id/zipCode" />
 
     <EditText
-        android:id="@+id/textView12"
+        android:id="@+id/city"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
-        android:text="TextView"
-        android:layout_below="@+id/textView11"
-        android:layout_alignStart="@+id/textView11" />
+        android:text="City"
+        android:layout_below="@+id/address"
+        android:layout_alignStart="@+id/address" />
+
+    <EditText
+        android:id="@+id/borough"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Borough"
+        android:layout_above="@+id/date"
+        android:layout_toEndOf="@+id/header" />
+
+    <EditText
+        android:id="@+id/longitude"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="longitude"
+        android:layout_above="@+id/locType"
+        android:layout_alignStart="@+id/borough" />
+
+    <EditText
+        android:id="@+id/latitude"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="latitude"
+        android:layout_alignBaseline="@+id/locType"
+        android:layout_alignBottom="@+id/locType"
+        android:layout_alignStart="@+id/longitude" />
 
 </RelativeLayout>
