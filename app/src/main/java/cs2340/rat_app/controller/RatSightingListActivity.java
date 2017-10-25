@@ -143,7 +143,7 @@ public class RatSightingListActivity extends AppCompatActivity {
                     try {
                         RatSighting newr = new RatSighting(Integer.parseInt(data[0]), data[1], data[7],
                                 data[9], data[23], Integer.parseInt(data[8]), data[16], data[49], data[50]);
-                        ratSightings.add(newr);
+                        ratSightings.add(0, newr);
                         if (count % 100 == 0) {
                             adapter.notifyDataSetChanged();
                         }

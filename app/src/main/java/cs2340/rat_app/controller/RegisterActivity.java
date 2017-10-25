@@ -59,12 +59,7 @@ public class RegisterActivity extends AppCompatActivity {
 
         // When register button is pressed
         Button registerButton = (Button) findViewById(R.id.register_button);
-        registerButton.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                register();
-            }
-        });
+        registerButton.setOnClickListener((view) -> { register(); }):
 
 
         //Firebase
