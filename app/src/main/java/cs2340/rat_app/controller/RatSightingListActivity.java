@@ -72,6 +72,10 @@ public class RatSightingListActivity extends AppCompatActivity {
             public TextView itemSubtitle;
             public LinearLayout layout;
 
+            /**
+             * creates a viewholder for the current report
+             * @param v the current view
+             */
             public ViewHolder(View v) {
                 super(v);
                 layout = v.findViewById(R.id.ratList);

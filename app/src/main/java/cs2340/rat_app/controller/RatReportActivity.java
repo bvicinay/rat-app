@@ -17,6 +17,7 @@ import cs2340.rat_app.model.RatSighting;
 
 public class RatReportActivity extends AppCompatActivity{
 
+    //instance variables
     private TextView key;
     private TextView date;
     private TextView locType;

@@ -95,7 +95,9 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     /**
-     * login is the method called when the login button is pressed.
+     * login is the method called when the login button is pressed- if the data is validated,
+     * will call signin (which attempts to login using firebase authentication)- else, the login
+     * is aborted
      */
     public void login() {
         // Reset errors
@@ -108,6 +110,10 @@ public class LoginActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * called if login attempt is succesfull- calls new intent
+     * @param user the user that has logged in
+     */
     public void proceedLogin(FirebaseUser user) {
         Toast.makeText(LoginActivity.this, "Signed-in",
                 Toast.LENGTH_SHORT).show();
@@ -116,6 +122,10 @@ public class LoginActivity extends AppCompatActivity {
         startActivity(intent);
         this.finish();
     }
+
+    /**
+     * called if there is an unsuccesfull login attempt- clears login password field
+     */
     public void abortLogin() {
         passwordField.setText("");
     }
@@ -124,6 +134,7 @@ public class LoginActivity extends AppCompatActivity {
      * Attempts to sign in or register the account specified by the login form.
      * If there are form errors (invalid email, missing fields, etc.), the
      * errors are presented and no actual login attempt is made.
+     * @return boolean if the entered data is valid and should be checked against firebase
      */
     private boolean validateData() {
         // Store input values
@@ -158,6 +169,12 @@ public class LoginActivity extends AppCompatActivity {
         return valid;
     }
 
+    /**
+     * Signin method- attempts to login user using firebase authentication- if successful, calls
+     * proceedLogin, else calls abort login
+     * @param email the email entered in
+     * @param password the password entered in
+     */
      public void signin(String email, String password) {
         mAuth.signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
@@ -182,6 +199,10 @@ public class LoginActivity extends AppCompatActivity {
                 });
     }
 
+    /**
+     * outer method returns instance of this class
+     * @return LoginActivity
+     */
     private LoginActivity getOuter() {
         return this;
     }

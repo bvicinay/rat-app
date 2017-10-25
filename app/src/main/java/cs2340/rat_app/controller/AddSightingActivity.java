@@ -7,8 +7,7 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Button;
-
-import org.w3c.dom.Text;
+import android.widget.Toast;
 
 import java.util.Calendar;
 
@@ -22,6 +21,7 @@ import cs2340.rat_app.model.RatSighting;
 
 public class AddSightingActivity extends AppCompatActivity {
 
+    //instance variables
     private TextView key;
     private TextView date;
     private TextView errorText;
@@ -42,13 +42,16 @@ public class AddSightingActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_report_sighting);
 
-
+        //add rat button
         addRat = (Button) findViewById(R.id.create_rat);
         addRat.setOnClickListener((view) -> { createRat(); });
 
+        //back button
         backButton = (Button) findViewById(R.id.cancel);
         backButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
+                Toast.makeText(AddSightingActivity.this, "Rat Report Cancelled",
+                        Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(getOuter(), HomeActivity.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(intent);
@@ -56,6 +59,7 @@ public class AddSightingActivity extends AppCompatActivity {
             }
         });
 
+        //non-editable fields
         key = (TextView) findViewById(R.id.key);
         date = (TextView) findViewById(R.id.date);
         errorText = (TextView) findViewById(R.id.error_text);
@@ -67,6 +71,7 @@ public class AddSightingActivity extends AppCompatActivity {
             key.setText(Integer.toString(key1));
         }
 
+        //editable fields
         locTypeField = (EditText) findViewById(R.id.locType);
         zipCodeField = (EditText) findViewById(R.id.zipCode);
         addressField = (EditText) findViewById(R.id.address);
@@ -77,6 +82,10 @@ public class AddSightingActivity extends AppCompatActivity {
 
     }
 
+    /**
+     * returns a String representation of calender object- mm/dd/yyyy
+     * @return a String representation of a Calendaer object- date
+     */
     public String getDateStr() {
         String month = Integer.toString(creation_date.get(Calendar.MONTH));
         String day = Integer.toString(creation_date.get(Calendar.DATE));
@@ -84,6 +93,10 @@ public class AddSightingActivity extends AppCompatActivity {
         return month + "/" + day + "/" + year;
     }
 
+    /**
+     * boolean that returns whether all the editable fields have data in them
+     * @return a boolean stating if all the fields have been filled
+     */
     public boolean validateData() {
 
         String locType = locTypeField.getText().toString();
@@ -148,12 +161,16 @@ public class AddSightingActivity extends AppCompatActivity {
 
     }
 
+    /**
+     * method that creates a new rat object if all the data is properly validated
+     * @throws Exception if there is invalid data entered in the fields
+     */
     private void createRat() {
 
         if (validateData()) {
-            int key1 = Integer.parseInt(key.getText().toString());
-            int zip = Integer.parseInt(zipCodeField.getText().toString());
             try {
+                int key1 = Integer.parseInt(key.getText().toString());
+                int zip = Integer.parseInt(zipCodeField.getText().toString());
                 RatSighting newSighting = new RatSighting(
                         key1,
                         date.getText().toString(),
@@ -165,6 +182,8 @@ public class AddSightingActivity extends AppCompatActivity {
                         latitudeField.getText().toString(),
                         longitudeField.getText().toString());
                 RatSighting.ratSightings.add(0, newSighting);
+                Toast.makeText(AddSightingActivity.this, "Rat Report Added",
+                        Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(getOuter(), HomeActivity.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(intent);
@@ -177,6 +196,10 @@ public class AddSightingActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * outer method that returns instance of this class
+     * @return AddSightingActivity
+     */
     public AddSightingActivity getOuter() {
         return this;
     }

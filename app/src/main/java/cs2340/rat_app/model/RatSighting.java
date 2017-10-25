@@ -20,6 +20,7 @@ public class RatSighting implements Parcelable {
     private String location_type;
     private Address address;
     private Location location;
+    //singleton
     public static ArrayList<RatSighting> ratSightings = new ArrayList<>();
 
     /**
@@ -136,7 +137,7 @@ public class RatSighting implements Parcelable {
     }
 
     /**
-     *
+     * for passing through via a parcel
      */
     public static final Parcelable.Creator CREATOR = new Parcelable.Creator() {
         public RatSighting createFromParcel(Parcel in) {

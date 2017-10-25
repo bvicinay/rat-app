@@ -44,7 +44,10 @@ public class HomeActivity extends AppCompatActivity {
         });
     }
 
+    /**
+     * outer method returns an instance of this class
+     * @return HomeActivity
+     */
     private HomeActivity getOuter() { return this; }
-
 
 }
