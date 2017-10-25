@@ -1,5 +1,6 @@
 package cs2340.rat_app.controller;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -31,19 +32,38 @@ public class AddSightingActivity extends AppCompatActivity {
     private EditText boroughField;
     private EditText latitudeField;
     private EditText longitudeField;
+    private Button backButton;
+    private Button addRat;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
-        super(savedInstanceState);
+        super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_report_sighting);
+
+
+        addRat = (Button) findViewById(R.id.create_rat);
+        addRat.setOnClickListener((view) -> { createRat(); });
+
+        backButton = (Button) findViewById(R.id.cancel);
+        backButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                Intent intent = new Intent(getOuter(), HomeActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(intent);
+                getOuter().finish();
+            }
+        });
 
         key = (TextView) findViewById(R.id.key);
         date = (TextView) findViewById(R.id.date);
 
         creation_date = Calendar.getInstance();
         date.setText(getDateStr());
-        key.setText(RatSightingListActivity.ratSightings.get(0).getKey() + 1);
+        if (RatSighting.ratSightings.size() > 0) {
+            int key1 = RatSighting.ratSightings.get(0).getKey() + 1;
+            key.setText(Integer.toString(key1));
+        }
 
         locTypeField = (EditText) findViewById(R.id.locType);
         zipCodeField = (EditText) findViewById(R.id.zipCode);
@@ -52,9 +72,6 @@ public class AddSightingActivity extends AppCompatActivity {
         boroughField = (EditText) findViewById(R.id.borough);
         latitudeField = (EditText) findViewById(R.id.latitude);
         longitudeField = (EditText) findViewById(R.id.longitude);
-
-        Button createRatButton = (Button) findViewById(R.id.create_rat);
-        createRatButton.setOnClickListener((view) -> { createRat(); });
 
     }
 
@@ -132,15 +149,30 @@ public class AddSightingActivity extends AppCompatActivity {
     private void createRat() {
 
         if (validateData()) {
-            RatSighting newSighting = new RatSighting(Integer.parseInt((String) key.getText()), date.getText().toString(),
-                    locTypeField.getText().toString(), addressField.getText().toString(), boroughField.getText().toString(),
-                    Integer.parseInt(zipCodeField.getText().toString()), cityField.getText().toString(), latitudeField.getText().toString(),
+            int key1 = Integer.parseInt(key.getText().toString());
+            int zip = Integer.parseInt(zipCodeField.getText().toString());
+            RatSighting newSighting = new RatSighting(
+                    key1,
+                    date.getText().toString(),
+                    locTypeField.getText().toString(),
+                    addressField.getText().toString(),
+                    boroughField.getText().toString(),
+                    zip,
+                    cityField.getText().toString(),
+                    latitudeField.getText().toString(),
                     longitudeField.getText().toString());
-            RatSightingListActivity.ratSightings.add(0, newSighting);
+            RatSighting.ratSightings.add(0, newSighting);
+            Intent intent = new Intent(getOuter(), HomeActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(intent);
+            getOuter().finish();
         } else {
             TextView errorText = (TextView) findViewById(R.id.error_text);
             errorText.setText("Please fill in all fields");
         }
     }
-    
+
+    public AddSightingActivity getOuter() {
+        return this;
+    }
 }

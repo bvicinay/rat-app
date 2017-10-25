@@ -5,6 +5,7 @@ import android.os.Parcel;
 import android.os.Parcelable;
 import android.util.Log;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 
 /**
@@ -19,6 +20,7 @@ public class RatSighting implements Parcelable {
     private String location_type;
     private Address address;
     private Location location;
+    public static ArrayList<RatSighting> ratSightings = new ArrayList<>();
 
     /**
      * RatSighting constructor called by parcel

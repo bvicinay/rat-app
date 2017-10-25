@@ -46,7 +46,6 @@
             />
         <activity
             android:name=".controller.AddSightingActivity"
-            android:label="Report Sighting"
             android:parentActivityName=".controller.HomeActivity"
             />
     </application>

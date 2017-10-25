@@ -18,7 +18,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="15dp"
-        android:text="key"
+        android:text="0000"
         android:layout_below="@+id/header"
         android:layout_alignParentStart="true"
         android:layout_marginStart="20dp"
@@ -47,7 +47,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
-        android:text="Zip Code"
+        android:text="00000"
         android:layout_below="@+id/locType"
         android:layout_alignStart="@+id/locType" />
 
@@ -81,7 +81,7 @@
         android:id="@+id/longitude"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="longitude"
+        android:text="00000"
         android:layout_above="@+id/locType"
         android:layout_alignStart="@+id/borough" />
 
@@ -89,7 +89,7 @@
         android:id="@+id/latitude"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="latitude"
+        android:text="00000"
         android:layout_alignBaseline="@+id/locType"
         android:layout_alignBottom="@+id/locType"
         android:layout_alignStart="@+id/longitude" />
