@@ -24,6 +24,7 @@ public class AddSightingActivity extends AppCompatActivity {
 
     private TextView key;
     private TextView date;
+    private TextView errorText;
     private Calendar creation_date;
     private EditText locTypeField;
     private EditText zipCodeField;
@@ -57,6 +58,7 @@ public class AddSightingActivity extends AppCompatActivity {
 
         key = (TextView) findViewById(R.id.key);
         date = (TextView) findViewById(R.id.date);
+        errorText = (TextView) findViewById(R.id.error_text);
 
         creation_date = Calendar.getInstance();
         date.setText(getDateStr());
@@ -151,23 +153,26 @@ public class AddSightingActivity extends AppCompatActivity {
         if (validateData()) {
             int key1 = Integer.parseInt(key.getText().toString());
             int zip = Integer.parseInt(zipCodeField.getText().toString());
-            RatSighting newSighting = new RatSighting(
-                    key1,
-                    date.getText().toString(),
-                    locTypeField.getText().toString(),
-                    addressField.getText().toString(),
-                    boroughField.getText().toString(),
-                    zip,
-                    cityField.getText().toString(),
-                    latitudeField.getText().toString(),
-                    longitudeField.getText().toString());
-            RatSighting.ratSightings.add(0, newSighting);
-            Intent intent = new Intent(getOuter(), HomeActivity.class);
-            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            startActivity(intent);
-            getOuter().finish();
+            try {
+                RatSighting newSighting = new RatSighting(
+                        key1,
+                        date.getText().toString(),
+                        locTypeField.getText().toString(),
+                        addressField.getText().toString(),
+                        boroughField.getText().toString(),
+                        zip,
+                        cityField.getText().toString(),
+                        latitudeField.getText().toString(),
+                        longitudeField.getText().toString());
+                RatSighting.ratSightings.add(0, newSighting);
+                Intent intent = new Intent(getOuter(), HomeActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(intent);
+                getOuter().finish();
+            } catch (Exception e) {
+                errorText.setText("Please enter valid data");
+            }
         } else {
-            TextView errorText = (TextView) findViewById(R.id.error_text);
             errorText.setText("Please fill in all fields");
         }
     }

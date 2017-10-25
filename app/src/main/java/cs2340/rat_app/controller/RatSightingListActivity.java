@@ -53,7 +53,7 @@ public class RatSightingListActivity extends AppCompatActivity {
         adapter = new RatSightingAdapter(RatSighting.ratSightings);
         sightingsRecyclerView.setAdapter(adapter);
 
-        if (RatSighting.ratSightings.size() < 1) {
+        if (RatSighting.ratSightings.size() < 10) {
             new LoadLocalData().execute();
         }
 
