@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.*;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -33,6 +34,8 @@ public class RatSightingListActivity extends AppCompatActivity {
     private RecyclerView.Adapter adapter;
     private RecyclerView.LayoutManager layoutManager;
 
+    private FloatingActionButton addSighting;
+
     private static final String TAG = "RatSightingListActivity";
 
     @Override
@@ -57,6 +60,16 @@ public class RatSightingListActivity extends AppCompatActivity {
         if (RatSighting.ratSightings.size() < 10) {
             new LoadLocalData().execute();
         }
+
+        //When add sighting fab button is pressed
+        addSighting = (FloatingActionButton) findViewById(R.id.fab_add_sighting);
+        addSighting.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getOuter(), AddSightingActivity.class);
+                startActivity(intent);
+            }
+        });
 
 
     }
