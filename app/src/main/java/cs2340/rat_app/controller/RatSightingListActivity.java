@@ -34,7 +34,12 @@ public class RatSightingListActivity extends AppCompatActivity {
     private RecyclerView.LayoutManager layoutManager;
 
     private static final String TAG = "RatSightingListActivity";
-    public ArrayList<RatSighting> ratSightings = new ArrayList<>();
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        adapter.notifyDataSetChanged();
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,10 +51,12 @@ public class RatSightingListActivity extends AppCompatActivity {
         layoutManager = new LinearLayoutManager(this);
         sightingsRecyclerView.setLayoutManager(layoutManager);
 
-        adapter = new RatSightingAdapter(ratSightings);
+        adapter = new RatSightingAdapter(RatSighting.ratSightings);
         sightingsRecyclerView.setAdapter(adapter);
 
-        new LoadLocalData().execute();
+        if (RatSighting.ratSightings.size() < 10) {
+            new LoadLocalData().execute();
+        }
 
 
     }
@@ -66,6 +73,10 @@ public class RatSightingListActivity extends AppCompatActivity {
             public TextView itemSubtitle;
             public LinearLayout layout;
 
+            /**
+             * creates a viewholder for the current report
+             * @param v the current view
+             */
             public ViewHolder(View v) {
                 super(v);
                 layout = v.findViewById(R.id.ratList);
@@ -145,7 +156,7 @@ public class RatSightingListActivity extends AppCompatActivity {
                     try {
                         RatSighting newr = new RatSighting(Integer.parseInt(data[0]), data[1], data[7],
                                 data[9], data[23], Integer.parseInt(data[8]), data[16], data[49], data[50]);
-                        ratSightings.add(newr);
+                        RatSighting.ratSightings.add(0, newr);
                         if (count % 100 == 0) {
                             adapter.notifyDataSetChanged();
                         }

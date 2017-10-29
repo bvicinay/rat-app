@@ -10,8 +10,7 @@ import cs2340.rat_app.R;
 
 public class HomeActivity extends AppCompatActivity {
 
-    Button viewRatSightings;
-    Button backButton;
+    Button viewRatSightings, backButton, addRatSighting;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,7 +23,6 @@ public class HomeActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getOuter(), RatSightingListActivity.class);
-                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(intent);
             }
         });
@@ -37,9 +35,19 @@ public class HomeActivity extends AppCompatActivity {
                 getOuter().finish();
             }
         });
+        addRatSighting = (Button) findViewById(R.id.add_sighting);
+        addRatSighting.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                Intent intent = new Intent(getOuter(), AddSightingActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 
+    /**
+     * outer method returns an instance of this class
+     * @return HomeActivity
+     */
     private HomeActivity getOuter() { return this; }
-
 
 }

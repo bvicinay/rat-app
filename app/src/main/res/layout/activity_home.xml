@@ -38,5 +38,14 @@
         android:layout_marginTop="91dp"
         android:text="Logout" />
 
+    <Button
+        android:id="@+id/add_sighting"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="23dp"
+        android:text="Add Sighting"
+        android:layout_below="@+id/view_sightings"
+        android:layout_centerHorizontal="true" />
+
 
 </android.widget.RelativeLayout>

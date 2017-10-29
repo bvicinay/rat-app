@@ -5,6 +5,7 @@ import android.os.Parcel;
 import android.os.Parcelable;
 import android.util.Log;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 
 /**
@@ -19,8 +20,13 @@ public class RatSighting implements Parcelable {
     private String location_type;
     private Address address;
     private Location location;
+    //singleton
+    public static ArrayList<RatSighting> ratSightings = new ArrayList<>();
 
-    //Constructor for when being passed through a parcel
+    /**
+     * RatSighting constructor called by parcel
+     * @param p the parcel being passed through
+     */
     public RatSighting(Parcel p) {
         key = p.readInt();
         creation_date = (Calendar) p.readSerializable();
@@ -29,15 +35,18 @@ public class RatSighting implements Parcelable {
         location = p.readParcelable(Location.class.getClassLoader());
     }
 
-    public RatSighting(int key, Calendar creation_date, String location_type,
-                       Address address, Location location) {
-        this.key = key;
-        this.creation_date = creation_date;
-        this.location_type = location_type;
-        this.address = address;
-        this.location = location;
-    }
-
+    /**
+     * Constructor called from RatSightingListActivity
+     * @param key the key of the sighting
+     * @param creation_date the date of creation
+     * @param location_type the location type
+     * @param street the street of the sighting
+     * @param borough the borough of the sighting
+     * @param zip the zip of the sighting
+     * @param city the city
+     * @param latitude the latitude
+     * @param longitude the longitude
+     */
     public RatSighting(int key, String creation_date, String location_type,
                        String street, String borough, int zip, String city,
                        String latitude, String longitude) {
@@ -127,7 +136,9 @@ public class RatSighting implements Parcelable {
         dest.writeParcelable(location, flags);
     }
 
-    //For passing through an intent
+    /**
+     * for passing through via a parcel
+     */
     public static final Parcelable.Creator CREATOR = new Parcelable.Creator() {
         public RatSighting createFromParcel(Parcel in) {
             return new RatSighting(in);

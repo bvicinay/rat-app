@@ -59,12 +59,7 @@ public class RegisterActivity extends AppCompatActivity {
 
         // When register button is pressed
         Button registerButton = (Button) findViewById(R.id.register_button);
-        registerButton.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                register();
-            }
-        });
+        registerButton.setOnClickListener((view) -> { register(); });
 
 
         //Firebase
@@ -100,7 +95,8 @@ public class RegisterActivity extends AppCompatActivity {
     }
 
     /**
-     * Returns to login screen if registration was completed successfully.
+     * Register method- called when person attempts to register a new user- if successful,
+     * registers them- else clears password field
      */
     public void register() {
         if (validateData()) {
@@ -111,6 +107,12 @@ public class RegisterActivity extends AppCompatActivity {
     }
 
 
+    /**
+     * Called if a registration attempt is successful
+     * @param email the email of the registered account
+     * @param password the password of the registered account
+     * @param user the new firebase user
+     */
     public void proceedRegister(String email, String password, FirebaseUser user) {
         Intent intent = new Intent(this, LoginActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
@@ -118,6 +120,9 @@ public class RegisterActivity extends AppCompatActivity {
         this.finish();
     }
 
+    /**
+     * Called if registration attempt is unsuccesfull- clears password field
+     */
     public void abortRegister() {
         passwordField.setText("");
     }
@@ -171,7 +176,11 @@ public class RegisterActivity extends AppCompatActivity {
         return valid;
     }
 
-    //Firebase
+    /**
+     * attempts to create a new account for firebase authentication
+     * @param email the email of the account being created
+     * @param password the password of the account being created
+     */
     private void createAccount(String email, String password) {
         // Data is already validated
         Log.d(TAG, "createAccount:" + email);
@@ -200,6 +209,11 @@ public class RegisterActivity extends AppCompatActivity {
                     }
                 });
     }
+
+    /**
+     * outer method returns instance of this class
+     * @return RegisterActivity
+     */
     private RegisterActivity getOuter() {
         return this;
     }

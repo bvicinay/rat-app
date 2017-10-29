@@ -15,6 +15,13 @@ public class Address implements Parcelable {
     private int zip;
     private String city;
 
+    /**
+     * default construstor
+     * @param street the street- String
+     * @param borough the borough- String
+     * @param zip the zip- int
+     * @param city the city- string
+     */
     public Address(String street, String borough, int zip, String city) {
         this.street = street;
         this.borough = borough;
@@ -22,6 +29,10 @@ public class Address implements Parcelable {
         this.city = city;
     }
 
+    /**
+     * Constructor that is called when address object is passed via a parcel
+     * @param p the parcel the object is passed through
+     */
     public Address(Parcel p) {
         street = p.readString();
         borough = p.readString();

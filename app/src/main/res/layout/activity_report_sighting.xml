@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+    <TextView
+        android:id="@+id/header"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="36dp"
+        android:text="You've spotted a Rat!"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true" />
+
+    <TextView
+        android:id="@+id/key"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:text="0000"
+        android:layout_below="@+id/header"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="20dp"
+        android:layout_toStartOf="@+id/header" />
+
+    <TextView
+        android:id="@+id/date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="25dp"
+        android:text="date"
+        android:layout_below="@+id/key"
+        android:layout_alignStart="@+id/key" />
+
+    <EditText
+        android:id="@+id/locType"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="22dp"
+        android:text="Location Type"
+        android:layout_below="@+id/date"
+        android:layout_alignStart="@+id/date" />
+
+    <EditText
+        android:id="@+id/zipCode"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:text="00000"
+        android:layout_below="@+id/locType"
+        android:layout_alignStart="@+id/locType" />
+
+    <EditText
+        android:id="@+id/address"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="22dp"
+        android:text="Address"
+        android:layout_below="@+id/zipCode"
+        android:layout_alignStart="@+id/zipCode" />
+
+    <EditText
+        android:id="@+id/city"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:text="City"
+        android:layout_below="@+id/address"
+        android:layout_alignStart="@+id/address" />
+
+    <EditText
+        android:id="@+id/borough"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Borough"
+        android:layout_above="@+id/date"
+        android:layout_toEndOf="@+id/header" />
+
+    <EditText
+        android:id="@+id/longitude"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="00000"
+        android:layout_above="@+id/locType"
+        android:layout_alignStart="@+id/borough" />
+
+    <EditText
+        android:id="@+id/latitude"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="00000"
+        android:layout_alignBaseline="@+id/locType"
+        android:layout_alignBottom="@+id/locType"
+        android:layout_alignStart="@+id/longitude" />
+
+    <Button
+        android:id="@+id/create_rat"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/latitude"
+        android:layout_alignTop="@+id/address"
+        android:text="Create Rat"
+        android:layout_alignBottom="@+id/address" />
+
+    <Button
+        android:id="@+id/cancel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Cancel"
+        android:layout_alignTop="@+id/city"
+        android:layout_alignEnd="@+id/create_rat"
+        android:layout_alignStart="@+id/create_rat" />
+
+    <TextView
+        android:id="@+id/error_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="38dp"
+        android:text="TextView" />
+
+</RelativeLayout>
