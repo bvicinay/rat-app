@@ -119,4 +119,5 @@
     <string name="action_settings">Settings</string>
     <string name="title_ratsighting_list">RatSightings</string>
     <string name="title_ratsighting_detail">RatSighting Detail</string>
+    <string name="title_activity_maps">Map</string>
 </resources>
