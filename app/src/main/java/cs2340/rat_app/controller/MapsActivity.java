@@ -41,8 +41,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         mMap = googleMap;
 
         int count = 0;
-
-        RatSighting rat = RatSighting.ratSightings.get(0);
+        RatSighting rat = null;
+        //RatSighting rat = RatSighting.ratSightings.get(0);
 
         for (int i = 0; i < RatSighting.ratSightings.size(); i++) {
 
@@ -56,9 +56,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 break;
             }
         }
-
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(new LatLng(rat.getLocation().getLatitude(), rat.getLocation().getLongitude())));
-
+        if (rat != null) {
+            mMap.moveCamera(CameraUpdateFactory.newLatLng(new LatLng(rat.getLocation().getLatitude(), rat.getLocation().getLongitude())));
+        }
 
 
     }
