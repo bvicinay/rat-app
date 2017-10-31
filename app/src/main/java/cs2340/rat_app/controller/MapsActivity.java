@@ -9,6 +9,10 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
+
+import java.util.ArrayList;
+
 import cs2340.rat_app.R;
 import cs2340.rat_app.model.RatSighting;
 
@@ -40,25 +44,25 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
 
+        ArrayList<Double> latitudes = new ArrayList<Double>();
+        ArrayList<Double> longitudes = new ArrayList<Double>();
+
+        for (RatSighting rat: RatSighting.ratSightings) {
+            latitudes.add(rat.getLocation().getLatitude());
+            longitudes.add(rat.getLocation().getLongitude());
+        }
+
         int count = 0;
-        RatSighting rat = null;
-        //RatSighting rat = RatSighting.ratSightings.get(0);
 
-        for (int i = 0; i < RatSighting.ratSightings.size(); i++) {
+        for (int i = 0; i < latitudes.size(); i++) {
+            mMap.addMarker(new MarkerOptions().position(new LatLng(latitudes.get(i), longitudes.get(i))).title("Rat " + RatSighting.ratSightings.get(i).getKey()));
 
-            rat = RatSighting.ratSightings.get(i);
-
-            mMap.addMarker(new MarkerOptions().position(new LatLng(rat.getLocation().getLatitude(), rat.getLocation().getLongitude())).title("Sighting " + i));
-
-            count++;
-
-            if (count == 20) {
+            if (++count == 20) {
                 break;
             }
         }
-        if (rat != null) {
-            mMap.moveCamera(CameraUpdateFactory.newLatLng(new LatLng(rat.getLocation().getLatitude(), rat.getLocation().getLongitude())));
-        }
+
+        mMap.moveCamera(CameraUpdateFactory.newLatLng(new LatLng(latitudes.get(0), longitudes.get(0))));
 
 
     }
