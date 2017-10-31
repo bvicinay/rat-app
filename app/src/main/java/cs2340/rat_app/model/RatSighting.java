@@ -74,6 +74,11 @@ public class RatSighting implements Parcelable {
         this.location = l;
 
     }
+    public RatSighting(RatSightingRaw rs) {
+        this(Integer.parseInt(rs.getKey()), rs.getCreated_date(), rs.getLocation_type(),
+                rs.getIncident_address(), rs.getBorough(), Integer.parseInt(rs.getIncident_zip()),
+                rs.getCity(), rs.getLatitude(), rs.getLongitude());
+    }
 
     @Override
     public String toString() {

@@ -13,11 +13,8 @@ import java.util.Calendar;
 
 import cs2340.rat_app.R;
 import cs2340.rat_app.model.RatSighting;
+import cs2340.rat_app.model.RatSighting;
 
-
-/**
- * Created by colton on 10/23/17.
- */
 
 public class AddSightingActivity extends AppCompatActivity {
 
