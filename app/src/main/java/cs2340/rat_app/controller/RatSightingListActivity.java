@@ -63,7 +63,7 @@ public class RatSightingListActivity extends AppCompatActivity {
         sightingsRecyclerView.setAdapter(adapter);
 
         if (RatSighting.ratSightings.size() < 10) {
-            new LoadLocalData().execute();
+            new LoadLocalData().execute(100);
         }
 
         //When add sighting fab button is pressed
@@ -77,6 +77,28 @@ public class RatSightingListActivity extends AppCompatActivity {
         });
 
 
+    }
+    private void importFromDatabase() {
+        mDatabase = FirebaseDatabase.getInstance().getReference();
+        Query ratSightingsQuery = mDatabase.child("rat_sightings").limitToFirst(100);
+        ratSightingsQuery.addChildEventListener(new ChildEventListener() {
+            @Override
+            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+                RatSightingRaw raw_sighting = dataSnapshot.getValue(RatSightingRaw.class);
+
+                RatSighting sighting = new RatSighting(raw_sighting);
+                RatSighting.ratSightings.add(0, sighting);
+                adapter.notifyDataSetChanged();
+            }
+            @Override
+            public void onChildChanged(DataSnapshot dataSnapshot, String s) { }
+            @Override
+            public void onChildRemoved(DataSnapshot dataSnapshot) { }
+            @Override
+            public void onChildMoved(DataSnapshot dataSnapshot, String s) { }
+            @Override
+            public void onCancelled(DatabaseError databaseError) { }
+        });
     }
 
     public class RatSightingAdapter extends RecyclerView.Adapter<RatSightingAdapter.ViewHolder> {
@@ -146,91 +168,51 @@ public class RatSightingListActivity extends AppCompatActivity {
 
     }
 
-    //AsynchTask that loads in csv file and creates RatSightings with each lines
-    public class LoadLocalData extends AsyncTask<String, Void, Integer> {
+    // AsyncTask that loads in data from Firebase
+    public class LoadLocalData extends AsyncTask<Integer, Void, Integer> {
 
         @Override
         protected void onPreExecute() {
             mDatabase = FirebaseDatabase.getInstance().getReference();
-            Query ratSightingsQuery = mDatabase.child("rat_sightings").limitToFirst(100);
+        }
+
+        @Override
+        protected Integer doInBackground(Integer... params) {
+            Query ratSightingsQuery = mDatabase.child("rat_sightings").limitToFirst(params[0]);
             ratSightingsQuery.addChildEventListener(new ChildEventListener() {
                 @Override
                 public void onChildAdded(DataSnapshot dataSnapshot, String s) {
                     RatSightingRaw raw_sighting = dataSnapshot.getValue(RatSightingRaw.class);
-
                     RatSighting sighting = new RatSighting(raw_sighting);
                     RatSighting.ratSightings.add(0, sighting);
                     adapter.notifyDataSetChanged();
-
-                    //Log.d(TAG, sighting.toString());
-
                 }
-
                 @Override
                 public void onChildChanged(DataSnapshot dataSnapshot, String s) {
-
+                    RatSightingRaw raw_sighting = dataSnapshot.getValue(RatSightingRaw.class);
+                    RatSighting sighting = new RatSighting(raw_sighting);
+                    int i = RatSighting.ratSightings.indexOf(sighting);
+                    RatSighting.ratSightings.remove(sighting);
+                    RatSighting.ratSightings.add(i, sighting);
+                    adapter.notifyDataSetChanged();
                 }
-
                 @Override
                 public void onChildRemoved(DataSnapshot dataSnapshot) {
-
+                    RatSightingRaw raw_sighting = dataSnapshot.getValue(RatSightingRaw.class);
+                    RatSighting sighting = new RatSighting(raw_sighting);
+                    RatSighting.ratSightings.remove(sighting);
+                    adapter.notifyDataSetChanged();
                 }
-
                 @Override
-                public void onChildMoved(DataSnapshot dataSnapshot, String s) {
-
-                }
-
+                public void onChildMoved(DataSnapshot dataSnapshot, String s) {      }
                 @Override
-                public void onCancelled(DatabaseError databaseError) {
-
-                }
+                public void onCancelled(DatabaseError databaseError) { }
             });
-
+            return 1;
         }
-
         @Override
         protected void onPostExecute(Integer result) {
             adapter.notifyDataSetChanged();
-        }
-
-        @Override
-        protected Integer doInBackground(String... params) {
-            int count = 1;
-            /*try {
-                InputStream inputStream = getResources().openRawResource(R.raw.sightings);
-                BufferedReader br = new BufferedReader(new InputStreamReader(inputStream));
-                br.readLine(); // skip first line
-                String line = br.readLine();
-                String[] data;
-
-                while (line != null && count <= 500) {
-                    if (isCancelled()) break;
-                    data = line.split(",");
-                    try {
-                        RatSightingRaw newr = new RatSightingRaw(Integer.parseInt(data[0]), data[1], data[7],
-                                data[9], data[23], Integer.parseInt(data[8]), data[16], data[49], data[50]);
-                        RatSightingRaw.ratSightings.add(0, newr);
-                        if (count % 100 == 0) {
-                            adapter.notifyDataSetChanged();
-                        }
-                    } catch (Exception e) {
-                        // Skip item if data is invalid
-                        Log.d(TAG, "Could not parse data point: " + e.getMessage(), e);
-                    }
-
-                    //adapter.notifyDataSetChanged();
-                    line = br.readLine();
-                    count++;
-                    Log.d(TAG, data[0]);
-
-                }
-                return count;
-
-            } catch (IOException e) {
-                Log.d(TAG, e.getMessage(), e);
-            }*/
-            return count;
         }
 
     }
