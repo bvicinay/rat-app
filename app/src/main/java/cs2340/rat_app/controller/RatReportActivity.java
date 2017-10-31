@@ -26,7 +26,6 @@ public class RatReportActivity extends AppCompatActivity{
     private TextView borough;
     private TextView latitude;
     private TextView longitude;
-    private Button backButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

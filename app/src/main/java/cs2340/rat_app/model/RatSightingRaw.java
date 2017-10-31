@@ -27,6 +27,19 @@ public class RatSightingRaw {
 
     public RatSightingRaw() {}
 
+    public RatSightingRaw(RatSighting sighting) {
+        key = Integer.toString(sighting.getKey());
+        borough = sighting.getAddress().getBorough();
+        city = sighting.getAddress().getCity();
+        created_date = sighting.getDateStr();
+        incident_address = sighting.getAddress().getStreet();
+        incident_zip = Integer.toString(sighting.getAddress().getZip());
+        location_type = sighting.getLocation_type();
+        latitude = Double.toString(sighting.getLocation().getLatitude());
+        longitude = Double.toString(sighting.getLocation().getLongitude());
+
+    }
+
     public static ArrayList<RatSightingRaw> ratSightings = new ArrayList<>();
 
     public String getKey() { return key; }
