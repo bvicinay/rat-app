@@ -22,7 +22,7 @@ public class FilterRatSightings1 extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_filter_rat_sightings1);
 
-        next = (Button) findViewById(R.id.view_sightings);
+        next = (Button) findViewById(R.id.nextButton);
         next.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

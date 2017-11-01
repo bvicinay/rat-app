@@ -84,7 +84,7 @@ public class RatSightingListActivity extends AppCompatActivity {
         viewMap = (Button) findViewById(R.id.map_button);
         viewMap.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                Intent intent = new Intent(getOuter(), MapsActivity.class);
+                Intent intent = new Intent(getOuter(), FilterRatSightings1.class);
                 startActivity(intent);
             }
         });

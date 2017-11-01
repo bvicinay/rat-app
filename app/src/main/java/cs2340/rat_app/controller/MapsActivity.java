@@ -10,10 +10,12 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
+import java.util.Calendar;
 
 import java.util.ArrayList;
 
 import cs2340.rat_app.R;
+import cs2340.rat_app.model.FilteredDate;
 import cs2340.rat_app.model.RatSighting;
 
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
@@ -44,6 +46,37 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
 
+
+        ArrayList<RatSighting> dateRangeRats = new ArrayList<RatSighting>();
+        ArrayList<Double> lats = new ArrayList<Double>();
+        ArrayList<Double> longs = new ArrayList<Double>();
+
+        for (RatSighting rat: RatSighting.ratSightings) {
+
+            if (rat.getCreation_date() == null) {
+                continue;
+            }
+
+            if (rat.getCreation_date().compareTo((Calendar) FilteredDate.startDate) > 0 && rat.getCreation_date().compareTo((Calendar) FilteredDate.finishDate) < 0) {
+
+                lats.add(rat.getLocation().getLatitude());
+                longs.add(rat.getLocation().getLongitude());
+                dateRangeRats.add(rat);
+
+            }
+
+
+        }
+
+        for (int i = 0; i < dateRangeRats.size(); i++) {
+
+            mMap.addMarker(new MarkerOptions().position(new LatLng(lats.get(i), longs.get(i))).title("Rat " + dateRangeRats.get(i).getKey()));
+
+        }
+
+        mMap.moveCamera(CameraUpdateFactory.newLatLng(new LatLng(lats.get(0), longs.get(0))));
+
+        /*
         ArrayList<Double> latitudes = new ArrayList<Double>();
         ArrayList<Double> longitudes = new ArrayList<Double>();
 
@@ -57,13 +90,13 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         for (int i = 0; i < latitudes.size(); i++) {
             mMap.addMarker(new MarkerOptions().position(new LatLng(latitudes.get(i), longitudes.get(i))).title("Rat " + RatSighting.ratSightings.get(i).getKey()));
 
-            if (++count == 20) {
+            if (++count == 0) {
                 break;
             }
         }
 
         mMap.moveCamera(CameraUpdateFactory.newLatLng(new LatLng(latitudes.get(1), longitudes.get(1))));
-
+        */
 
     }
 }
