@@ -9,15 +9,14 @@ import android.widget.TextView;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
 import java.util.Calendar;
 
 import cs2340.rat_app.R;
 import cs2340.rat_app.model.RatSighting;
-
-
-/**
- * Created by colton on 10/23/17.
- */
+import cs2340.rat_app.model.RatSightingRaw;
 
 public class AddSightingActivity extends AppCompatActivity {
 
@@ -35,6 +34,7 @@ public class AddSightingActivity extends AppCompatActivity {
     private EditText longitudeField;
     private Button backButton;
     private Button addRat;
+    private DatabaseReference mDatabase;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -181,7 +181,10 @@ public class AddSightingActivity extends AppCompatActivity {
                         cityField.getText().toString(),
                         latitudeField.getText().toString(),
                         longitudeField.getText().toString());
-                RatSighting.ratSightings.add(0, newSighting);
+                RatSightingRaw raw = new RatSightingRaw(newSighting);
+                mDatabase = FirebaseDatabase.getInstance().getReference();
+                DatabaseReference newRequestReferenece = mDatabase.child("rat_sightings").push();
+                newRequestReferenece.setValue(raw);
                 Toast.makeText(AddSightingActivity.this, "Rat Report Added",
                         Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(getOuter(), HomeActivity.class);

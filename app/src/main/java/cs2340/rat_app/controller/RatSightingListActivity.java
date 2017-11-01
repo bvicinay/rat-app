@@ -3,7 +3,7 @@ package cs2340.rat_app.controller;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.os.*;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -11,20 +11,22 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.TextView;
-import android.content.Intent;
 import android.widget.LinearLayout;
 
-import java.text.DecimalFormat;
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
+import com.google.firebase.database.ChildEventListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
+
 import java.util.ArrayList;
 
 import cs2340.rat_app.R;
 import cs2340.rat_app.model.RatSighting;
+import cs2340.rat_app.model.RatSightingRaw;
 
 public class RatSightingListActivity extends AppCompatActivity {
 
@@ -32,6 +34,12 @@ public class RatSightingListActivity extends AppCompatActivity {
     private RecyclerView sightingsRecyclerView;
     private RecyclerView.Adapter adapter;
     private RecyclerView.LayoutManager layoutManager;
+
+    private FloatingActionButton addSighting;
+
+    //Firebase
+    private DatabaseReference mDatabase;
+    private ValueEventListener sightingsListener;
 
     private static final String TAG = "RatSightingListActivity";
 
@@ -55,8 +63,18 @@ public class RatSightingListActivity extends AppCompatActivity {
         sightingsRecyclerView.setAdapter(adapter);
 
         if (RatSighting.ratSightings.size() < 10) {
-            new LoadLocalData().execute();
+            new LoadLocalData().execute(100);
         }
+
+        //When add sighting fab button is pressed
+        addSighting = (FloatingActionButton) findViewById(R.id.fab_add_sighting);
+        addSighting.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getOuter(), AddSightingActivity.class);
+                startActivity(intent);
+            }
+        });
 
 
         viewMap = (Button) findViewById(R.id.map_button);
@@ -67,6 +85,28 @@ public class RatSightingListActivity extends AppCompatActivity {
             }
         });
 
+    }
+    private void importFromDatabase() {
+        mDatabase = FirebaseDatabase.getInstance().getReference();
+        Query ratSightingsQuery = mDatabase.child("rat_sightings").limitToFirst(100);
+        ratSightingsQuery.addChildEventListener(new ChildEventListener() {
+            @Override
+            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+                RatSightingRaw raw_sighting = dataSnapshot.getValue(RatSightingRaw.class);
+
+                RatSighting sighting = new RatSighting(raw_sighting);
+                RatSighting.ratSightings.add(0, sighting);
+                adapter.notifyDataSetChanged();
+            }
+            @Override
+            public void onChildChanged(DataSnapshot dataSnapshot, String s) { }
+            @Override
+            public void onChildRemoved(DataSnapshot dataSnapshot) { }
+            @Override
+            public void onChildMoved(DataSnapshot dataSnapshot, String s) { }
+            @Override
+            public void onCancelled(DatabaseError databaseError) { }
+        });
     }
 
     public class RatSightingAdapter extends RecyclerView.Adapter<RatSightingAdapter.ViewHolder> {
@@ -120,6 +160,7 @@ public class RatSightingListActivity extends AppCompatActivity {
             holder.layout.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View v) {
                     Intent intent = new Intent(getOuter(), RatReportActivity.class);
+                    RatSighting selected = dataSet.get(position);
                     intent.putExtra("RatSighting", dataSet.get(position));
                     startActivity(intent);
                 }
@@ -135,56 +176,51 @@ public class RatSightingListActivity extends AppCompatActivity {
 
     }
 
-    //AsynchTask that loads in csv file and creates RatSightings with each lines
-    public class LoadLocalData extends AsyncTask<String, Void, Integer> {
+    // AsyncTask that loads in data from Firebase
+    public class LoadLocalData extends AsyncTask<Integer, Void, Integer> {
 
         @Override
         protected void onPreExecute() {
-
+            mDatabase = FirebaseDatabase.getInstance().getReference();
         }
 
+        @Override
+        protected Integer doInBackground(Integer... params) {
+            Query ratSightingsQuery = mDatabase.child("rat_sightings").limitToFirst(params[0]);
+            ratSightingsQuery.addChildEventListener(new ChildEventListener() {
+                @Override
+                public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+                    RatSightingRaw raw_sighting = dataSnapshot.getValue(RatSightingRaw.class);
+                    RatSighting sighting = new RatSighting(raw_sighting);
+                    RatSighting.ratSightings.add(0, sighting);
+                    adapter.notifyDataSetChanged();
+                }
+                @Override
+                public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+                    RatSightingRaw raw_sighting = dataSnapshot.getValue(RatSightingRaw.class);
+                    RatSighting sighting = new RatSighting(raw_sighting);
+                    int i = RatSighting.ratSightings.indexOf(sighting);
+                    RatSighting.ratSightings.remove(sighting);
+                    RatSighting.ratSightings.add(i, sighting);
+                    adapter.notifyDataSetChanged();
+                }
+                @Override
+                public void onChildRemoved(DataSnapshot dataSnapshot) {
+                    RatSightingRaw raw_sighting = dataSnapshot.getValue(RatSightingRaw.class);
+                    RatSighting sighting = new RatSighting(raw_sighting);
+                    RatSighting.ratSightings.remove(sighting);
+                    adapter.notifyDataSetChanged();
+                }
+                @Override
+                public void onChildMoved(DataSnapshot dataSnapshot, String s) {      }
+                @Override
+                public void onCancelled(DatabaseError databaseError) { }
+            });
+            return 1;
+        }
         @Override
         protected void onPostExecute(Integer result) {
             adapter.notifyDataSetChanged();
-        }
-
-        @Override
-        protected Integer doInBackground(String... params) {
-            int count = 1;
-            try {
-                InputStream inputStream = getResources().openRawResource(R.raw.sightings);
-                BufferedReader br = new BufferedReader(new InputStreamReader(inputStream));
-                br.readLine(); // skip first line
-                String line = br.readLine();
-                String[] data;
-
-                while (line != null && count <= 500) {
-                    if (isCancelled()) break;
-                    data = line.split(",");
-                    try {
-                        RatSighting newr = new RatSighting(Integer.parseInt(data[0]), data[1], data[7],
-                                data[9], data[23], Integer.parseInt(data[8]), data[16], data[49], data[50]);
-                        RatSighting.ratSightings.add(0, newr);
-                        if (count % 100 == 0) {
-                            adapter.notifyDataSetChanged();
-                        }
-                    } catch (Exception e) {
-                        // Skip item if data is invalid
-                        Log.d(TAG, "Could not parse data point: " + e.getMessage(), e);
-                    }
-
-                    //adapter.notifyDataSetChanged();
-                    line = br.readLine();
-                    count++;
-                    Log.d(TAG, data[0]);
-
-                }
-                return count;
-
-            } catch (IOException e) {
-                Log.d(TAG, e.getMessage(), e);
-            }
-            return count;
         }
 
     }
@@ -198,3 +234,5 @@ public class RatSightingListActivity extends AppCompatActivity {
     }
 
 }
+
+
