@@ -91,7 +91,7 @@ public class AddSightingActivity extends AppCompatActivity {
         String month = Integer.toString(creation_date.get(Calendar.MONTH));
         String day = Integer.toString(creation_date.get(Calendar.DATE));
         String year = Integer.toString(creation_date.get(Calendar.YEAR));
-        return month + "/" + day + "/" + year;
+        return (Integer.parseInt(month) + 1) + "/" + day + "/" + year;
     }
 
     /**

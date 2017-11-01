@@ -39,6 +39,13 @@ public class RatSightingRaw {
     }
 
     /**
+     * No-arg constructor for firebase
+     */
+    public RatSightingRaw(){
+
+    }
+
+    /**
      * Returns String of location_type
      * @return location_type
      */
