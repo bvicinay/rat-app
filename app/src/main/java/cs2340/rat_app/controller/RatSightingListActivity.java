@@ -95,7 +95,6 @@ public class RatSightingListActivity extends AppCompatActivity {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
                 RatSightingRaw raw_sighting = dataSnapshot.getValue(RatSightingRaw.class);
-
                 RatSighting sighting = new RatSighting(raw_sighting);
                 RatSighting.ratSightings.add(0, sighting);
                 adapter.notifyDataSetChanged();
