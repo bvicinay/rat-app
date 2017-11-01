@@ -15,4 +15,10 @@
     android:layout_height="400dp"
     tools:context="cs2340.rat_app.controller.MapsActivity" />
 
+    <Button
+        android:id="@+id/map_back_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Back" />
+
 </LinearLayout>
