@@ -8,8 +8,13 @@ import java.util.ArrayList;
 
 public class RatList {
 
+    //ratSighting singleton
     public static ArrayList<RatSighting> ratSightings = new ArrayList<>();
 
+    /**
+     * returns the singleton
+     * @return arraylist of ratsightings
+     */
     static ArrayList<RatSighting> getInstance() {
         return ratSightings;
     }

@@ -21,12 +21,10 @@ public class RatSightingRaw {
     private String latitude;
     private String longitude;
 
-    public String getLocation_type() {
-        return location_type;
-    }
-
-    public RatSightingRaw() {}
-
+    /**
+     * Constructor called from a ratRighting
+     * @param sighting the ratSighting being constructed from
+     */
     public RatSightingRaw(RatSighting sighting) {
         key = Integer.toString(sighting.getKey());
         borough = sighting.getAddress().getBorough();
@@ -40,34 +38,72 @@ public class RatSightingRaw {
 
     }
 
-    public static ArrayList<RatSightingRaw> ratSightings = new ArrayList<>();
+    /**
+     * Returns String of location_type
+     * @return location_type
+     */
+    public String getLocation_type() {
+        return location_type;
+    }
 
+    /**
+     * returns key of string
+     * @return key
+     */
     public String getKey() { return key; }
 
+    /**
+     * return string of borough
+     * @return borough
+     */
     public String getBorough() {
         return borough;
     }
 
+    /**
+     * return string of city
+     * @return city
+     */
     public String getCity() {
         return city;
     }
 
+    /**
+     * returns string of creation_date
+     * @return created_date
+     */
     public String getCreated_date() {
         return created_date;
     }
 
+    /**
+     * returns string of address
+     * @return address
+     */
     public String getIncident_address() {
         return incident_address;
     }
 
+    /**
+     * returns string of zip_code
+     * @return zip_code
+     */
     public String getIncident_zip() {
         return incident_zip;
     }
 
+    /**
+     * returns string of latitude
+     * @return latitude
+     */
     public String getLatitude() {
         return latitude;
     }
 
+    /**
+     * returns string of longitude
+     * @return longitude
+     */
     public String getLongitude() {
         return longitude;
     }

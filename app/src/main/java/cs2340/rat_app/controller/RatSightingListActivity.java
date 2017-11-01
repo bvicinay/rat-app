@@ -88,6 +88,10 @@ public class RatSightingListActivity extends AppCompatActivity {
         });
 
     }
+
+    /**
+     * populates the singleton with first 100 items from database
+     */
     private void importFromDatabase() {
         mDatabase = FirebaseDatabase.getInstance().getReference();
         Query ratSightingsQuery = mDatabase.child("rat_sightings").limitToFirst(100);
@@ -152,7 +156,6 @@ public class RatSightingListActivity extends AppCompatActivity {
             return vh;
         }
 
-        // TODO: pass RatSighting to intent
         @Override
         public void onBindViewHolder(ViewHolder holder, final int position) {
             holder.itemTitle.setText(dataSet.get(position).getTitle());

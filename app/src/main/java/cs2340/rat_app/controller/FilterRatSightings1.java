@@ -44,5 +44,9 @@ public class FilterRatSightings1 extends AppCompatActivity {
 
     }
 
+    /**
+     * outer method that returns instance of this class
+     * @return FilterRatSightings1
+     */
     private FilterRatSightings1 getOuter() { return this; }
 }

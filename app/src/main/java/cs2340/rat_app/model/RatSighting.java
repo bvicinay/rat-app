@@ -83,33 +83,60 @@ public class RatSighting implements Parcelable {
         return "Key: " + key + " - " + address.getBorough() + ", " + address.getCity();
     }
 
-    //Getters
+    /**
+     * Key getter
+     * @return key
+     */
     public int getKey() {
         return key;
     }
 
+    /**
+     * Calendar object getter
+     * @return creation_date
+     */
     public Calendar getCreation_date() {
         return creation_date;
     }
 
+    /**
+     * location_type getter
+     * @return location_type
+     */
     public String getLocation_type() {
         return location_type;
     }
 
+    /**
+     * address getter
+     * @return address
+     */
     public Address getAddress() {
         return address;
     }
 
+    /**
+     * location getter
+     * @return location
+     */
     public Location getLocation() {
         return location;
     }
 
     private static final String TAG = "RatSighting";
 
+    /**
+     * city getter
+     * @return city
+     */
     public String getTitle() {
         return address.getCity();
     }
 
+    /**
+     * Street getter
+     * @return Street
+     */
     public String getStreet() {
         return address.getStreet();
     }
