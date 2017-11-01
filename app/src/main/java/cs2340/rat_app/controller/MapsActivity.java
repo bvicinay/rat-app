@@ -1,7 +1,9 @@
 package cs2340.rat_app.controller;
 
+import android.os.AsyncTask;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
+import android.util.Log;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -10,17 +12,20 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
+import com.google.firebase.database.FirebaseDatabase;
+
 import java.util.Calendar;
 
 import java.util.ArrayList;
 
 import cs2340.rat_app.R;
 import cs2340.rat_app.model.FilteredDate;
+import cs2340.rat_app.model.RatList;
 import cs2340.rat_app.model.RatSighting;
 
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
 
-    private GoogleMap mMap;
+    protected GoogleMap mMap;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,58 +50,50 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
+        try {
+            ArrayList<RatSighting> dateRangeRats = new ArrayList<RatSighting>();
 
+            for (RatSighting rat : RatList.ratSightings) {
 
-        ArrayList<RatSighting> dateRangeRats = new ArrayList<RatSighting>();
-        ArrayList<Double> lats = new ArrayList<Double>();
-        ArrayList<Double> longs = new ArrayList<Double>();
+                if (rat.getCreation_date() == null) {
+                    continue;
+                }
+                if (rat.getCreation_date().compareTo(FilteredDate.startDate) > 0 &&
+                        rat.getCreation_date().compareTo(FilteredDate.finishDate) < 0) {
 
-        for (RatSighting rat: RatSighting.ratSightings) {
-
-            if (rat.getCreation_date() == null) {
-                continue;
+                    dateRangeRats.add(rat);
+                }
             }
 
-            if (rat.getCreation_date().compareTo((Calendar) FilteredDate.startDate) > 0 && rat.getCreation_date().compareTo((Calendar) FilteredDate.finishDate) < 0) {
-
-                lats.add(rat.getLocation().getLatitude());
-                longs.add(rat.getLocation().getLongitude());
-                dateRangeRats.add(rat);
-
+            for (int i = 0; i < dateRangeRats.size(); i++) {
+                mMap.addMarker(new MarkerOptions().position(new LatLng(dateRangeRats.get(i).
+                        getLocation().getLatitude(), dateRangeRats.get(i).getLocation().
+                        getLongitude())).title("Rat " + dateRangeRats.get(i).getKey()));
             }
 
+            mMap.moveCamera(CameraUpdateFactory.newLatLng(new LatLng(dateRangeRats.get(0).
+                    getLocation().getLatitude(), dateRangeRats.get(0).getLocation().getLongitude())));
+        } catch(Exception e) {
+            Log.d("Exception", "no data in the range", e);
+        }
+    }
+
+    public class LoadLocalData extends AsyncTask<Integer, Void, Integer> {
+
+        @Override
+        protected void onPreExecute() {
 
         }
 
-        for (int i = 0; i < dateRangeRats.size(); i++) {
-
-            mMap.addMarker(new MarkerOptions().position(new LatLng(lats.get(i), longs.get(i))).title("Rat " + dateRangeRats.get(i).getKey()));
-
+        @Override
+        protected Integer doInBackground(Integer... params) {
+            return 1;
         }
 
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(new LatLng(lats.get(0), longs.get(0))));
+        @Override
+        protected void onPostExecute(Integer result) {
 
-        /*
-        ArrayList<Double> latitudes = new ArrayList<Double>();
-        ArrayList<Double> longitudes = new ArrayList<Double>();
-
-        for (RatSighting rat: RatSighting.ratSightings) {
-            latitudes.add(rat.getLocation().getLatitude());
-            longitudes.add(rat.getLocation().getLongitude());
         }
-
-        int count = 0;
-
-        for (int i = 0; i < latitudes.size(); i++) {
-            mMap.addMarker(new MarkerOptions().position(new LatLng(latitudes.get(i), longitudes.get(i))).title("Rat " + RatSighting.ratSightings.get(i).getKey()));
-
-            if (++count == 0) {
-                break;
-            }
-        }
-
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(new LatLng(latitudes.get(1), longitudes.get(1))));
-        */
 
     }
 }

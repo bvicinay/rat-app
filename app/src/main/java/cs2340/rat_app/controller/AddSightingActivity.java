@@ -17,6 +17,7 @@ import java.util.Calendar;
 import cs2340.rat_app.R;
 import cs2340.rat_app.model.RatSighting;
 import cs2340.rat_app.model.RatSightingRaw;
+import cs2340.rat_app.model.RatList;
 
 public class AddSightingActivity extends AppCompatActivity {
 
@@ -66,8 +67,8 @@ public class AddSightingActivity extends AppCompatActivity {
 
         creation_date = Calendar.getInstance();
         date.setText(getDateStr());
-        if (RatSighting.ratSightings.size() > 0) {
-            int key1 = RatSighting.ratSightings.get(0).getKey() + 1;
+        if (RatList.ratSightings.size() > 0) {
+            int key1 = RatList.ratSightings.get(0).getKey() + 1;
             key.setText(Integer.toString(key1));
         }
 

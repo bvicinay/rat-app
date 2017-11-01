@@ -7,7 +7,6 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,6 +25,7 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 
 import cs2340.rat_app.R;
+import cs2340.rat_app.model.RatList;
 import cs2340.rat_app.model.RatSighting;
 import cs2340.rat_app.model.RatSightingRaw;
 
@@ -63,12 +63,10 @@ public class RatSightingListActivity extends AppCompatActivity {
         layoutManager = new LinearLayoutManager(this);
         sightingsRecyclerView.setLayoutManager(layoutManager);
 
-        adapter = new RatSightingAdapter(RatSighting.ratSightings);
+        adapter = new RatSightingAdapter(RatList.ratSightings);
         sightingsRecyclerView.setAdapter(adapter);
 
-        if (RatSighting.ratSightings.size() < 10) {
-            new LoadLocalData().execute(100);
-        }
+        new LoadLocalData().execute(100);
 
         //When add sighting fab button is pressed
         addSighting = (FloatingActionButton) findViewById(R.id.fab_add_sighting);
@@ -98,7 +96,7 @@ public class RatSightingListActivity extends AppCompatActivity {
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
                 RatSightingRaw raw_sighting = dataSnapshot.getValue(RatSightingRaw.class);
                 RatSighting sighting = new RatSighting(raw_sighting);
-                RatSighting.ratSightings.add(0, sighting);
+                RatList.ratSightings.add(0, sighting);
                 adapter.notifyDataSetChanged();
             }
             @Override
@@ -195,23 +193,23 @@ public class RatSightingListActivity extends AppCompatActivity {
                 public void onChildAdded(DataSnapshot dataSnapshot, String s) {
                     RatSightingRaw raw_sighting = dataSnapshot.getValue(RatSightingRaw.class);
                     RatSighting sighting = new RatSighting(raw_sighting);
-                    RatSighting.ratSightings.add(0, sighting);
+                    RatList.ratSightings.add(0, sighting);
                     adapter.notifyDataSetChanged();
                 }
                 @Override
                 public void onChildChanged(DataSnapshot dataSnapshot, String s) {
                     RatSightingRaw raw_sighting = dataSnapshot.getValue(RatSightingRaw.class);
                     RatSighting sighting = new RatSighting(raw_sighting);
-                    int i = RatSighting.ratSightings.indexOf(sighting);
-                    RatSighting.ratSightings.remove(sighting);
-                    RatSighting.ratSightings.add(i, sighting);
+                    int i = RatList.ratSightings.indexOf(sighting);
+                    RatList.ratSightings.remove(sighting);
+                    RatList.ratSightings.add(i, sighting);
                     adapter.notifyDataSetChanged();
                 }
                 @Override
                 public void onChildRemoved(DataSnapshot dataSnapshot) {
                     RatSightingRaw raw_sighting = dataSnapshot.getValue(RatSightingRaw.class);
                     RatSighting sighting = new RatSighting(raw_sighting);
-                    RatSighting.ratSightings.remove(sighting);
+                    RatList.ratSightings.remove(sighting);
                     adapter.notifyDataSetChanged();
                 }
                 @Override

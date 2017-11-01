@@ -20,8 +20,6 @@ public class RatSighting implements Parcelable {
     private String location_type;
     private Address address;
     private Location location;
-    //singleton
-    public static ArrayList<RatSighting> ratSightings = new ArrayList<>();
 
     /**
      * RatSighting constructor called by parcel

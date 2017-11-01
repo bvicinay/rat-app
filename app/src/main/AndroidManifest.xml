@@ -67,7 +67,8 @@
 
         <activity
             android:name=".controller.MapsActivity"
-            android:label="@string/title_activity_maps" />
+            android:label="@string/title_activity_maps"
+            android:parentActivityName=".controller.HomeActivity"/>
         <activity android:name=".controller.FilterRatSightings1" />
         <activity android:name=".controller.FilterRatSightings2"></activity>
     </application>

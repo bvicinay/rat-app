@@ -1,14 +1,17 @@
 package cs2340.rat_app.model;
 
+import java.util.ArrayList;
+
 /**
  * Created by colton on 10/25/17.
  */
 
-class RatList {
-    private static final RatList ourInstance = new RatList();
+public class RatList {
 
-    static RatList getInstance() {
-        return ourInstance;
+    public static ArrayList<RatSighting> ratSightings = new ArrayList<>();
+
+    static ArrayList<RatSighting> getInstance() {
+        return ratSightings;
     }
 
     private RatList() {
