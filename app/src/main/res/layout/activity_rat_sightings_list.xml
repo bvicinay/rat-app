@@ -27,13 +27,3 @@
     </android.support.design.widget.CoordinatorLayout>
 
 
-    <Button
-        android:id="@+id/map_button"
-        android:layout_width="match_parent"
-        android:layout_height="93dp"
-        android:layout_weight="1"
-        android:text="Go to Map" />
-
-</LinearLayout>
-
-
