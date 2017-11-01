@@ -112,4 +112,13 @@
         android:layout_alignEnd="@+id/create_rat"
         android:layout_alignStart="@+id/create_rat" />
 
+    <TextView
+        android:id="@+id/error_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="38dp"
+        android:text="" />
+
 </RelativeLayout>
