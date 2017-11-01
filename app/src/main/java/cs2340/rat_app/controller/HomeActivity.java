@@ -10,7 +10,7 @@ import cs2340.rat_app.R;
 
 public class HomeActivity extends AppCompatActivity {
 
-    Button viewRatSightings, backButton, addRatSighting, viewMap;
+    Button viewRatSightings, backButton, addRatSighting;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,13 +42,7 @@ public class HomeActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-        viewMap = (Button) findViewById(R.id.view_map);
-        viewMap.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                Intent intent = new Intent(getOuter(), MapsActivity.class);
-                startActivity(intent);
-            }
-        });
+
     }
 
     /**

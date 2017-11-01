@@ -62,7 +62,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             }
         }
 
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(new LatLng(latitudes.get(0), longitudes.get(0))));
+        mMap.moveCamera(CameraUpdateFactory.newLatLng(new LatLng(latitudes.get(1), longitudes.get(1))));
 
 
     }
