@@ -43,12 +43,14 @@ public class RatSightingListActivity extends AppCompatActivity {
 
     private static final String TAG = "RatSightingListActivity";
 
+    //Button viewMap;
+
     @Override
     protected void onResume() {
         super.onResume();
         adapter.notifyDataSetChanged();
     }
-    Button viewMap;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -77,13 +79,13 @@ public class RatSightingListActivity extends AppCompatActivity {
         });
 
 
-        viewMap = (Button) findViewById(R.id.map_button);
+        /*viewMap = (Button) findViewById(R.id.map_button);
         viewMap.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 Intent intent = new Intent(getOuter(), MapsActivity.class);
                 startActivity(intent);
             }
-        });
+        });*/
 
     }
     private void importFromDatabase() {
