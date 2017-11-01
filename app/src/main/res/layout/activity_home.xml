@@ -47,16 +47,5 @@
         android:layout_below="@+id/view_sightings"
         android:layout_centerHorizontal="true" />
 
-    <Button
-        android:id="@+id/seeMapButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="36dp"
-        android:text="See Map"
-        android:layout_below="@+id/logout"
-        android:layout_centerHorizontal="true" />
-
-
-
 
 </android.widget.RelativeLayout>
