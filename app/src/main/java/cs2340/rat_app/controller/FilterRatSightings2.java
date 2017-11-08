@@ -40,7 +40,7 @@ public class FilterRatSightings2 extends AppCompatActivity {
                     Intent intent = new Intent(getOuter(), MapsActivity.class);
                     startActivity(intent);
                 } else {
-                    Intent intent = new Intent(getOuter(), GraphActivity.class);
+                    Intent intent = new Intent(getOuter(), GraphViewActivity.class);
                     startActivity(intent);
                 }
             }
