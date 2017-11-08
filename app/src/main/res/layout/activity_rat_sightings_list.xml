@@ -10,28 +10,40 @@
 
         <Button
             android:id="@+id/map_button"
-            android:layout_width="222dp"
+            android:layout_width="169dp"
             android:layout_height="wrap_content"
             android:text="Go to Map"
             app:layout_anchor="@+id/RatSightings_list"
-            app:layout_anchorGravity="bottom|center"
-            tools:layout_editor_absoluteX="92dp" />
+            app:layout_anchorGravity="right|bottom"
+            tools:layout_editor_absoluteX="134dp" />
 
-        <android.support.v7.widget.RecyclerView
+    <Button
+        android:id="@+id/graph_button"
+        android:layout_width="162dp"
+        android:layout_height="wrap_content"
+        android:text="Go To Graph"
+        app:layout_anchor="@+id/RatSightings_list"
+        app:layout_anchorGravity="left|bottom" />
+
+    <android.support.v7.widget.RecyclerView
             android:id="@+id/RatSightings_list"
             android:scrollbars="vertical"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_weight="1" />
+            android:layout_weight="1" >
 
-        <android.support.design.widget.FloatingActionButton
-            android:id="@+id/fab_add_sighting"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom|right"
-            android:layout_marginBottom="@dimen/activity_vertical_margin"
-            android:layout_marginRight="@dimen/activity_horizontal_margin"
-            app:srcCompat="@drawable/ic_fab_add_icon" />
+    </android.support.v7.widget.RecyclerView>
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fab_add_sighting"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|right"
+        android:layout_marginBottom="@dimen/activity_vertical_margin"
+        android:layout_marginRight="@dimen/activity_horizontal_margin"
+        app:layout_anchor="@+id/RatSightings_list"
+        app:layout_anchorGravity="right|top"
+        app:srcCompat="@drawable/ic_fab_add_icon" />
 
     </android.support.design.widget.CoordinatorLayout>
 

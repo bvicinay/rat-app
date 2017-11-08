@@ -53,6 +53,7 @@ public class RatSightingListActivity extends AppCompatActivity {
     }
 
     Button viewMap;
+    Button viewGraph;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -83,6 +84,15 @@ public class RatSightingListActivity extends AppCompatActivity {
         viewMap.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 Intent intent = new Intent(getOuter(), FilterRatSightings1.class);
+                intent.putExtra("Check", 0);
+                startActivity(intent);
+            }
+        });
+        viewGraph = (Button) findViewById(R.id.graph_button);
+        viewGraph.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                Intent intent = new Intent(getOuter(), FilterRatSightings1.class);
+                intent.putExtra("Check", 1);
                 startActivity(intent);
             }
         });

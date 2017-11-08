@@ -16,6 +16,7 @@ public class FilterRatSightings2 extends AppCompatActivity {
 
     private Button next;
     private DatePicker datePicker;
+    private int id;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,9 +35,14 @@ public class FilterRatSightings2 extends AppCompatActivity {
                 Calendar endDate = Calendar.getInstance();
                 endDate.set(year, month, day);
                 FilteredDate.finishDate = endDate;
-
-                Intent intent = new Intent(getOuter(), MapsActivity.class);
-                startActivity(intent);
+                id = getIntent().getIntExtra("Check1", 0);
+                if (id == 0) {
+                    Intent intent = new Intent(getOuter(), MapsActivity.class);
+                    startActivity(intent);
+                } else {
+                    Intent intent = new Intent(getOuter(), GraphActivity.class);
+                    startActivity(intent);
+                }
             }
         });
 
