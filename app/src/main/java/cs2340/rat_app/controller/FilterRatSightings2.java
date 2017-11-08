@@ -32,9 +32,11 @@ public class FilterRatSightings2 extends AppCompatActivity {
                 int day = datePicker.getDayOfMonth();
                 int month = datePicker.getMonth() + 1;
                 int year = datePicker.getYear();
+
                 Calendar endDate = Calendar.getInstance();
                 endDate.set(year, month, day);
                 FilteredDate.finishDate = endDate;
+
                 id = getIntent().getIntExtra("Check1", 0);
                 if (id == 0) {
                     Intent intent = new Intent(getOuter(), MapsActivity.class);

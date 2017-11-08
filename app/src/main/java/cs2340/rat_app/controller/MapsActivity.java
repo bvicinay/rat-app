@@ -98,25 +98,5 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         }
     }
 
-    //Asynch task for populating the map
-    public class LoadLocalData extends AsyncTask<Integer, Void, Integer> {
-
-        @Override
-        protected void onPreExecute() {
-
-        }
-
-        @Override
-        protected Integer doInBackground(Integer... params) {
-            return 1;
-        }
-
-        @Override
-        protected void onPostExecute(Integer result) {
-
-        }
-
-    }
-
     private MapsActivity getOuter() { return this; }
 }

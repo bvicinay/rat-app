@@ -33,11 +33,12 @@ public class FilterRatSightings1 extends AppCompatActivity {
                 int day = datePicker.getDayOfMonth();
                 int month = datePicker.getMonth() + 1;
                 int year = datePicker.getYear();
+
                 Calendar startDate = Calendar.getInstance();
                 startDate.set(year, month, day);
                 FilteredDate.startDate = startDate;
-                id = getIntent().getIntExtra("Check", 0);
 
+                id = getIntent().getIntExtra("Check", 0);
                 Intent intent = new Intent(getOuter(),FilterRatSightings2.class);
                 intent.putExtra("Check1", id);
                 startActivity(intent);
