@@ -120,4 +120,5 @@
     <string name="title_ratsighting_list">RatSightings</string>
     <string name="title_ratsighting_detail">RatSighting Detail</string>
     <string name="title_activity_maps">Map</string>
+    <string name="title_activity_single_rat_maps">Map</string>
 </resources>

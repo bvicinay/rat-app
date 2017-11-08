@@ -61,6 +61,8 @@ public class RatReportActivity extends AppCompatActivity{
         longitude = (TextView) findViewById(R.id.longitude);
         longitude.setText("Longitude : " + df.format(curr.getLocation().getLongitude()));
 
+
+
     }
 
     /**
