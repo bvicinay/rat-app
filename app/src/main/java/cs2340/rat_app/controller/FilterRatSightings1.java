@@ -9,7 +9,6 @@ import android.widget.DatePicker;
 import java.util.Calendar;
 
 import cs2340.rat_app.R;
-import cs2340.rat_app.model.FilteredDate;
 
 public class FilterRatSightings1 extends AppCompatActivity {
 
@@ -31,11 +30,11 @@ public class FilterRatSightings1 extends AppCompatActivity {
 
             Calendar startDate = Calendar.getInstance();
             startDate.set(year, month, day);
-            FilteredDate.startDate = startDate;
 
             id = getIntent().getIntExtra("Check", 0);
             Intent intent = new Intent(getOuter(),FilterRatSightings2.class);
             intent.putExtra("Check1", id);
+            intent.putExtra("startDate" , startDate);
             startActivity(intent);
         });
 

@@ -48,8 +48,6 @@ public class RatSightingListActivity extends AppCompatActivity {
         adapter.notifyDataSetChanged();
     }
 
-    private Button viewMap;
-    private Button viewGraph;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -73,13 +71,13 @@ public class RatSightingListActivity extends AppCompatActivity {
         });
 
 
-        viewMap = (Button) findViewById(R.id.map_button);
+        Button viewMap = (Button) findViewById(R.id.map_button);
         viewMap.setOnClickListener(v -> {
             Intent intent = new Intent(getOuter(), FilterRatSightings1.class);
             intent.putExtra("Check", 0);
             startActivity(intent);
         });
-        viewGraph = (Button) findViewById(R.id.graph_button);
+        Button viewGraph = (Button) findViewById(R.id.graph_button);
         viewGraph.setOnClickListener(v -> {
             Intent intent = new Intent(getOuter(), FilterRatSightings1.class);
             intent.putExtra("Check", 1);

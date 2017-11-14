@@ -4,9 +4,9 @@ import com.jjoe64.graphview.GraphView;
 import com.jjoe64.graphview.helper.DateAsXAxisLabelFormatter;
 import com.jjoe64.graphview.series.DataPoint;
 import com.jjoe64.graphview.series.PointsGraphSeries;
+import com.jjoe64.graphview.series.Series;
 
 import cs2340.rat_app.R;
-import cs2340.rat_app.model.FilteredDate;
 import cs2340.rat_app.model.RatList;
 import cs2340.rat_app.model.RatSighting;
 
@@ -22,14 +22,11 @@ import java.util.Date;
 
 public class GraphViewActivity extends AppCompatActivity {
 
-    private HashMap<Calendar, Integer> ratSightingHashMap = new HashMap<>();
-    private PointsGraphSeries<DataPoint> series;
     public static Calendar min = RatList.ratSightings.get(0).getCreation_date();
     public static Calendar max = RatList.ratSightings.get(0).getCreation_date();
-    private Calendar startDate = FilteredDate.startDate;
-    private Calendar finishDate = FilteredDate.finishDate;
+    private Calendar startDate;
+    private Calendar finishDate;
     private List<RatSighting> sightings = RatList.getInstance();
-    private List<RatSighting> filteredList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,9 +34,11 @@ public class GraphViewActivity extends AppCompatActivity {
         setContentView(R.layout.activity_history_graph);
         GraphView graph = (GraphView) findViewById(R.id.graph);
         int j = 0;
-
-        filteredList = RatSighting.validateDateForGraph(sightings, startDate, finishDate);
-        ratSightingHashMap = RatSighting.setRatHashMap(filteredList);
+        startDate = getIntent().getSerializableExtra("startDate");
+        finishDate = getIntent().getSerializableExtra("endDate");
+        List<RatSighting> filteredList = RatSighting.validateDateForGraph(sightings, startDate,
+                finishDate);
+        HashMap<Calendar, Integer> ratSightingHashMap = RatSighting.setRatHashMap(filteredList);
 
         Set<Calendar> keys = ratSightingHashMap.keySet();
         DataPoint[] points = new DataPoint[keys.size()];
@@ -56,7 +55,7 @@ public class GraphViewActivity extends AppCompatActivity {
             points[i] = plot;
             i++;
         }
-        series = new PointsGraphSeries<>(points);
+        Series<DataPoint> series = new PointsGraphSeries<>(points);
         graph.addSeries(series);
         graph.getGridLabelRenderer().setLabelFormatter(new DateAsXAxisLabelFormatter(this));
         graph.getGridLabelRenderer().setNumHorizontalLabels(keys.size());

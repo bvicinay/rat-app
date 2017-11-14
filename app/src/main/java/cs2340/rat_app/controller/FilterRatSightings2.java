@@ -9,12 +9,12 @@ import android.widget.DatePicker;
 import java.util.Calendar;
 
 import cs2340.rat_app.R;
-import cs2340.rat_app.model.FilteredDate;
 
 public class FilterRatSightings2 extends AppCompatActivity {
 
     private DatePicker datePicker;
     private int id;
+    private Calendar startDate;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,14 +31,18 @@ public class FilterRatSightings2 extends AppCompatActivity {
 
             Calendar endDate = Calendar.getInstance();
             endDate.set(year, month, day);
-            FilteredDate.finishDate = endDate;
 
             id = getIntent().getIntExtra("Check1", 0);
+            startDate = getIntent().getSerializableExtra("startDate", 0);
             if (id == 0) {
                 Intent intent = new Intent(getOuter(), MapsActivity.class);
+                intent.putExtra("startDate", startDate);
+                intent.putExtra("endDate", endDate);
                 startActivity(intent);
             } else {
                 Intent intent = new Intent(getOuter(), GraphViewActivity.class);
+                intent.putExtra("startDate", startDate);
+                intent.putExtra("endDate", endDate);
                 startActivity(intent);
             }
         });
