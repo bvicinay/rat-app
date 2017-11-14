@@ -6,7 +6,7 @@ import java.io.Serializable;
  * Account is the class that represents an account in the system. Each account has a username,
  * password, account type, first name, last name, and email
  */
-public class Account implements Serializable {
+class Account implements Serializable {
 
     //Credentials
     private String userName;

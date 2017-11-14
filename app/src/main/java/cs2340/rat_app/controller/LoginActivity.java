@@ -80,7 +80,7 @@ public class LoginActivity extends AppCompatActivity {
      * will call sign in (which attempts to login using Firebase authentication)- else, the login
      * is aborted
      */
-    public void login() {
+    private void login() {
         // Reset errors
         emailField.setError(null);
         passwordField.setError(null);
@@ -95,7 +95,7 @@ public class LoginActivity extends AppCompatActivity {
      * called if login attempt is successful - calls new intent
      * @param user the user that has logged in
      */
-    public void proceedLogin(FirebaseUser user) {
+    private void proceedLogin(FirebaseUser user) {
         Toast.makeText(LoginActivity.this, "Signed-in",
                 Toast.LENGTH_SHORT).show();
         Intent intent = new Intent(this, HomeActivity.class);
@@ -107,7 +107,7 @@ public class LoginActivity extends AppCompatActivity {
     /**
      * called if there is an unsuccessful login attempt- clears login password field
      */
-    public void abortLogin() {
+    private void abortLogin() {
         passwordField.setText("");
     }
 
@@ -156,7 +156,7 @@ public class LoginActivity extends AppCompatActivity {
      * @param email the email entered in
      * @param password the password entered in
      */
-     public void signin(String email, String password) {
+    private void signin(String email, String password) {
         mAuth.signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this, task -> {
                     Log.d(TAG, "signInWithEmail:onComplete:" + task.isSuccessful());

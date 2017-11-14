@@ -22,14 +22,14 @@ import java.util.Date;
 
 public class GraphViewActivity extends AppCompatActivity {
 
-    HashMap<Calendar, Integer> ratSightingHashMap = new HashMap<>();
-    PointsGraphSeries<DataPoint> series;
+    private HashMap<Calendar, Integer> ratSightingHashMap = new HashMap<>();
+    private PointsGraphSeries<DataPoint> series;
     public static Calendar min = RatList.ratSightings.get(0).getCreation_date();
     public static Calendar max = RatList.ratSightings.get(0).getCreation_date();
-    Calendar startDate = FilteredDate.startDate;
-    Calendar finishDate = FilteredDate.finishDate;
-    List<RatSighting> sightings = RatList.getInstance();
-    List<RatSighting> filteredList;
+    private Calendar startDate = FilteredDate.startDate;
+    private Calendar finishDate = FilteredDate.finishDate;
+    private List<RatSighting> sightings = RatList.getInstance();
+    private List<RatSighting> filteredList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -89,14 +89,6 @@ public class GraphViewActivity extends AppCompatActivity {
     public GraphViewActivity getOuter() {
             return this;
         }
-
-    public void setMin(RatSighting rat) {
-        min = rat.getCreation_date();
-    }
-
-    public void setMax(RatSighting rat) {
-        max = rat.getCreation_date();
-    }
 
 }
 

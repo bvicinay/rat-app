@@ -23,7 +23,7 @@ import cs2340.rat_app.model.RatSighting;
 
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
 
-    protected GoogleMap mMap;
+    private GoogleMap mMap;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,27 +62,23 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         mMap = googleMap;
         try {
             List<RatSighting> sightings = RatList.getInstance();
-            List<RatSighting> dateRangeRats = new ArrayList<>();
+            List<RatSighting> dateRangeRats;
 
-            for (RatSighting rat : sightings) {
+            dateRangeRats = RatSighting.validateDateForGraph(sightings, FilteredDate.startDate,
+                    FilteredDate.finishDate);
 
-                if (rat.validateDateForGraph(rat, FilteredDate.startDate,
-                        FilteredDate.finishDate)) {
-                    dateRangeRats.add(rat);
-                }
-            }
+            mMap = RatSighting.filterMap(mMap, dateRangeRats);
 
-            for (int i = 0; i < dateRangeRats.size(); i++) {
-                mMap.addMarker(new MarkerOptions().position(new LatLng(dateRangeRats.get(i).
-                        getLocation().getLatitude(), dateRangeRats.get(i).getLocation().
-                        getLongitude())).title("Rat " + dateRangeRats.get(i).getKey()));
-            }
+            updateMapView(mMap, dateRangeRats);
 
-            mMap.moveCamera(CameraUpdateFactory.newLatLng(new LatLng(dateRangeRats.get(0).
-                    getLocation().getLatitude(), dateRangeRats.get(0).getLocation().getLongitude())));
         } catch(Exception e) {
             Log.d("Exception", "no data in the range", e);
         }
+    }
+
+    public void updateMapView(GoogleMap mMap, List<RatSighting> dateRangeRats) {
+        mMap.moveCamera(CameraUpdateFactory.newLatLng(new LatLng(dateRangeRats.get(0).
+                getLocation().getLatitude(), dateRangeRats.get(0).getLocation().getLongitude())));
     }
 
     private MapsActivity getOuter() { return this; }

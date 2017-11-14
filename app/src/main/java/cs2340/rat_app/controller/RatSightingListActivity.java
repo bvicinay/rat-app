@@ -48,8 +48,8 @@ public class RatSightingListActivity extends AppCompatActivity {
         adapter.notifyDataSetChanged();
     }
 
-    Button viewMap;
-    Button viewGraph;
+    private Button viewMap;
+    private Button viewGraph;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

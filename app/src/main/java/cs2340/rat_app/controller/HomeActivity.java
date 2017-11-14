@@ -9,9 +9,9 @@ import cs2340.rat_app.R;
 
 public class HomeActivity extends AppCompatActivity {
 
-    Button viewRatSightings;
-    Button backButton;
-    Button addRatSighting;
+    private Button viewRatSightings;
+    private Button backButton;
+    private Button addRatSighting;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

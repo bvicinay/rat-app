@@ -91,7 +91,7 @@ public class RegisterActivity extends AppCompatActivity {
      * Register method- called when person attempts to register a new user- if successful,
      * registers them- else clears password field
      */
-    public void register() {
+    private void register() {
         if (validateData()) {
             createAccount(emailField.getText().toString(), passwordField.getText().toString());
         } else {
@@ -106,7 +106,7 @@ public class RegisterActivity extends AppCompatActivity {
      * @param password the password of the registered account
      * @param user the new firebase user
      */
-    public void proceedRegister(String email, String password, FirebaseUser user) {
+    private void proceedRegister(String email, String password, FirebaseUser user) {
         Intent intent = new Intent(this, LoginActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(intent);
@@ -116,7 +116,7 @@ public class RegisterActivity extends AppCompatActivity {
     /**
      * Called if registration attempt is unsuccessful- clears password field
      */
-    public void abortRegister() {
+    private void abortRegister() {
         passwordField.setText("");
     }
 
@@ -125,7 +125,7 @@ public class RegisterActivity extends AppCompatActivity {
      * are acceptable. Prints on the app what needs to be fixed if something is wrong.
      * @return true if all data is acceptable, false otherwise.
      */
-    public boolean validateData() {
+    private boolean validateData() {
         String first = firstField.getText().toString();
         String last = lastField.getText().toString();
         String email = emailField.getText().toString();

@@ -5,6 +5,10 @@ import android.os.Parcel;
 import android.os.Parcelable;
 import android.util.Log;
 
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -25,7 +29,7 @@ public class RatSighting implements Parcelable {
      * RatSighting constructor called by parcel
      * @param p the parcel being passed through
      */
-    public RatSighting(Parcel p) {
+    private RatSighting(Parcel p) {
         key = p.readInt();
         creation_date = (Calendar) p.readSerializable();
         location_type = p.readString();
@@ -206,14 +210,14 @@ public class RatSighting implements Parcelable {
         return filteredList;
     }
 
-    public static Calendar checkIfMin(RatSighting rat, Calendar min) {
+    private static Calendar checkIfMin(RatSighting rat, Calendar min) {
         if (rat.getCreation_date().compareTo(min) < 0) {
             return rat.getCreation_date();
         }
         return min;
     }
 
-    public static Calendar checkIfMax(RatSighting rat, Calendar max) {
+    private static Calendar checkIfMax(RatSighting rat, Calendar max) {
         if (rat.getCreation_date().compareTo(max) > 0) {
             return rat.getCreation_date();
         }
@@ -238,11 +242,22 @@ public class RatSighting implements Parcelable {
         return ratSightingHashMap;
     }
 
-    public int getMonth() {
+    public static GoogleMap filterMap(GoogleMap mMap, List<RatSighting> dateRangeRats) {
+        for (int i = 0; i < dateRangeRats.size(); i++) {
+            try {
+                mMap.addMarker(new MarkerOptions().position(new LatLng(dateRangeRats.get(i).
+                        getLocation().getLatitude(), dateRangeRats.get(i).getLocation().
+                        getLongitude())).title("Rat " + dateRangeRats.get(i).getKey()));
+            } catch(Exception e){}
+        }
+        return mMap;
+    }
+
+    private int getMonth() {
         return creation_date.get(Calendar.MONTH);
     }
 
-    public int getYear() {
+    private int getYear() {
         return creation_date.get(Calendar.YEAR);
     }
 }
