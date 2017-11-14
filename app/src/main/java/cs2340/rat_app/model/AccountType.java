@@ -12,7 +12,6 @@ public enum AccountType {
      * @param name String that will be used to determine the type of the account.
      */
     AccountType(String name) {
-        String name1 = name;
     }
 
     //public String getName() {return name;}

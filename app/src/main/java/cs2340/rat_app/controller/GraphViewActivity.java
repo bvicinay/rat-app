@@ -22,7 +22,7 @@ import java.util.Date;
 
 public class GraphViewActivity extends AppCompatActivity {
 
-    private List<RatSighting> sightings = RatList.getInstance();
+    private final List<RatSighting> sightings = RatList.getInstance();
     private static Calendar min;
     private static Calendar max;
 
@@ -103,7 +103,7 @@ public class GraphViewActivity extends AppCompatActivity {
         max = newMax;
     }
 
-    public void assignSightings() {
+    private void assignSightings() {
         if (!sightings.isEmpty()) {
             min = sightings.get(0).getCreation_date();
             max = sightings.get(0).getCreation_date();

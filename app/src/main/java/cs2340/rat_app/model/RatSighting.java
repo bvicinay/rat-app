@@ -19,11 +19,11 @@ import cs2340.rat_app.controller.GraphViewActivity;
 public class RatSighting implements Parcelable {
 
     //Instance Variables
-    private int key;
+    private final int key;
     private Calendar creation_date;
-    private String location_type;
-    private Address address;
-    private Location location;
+    private final String location_type;
+    private final Address address;
+    private final Location location;
 
     /**
      * RatSighting constructor called by parcel
@@ -225,7 +225,7 @@ public class RatSighting implements Parcelable {
         return filteredList;
     }
 
-    public static Calendar checkIfMin(RatSighting rat, Calendar min) {
+    private static Calendar checkIfMin(RatSighting rat, Calendar min) {
         if (rat.getCreation_date().compareTo(min) < 0) {
             return rat.getCreation_date();
         }

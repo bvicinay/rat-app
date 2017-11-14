@@ -6,10 +6,10 @@ import android.os.Parcelable;
 public class Address implements Parcelable {
 
     //instance variables
-    private String street;
-    private String borough;
-    private int zip;
-    private String city;
+    private final String street;
+    private final String borough;
+    private final int zip;
+    private final String city;
 
     /**
      * default constructor

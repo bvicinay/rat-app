@@ -84,7 +84,7 @@ public class AddSightingActivity extends AppCompatActivity {
      * returns a String representation of calender object- mm/dd/yyyy
      * @return a String representation of a Calendar object- date
      */
-    public CharSequence getDateStr() {
+    private CharSequence getDateStr() {
         String month = Integer.toString(creation_date.get(Calendar.MONTH));
         String day = Integer.toString(creation_date.get(Calendar.DATE));
         String year = Integer.toString(creation_date.get(Calendar.YEAR));
@@ -95,7 +95,7 @@ public class AddSightingActivity extends AppCompatActivity {
      * boolean that returns whether all the editable fields have data in them
      * @return a boolean stating if all the fields have been filled
      */
-    public boolean validateData() {
+    private boolean validateData() {
 
         String locType = locTypeField.getText().toString();
         String zipCode = zipCodeField.getText().toString();
@@ -201,7 +201,7 @@ public class AddSightingActivity extends AppCompatActivity {
      * outer method that returns instance of this class
      * @return AddSightingActivity
      */
-    public AddSightingActivity getOuter() {
+    private AddSightingActivity getOuter() {
         return this;
     }
 }

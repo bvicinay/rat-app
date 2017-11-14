@@ -32,7 +32,7 @@ import cs2340.rat_app.model.RatSightingRaw;
 public class RatSightingListActivity extends AppCompatActivity {
 
     private static RecyclerView.Adapter adapter;
-    protected static List<RatSighting> sightingsList;
+    private static List<RatSighting> sightingsList;
 
     //Firebase
     private static FirebaseDatabase mDatabase;
@@ -118,15 +118,15 @@ public class RatSightingListActivity extends AppCompatActivity {
 
     public class RatSightingAdapter extends RecyclerView.Adapter<RatSightingAdapter.ViewHolder> {
 
-        private List<RatSighting> dataSet;
+        private final List<RatSighting> dataSet;
 
         //ViewHolder for each entry in recycler view
         public class ViewHolder extends RecyclerView.ViewHolder {
 
-            private TextView itemTitle;
-            private TextView itemDate;
-            private TextView itemSubtitle;
-            private LinearLayout layout;
+            private final TextView itemTitle;
+            private final TextView itemDate;
+            private final TextView itemSubtitle;
+            private final LinearLayout layout;
 
             /**
              * creates a view holder for the current report
@@ -154,8 +154,7 @@ public class RatSightingListActivity extends AppCompatActivity {
                     .inflate(R.layout.content_rat_sightings_list_item, parent, false);
             // set the view's size, margins, padding and layout parameters
 
-            ViewHolder vh = new ViewHolder(v);
-            return vh;
+            return new ViewHolder(v);
         }
 
         @Override
@@ -236,7 +235,7 @@ public class RatSightingListActivity extends AppCompatActivity {
      * return this activity
      * @return RatSightingListActivity
      */
-    public RatSightingListActivity getOuter() {
+    private RatSightingListActivity getOuter() {
         return this;
     }
 

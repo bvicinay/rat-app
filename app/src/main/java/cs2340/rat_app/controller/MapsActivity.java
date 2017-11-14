@@ -77,7 +77,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         }
     }
 
-    public void updateMapView(GoogleMap mMap, List<RatSighting> dateRangeRats) {
+    private void updateMapView(GoogleMap mMap, List<RatSighting> dateRangeRats) {
         mMap.moveCamera(CameraUpdateFactory.newLatLng(new LatLng(dateRangeRats.get(0).
                 getLocation().getLatitude(), dateRangeRats.get(0).getLocation().getLongitude())));
     }
