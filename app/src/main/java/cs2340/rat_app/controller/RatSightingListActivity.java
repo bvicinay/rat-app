@@ -196,7 +196,7 @@ public class RatSightingListActivity extends AppCompatActivity {
 
         @Override
         protected Integer doInBackground(Integer... params) {
-            Query ratSightingsQuery = mDatabase.child("rat_sightings").limitToFirst(params[0]);
+            Query ratSightingsQuery = mDatabaseRef.child("rat_sightings").limitToFirst(params[0]);
             ratSightingsQuery.addChildEventListener(new ChildEventListener() {
                 @Override
                 public void onChildAdded(DataSnapshot dataSnapshot, String s) {
