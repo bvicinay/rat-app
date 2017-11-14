@@ -22,7 +22,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
-import java.util.ArrayList;
+import java.util.List;
 
 import cs2340.rat_app.R;
 import cs2340.rat_app.model.RatList;
@@ -31,15 +31,11 @@ import cs2340.rat_app.model.RatSightingRaw;
 
 public class RatSightingListActivity extends AppCompatActivity {
 
-    //instance variables
-    private RecyclerView sightingsRecyclerView;
-    private RecyclerView.Adapter adapter;
-    private RecyclerView.LayoutManager layoutManager;
-
-    private FloatingActionButton addSighting;
+    private static RecyclerView.Adapter adapter;
 
     //Firebase
-    private DatabaseReference mDatabase;
+    private static FirebaseDatabase mDatabase = FirebaseDatabase.getInstance();
+    private static DatabaseReference mDatabaseRef;
     private ValueEventListener sightingsListener;
 
     private static final String TAG = "RatSightingListActivity";
@@ -59,9 +55,9 @@ public class RatSightingListActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_rat_sightings_list);
 
-        sightingsRecyclerView = (RecyclerView) findViewById(R.id.RatSightings_list);
+        RecyclerView sightingsRecyclerView = (RecyclerView) findViewById(R.id.RatSightings_list);
 
-        layoutManager = new LinearLayoutManager(this);
+        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
         sightingsRecyclerView.setLayoutManager(layoutManager);
 
         adapter = new RatSightingAdapter(RatList.ratSightings);
@@ -70,31 +66,24 @@ public class RatSightingListActivity extends AppCompatActivity {
         new LoadLocalData().execute(100);
 
         //When add sighting fab button is pressed
-        addSighting = (FloatingActionButton) findViewById(R.id.fab_add_sighting);
-        addSighting.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(getOuter(), AddSightingActivity.class);
-                startActivity(intent);
-            }
+        FloatingActionButton addSighting = (FloatingActionButton) findViewById(R.id.fab_add_sighting);
+        addSighting.setOnClickListener(view -> {
+            Intent intent = new Intent(getOuter(), AddSightingActivity.class);
+            startActivity(intent);
         });
 
 
         viewMap = (Button) findViewById(R.id.map_button);
-        viewMap.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                Intent intent = new Intent(getOuter(), FilterRatSightings1.class);
-                intent.putExtra("Check", 0);
-                startActivity(intent);
-            }
+        viewMap.setOnClickListener(v -> {
+            Intent intent = new Intent(getOuter(), FilterRatSightings1.class);
+            intent.putExtra("Check", 0);
+            startActivity(intent);
         });
         viewGraph = (Button) findViewById(R.id.graph_button);
-        viewGraph.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                Intent intent = new Intent(getOuter(), FilterRatSightings1.class);
-                intent.putExtra("Check", 1);
-                startActivity(intent);
-            }
+        viewGraph.setOnClickListener(v -> {
+            Intent intent = new Intent(getOuter(), FilterRatSightings1.class);
+            intent.putExtra("Check", 1);
+            startActivity(intent);
         });
 
     }
@@ -104,6 +93,10 @@ public class RatSightingListActivity extends AppCompatActivity {
      */
     private void importFromDatabase() {
         mDatabase = FirebaseDatabase.getInstance().getReference();
+
+
+
+
         Query ratSightingsQuery = mDatabase.child("rat_sightings").limitToFirst(100);
         ratSightingsQuery.addChildEventListener(new ChildEventListener() {
             @Override
@@ -126,9 +119,9 @@ public class RatSightingListActivity extends AppCompatActivity {
 
     public class RatSightingAdapter extends RecyclerView.Adapter<RatSightingAdapter.ViewHolder> {
 
-        private ArrayList<RatSighting> dataSet;
+        private List<RatSighting> dataSet;
 
-        //ViewHolder for each entry in recyclerview
+        //ViewHolder for each entry in recycler view
         public class ViewHolder extends RecyclerView.ViewHolder {
 
             public TextView itemTitle;
@@ -137,7 +130,7 @@ public class RatSightingListActivity extends AppCompatActivity {
             public LinearLayout layout;
 
             /**
-             * creates a viewholder for the current report
+             * creates a view holder for the current report
              * @param v the current view
              */
             public ViewHolder(View v) {
@@ -149,7 +142,7 @@ public class RatSightingListActivity extends AppCompatActivity {
             }
         }
 
-        public RatSightingAdapter(ArrayList<RatSighting> data) {
+        public RatSightingAdapter(List<RatSighting> data) {
             dataSet = data;
         }
 
@@ -160,7 +153,7 @@ public class RatSightingListActivity extends AppCompatActivity {
             // create a new view
             View v = LayoutInflater.from(parent.getContext())
                     .inflate(R.layout.content_rat_sightings_list_item, parent, false);
-            // set the view's size, margins, paddings and layout parameters
+            // set the view's size, margins, padding and layout parameters
 
             ViewHolder vh = new ViewHolder(v);
             return vh;
@@ -171,17 +164,15 @@ public class RatSightingListActivity extends AppCompatActivity {
             holder.itemTitle.setText(dataSet.get(position).getTitle());
             holder.itemDate.setText(dataSet.get(position).getDateStr());
             holder.itemSubtitle.setText(dataSet.get(position).getStreet());
-            holder.layout.setOnClickListener(new View.OnClickListener() {
-                public void onClick(View v) {
-                    Intent intent = new Intent(getOuter(), RatReportActivity.class);
-                    RatSighting selected = dataSet.get(position);
-                    intent.putExtra("RatSighting", dataSet.get(position));
-                    startActivity(intent);
-                }
+            holder.layout.setOnClickListener(v -> {
+                Intent intent = new Intent(getOuter(), RatReportActivity.class);
+                RatSighting selected = dataSet.get(position);
+                intent.putExtra("RatSighting", dataSet.get(position));
+                startActivity(intent);
             });
 
         }
-        // Return the size of your dataset (invoked by the layout manager)
+        // Return the size of your data set (invoked by the layout manager)
         @Override
         public int getItemCount() {
             return dataSet.size();
@@ -191,11 +182,16 @@ public class RatSightingListActivity extends AppCompatActivity {
     }
 
     // AsyncTask that loads in data from Firebase
-    public class LoadLocalData extends AsyncTask<Integer, Void, Integer> {
+    public static class LoadLocalData extends AsyncTask<Integer, Void, Integer> {
 
         @Override
         protected void onPreExecute() {
-            mDatabase = FirebaseDatabase.getInstance().getReference();
+            //mDatabase = FirebaseDatabase.getInstance().getReference();
+
+            mDatabase = FirebaseDatabase.getInstance()
+            mDatabaseRef = mDatabase.getReference();
+
+
         }
 
         @Override

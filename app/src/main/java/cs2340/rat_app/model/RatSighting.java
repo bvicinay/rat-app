@@ -5,12 +5,7 @@ import android.os.Parcel;
 import android.os.Parcelable;
 import android.util.Log;
 
-import java.util.ArrayList;
 import java.util.Calendar;
-
-/**
- * Created by Borja Vicinay on 10/9/2017.
- */
 
 public class RatSighting implements Parcelable {
 
@@ -60,7 +55,7 @@ public class RatSighting implements Parcelable {
             this.creation_date = calendar;
         } catch (Exception e) { // Add any date to keep data valid
             Calendar calendar = Calendar.getInstance();
-            calendar.set(2000,0,0);
+            calendar.set(0,0,0);
             this.creation_date =  calendar;
             Log.d(TAG, e.getMessage(), e);
         }
@@ -129,7 +124,7 @@ public class RatSighting implements Parcelable {
      * city getter
      * @return city
      */
-    public String getTitle() {
+    public CharSequence getTitle() {
         return address.getCity();
     }
 
@@ -137,7 +132,7 @@ public class RatSighting implements Parcelable {
      * Street getter
      * @return Street
      */
-    public String getStreet() {
+    public CharSequence getStreet() {
         return address.getStreet();
     }
 
@@ -170,12 +165,47 @@ public class RatSighting implements Parcelable {
      * for passing through via a parcel
      */
     public static final Parcelable.Creator CREATOR = new Parcelable.Creator() {
+        @Override
         public RatSighting createFromParcel(Parcel in) {
             return new RatSighting(in);
         }
 
+        @Override
         public RatSighting[] newArray(int size) {
             return new RatSighting[size];
         }
     };
+
+    public boolean validateDateForGraph(RatSighting rat, Calendar startDate, Calendar finishDate) {
+        if (rat.getCreation_date() == null) {
+            return false;
+        }
+        if (rat.getCreation_date().compareTo(startDate) > 0 &&
+                rat.getCreation_date().compareTo(finishDate) < 0) {
+            return true;
+        }
+        return false;
+    }
+
+    public boolean checkIfMin(RatSighting rat, Calendar min) {
+        if (rat.getCreation_date().compareTo(min) < 0) {
+            return true;
+        }
+        return false;
+    }
+
+    public boolean checkIfMax(RatSighting rat, Calendar max) {
+        if (rat.getCreation_date().compareTo(max) > 0) {
+            return true;
+        }
+        return false;
+    }
+
+    public int getMonth() {
+        return creation_date.get(Calendar.MONTH);
+    }
+
+    public int getYear() {
+        return creation_date.get(Calendar.YEAR);
+    }
 }

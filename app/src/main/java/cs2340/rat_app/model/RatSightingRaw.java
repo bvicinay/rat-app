@@ -1,13 +1,5 @@
 package cs2340.rat_app.model;
 
-import android.location.Location;
-import android.os.Parcel;
-import android.os.Parcelable;
-import android.util.Log;
-
-import java.util.ArrayList;
-import java.util.Calendar;
-
 public class RatSightingRaw {
 
     //Instance Variables

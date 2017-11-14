@@ -33,9 +33,6 @@ public class AddSightingActivity extends AppCompatActivity {
     private EditText boroughField;
     private EditText latitudeField;
     private EditText longitudeField;
-    private Button backButton;
-    private Button addRat;
-    private DatabaseReference mDatabase;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,20 +41,18 @@ public class AddSightingActivity extends AppCompatActivity {
         setContentView(R.layout.activity_report_sighting);
 
         //add rat button
-        addRat = (Button) findViewById(R.id.create_rat);
-        addRat.setOnClickListener((view) -> { createRat(); });
+        Button addRat = (Button) findViewById(R.id.create_rat);
+        addRat.setOnClickListener((view) -> createRat());
 
         //back button
-        backButton = (Button) findViewById(R.id.cancel);
-        backButton.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                Toast.makeText(AddSightingActivity.this, "Rat Report Cancelled",
-                        Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(getOuter(), HomeActivity.class);
-                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                startActivity(intent);
-                getOuter().finish();
-            }
+        Button backButton = (Button) findViewById(R.id.cancel);
+        backButton.setOnClickListener(v -> {
+            Toast.makeText(AddSightingActivity.this, "Rat Report Cancelled",
+                    Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(getOuter(), HomeActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(intent);
+            getOuter().finish();
         });
 
         //non-editable fields
@@ -67,7 +62,7 @@ public class AddSightingActivity extends AppCompatActivity {
 
         creation_date = Calendar.getInstance();
         date.setText(getDateStr());
-        if (RatList.ratSightings.size() > 0) {
+        if (!RatList.ratSightings.isEmpty()) {
             int key1 = RatList.ratSightings.get(0).getKey() + 1;
             key.setText(Integer.toString(key1));
         }
@@ -85,9 +80,9 @@ public class AddSightingActivity extends AppCompatActivity {
 
     /**
      * returns a String representation of calender object- mm/dd/yyyy
-     * @return a String representation of a Calendaer object- date
+     * @return a String representation of a Calendar object- date
      */
-    public String getDateStr() {
+    public CharSequence getDateStr() {
         String month = Integer.toString(creation_date.get(Calendar.MONTH));
         String day = Integer.toString(creation_date.get(Calendar.DATE));
         String year = Integer.toString(creation_date.get(Calendar.YEAR));
@@ -112,43 +107,43 @@ public class AddSightingActivity extends AppCompatActivity {
 
         View focusView = null; //highlighted view in case of error
 
-        if (locType.length() == 0) {
+        if (locType.isEmpty()) {
             locTypeField.setError("This field is required");
             focusView = locTypeField;
             valid = false;
         }
 
-        if (zipCode.length() == 0) {
+        if (zipCode.isEmpty()) {
             zipCodeField.setError("this field is required");
             focusView = zipCodeField;
             valid = false;
         }
 
-        if (address.length() == 0) {
+        if (address.isEmpty()) {
             addressField.setError("this field is required");
             focusView = addressField;
             valid = false;
         }
 
-        if (city.length() == 0) {
+        if (city.isEmpty()) {
             cityField.setError("this field is required");
             focusView = cityField;
             valid = false;
         }
 
-        if (borough.length() == 0) {
+        if (borough.isEmpty()) {
             boroughField.setError("this field is required");
             focusView = boroughField;
             valid = false;
         }
 
-        if (latitude.length() == 0) {
+        if (latitude.isEmpty()) {
             latitudeField.setError("this field is required");
             focusView = latitudeField;
             valid = false;
         }
 
-        if (longitude.length() == 0) {
+        if (longitude.isEmpty()) {
             longitudeField.setError("this field is required");
             focusView = longitudeField;
             valid = false;
@@ -183,9 +178,9 @@ public class AddSightingActivity extends AppCompatActivity {
                         latitudeField.getText().toString(),
                         longitudeField.getText().toString());
                 RatSightingRaw raw = new RatSightingRaw(newSighting);
-                mDatabase = FirebaseDatabase.getInstance().getReference();
-                DatabaseReference newRequestReferenece = mDatabase.child("rat_sightings").push();
-                newRequestReferenece.setValue(raw);
+                DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
+                DatabaseReference newRequestReference = mDatabase.child("rat_sightings").push();
+                newRequestReference.setValue(raw);
                 Toast.makeText(AddSightingActivity.this, "Rat Report Added",
                         Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(getOuter(), HomeActivity.class);

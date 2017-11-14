@@ -26,7 +26,7 @@
             android:adjustViewBounds="false"
             android:cropToPadding="false"
             app:srcCompat="@mipmap/rat_logo"
-            />
+            android:contentDescription="The app logo" />
 
         <TextView
             android:id="@+id/fullscreen_content"

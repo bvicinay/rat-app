@@ -4,17 +4,12 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
 
-//Firebase
-import com.google.android.gms.tasks.Task;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import android.support.annotation.NonNull;
+
 import android.util.Log;
 import android.widget.Toast;
 
@@ -28,7 +23,6 @@ public class LoginActivity extends AppCompatActivity {
     private EditText emailField;
     private EditText passwordField;
 
-    //Firebase
     private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener mAuthListener;
     private static final String TAG = "LoginActivity";
@@ -44,50 +38,37 @@ public class LoginActivity extends AppCompatActivity {
 
         // When sign-in button is pressed
         Button signInButton = (Button) findViewById(R.id.sign_in_button);
-        signInButton.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                login();
-            }
-        });
+        signInButton.setOnClickListener(view -> login());
 
         // When register button is pressed
         Button toRegisterButton = (Button) findViewById(R.id.toRegister_button);
-        toRegisterButton.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(getOuter(), RegisterActivity.class);
-                startActivity(intent);
-            }
+        toRegisterButton.setOnClickListener(view -> {
+            Intent intent = new Intent(getOuter(), RegisterActivity.class);
+            startActivity(intent);
         });
 
-
-        //Firebase
         mAuth = FirebaseAuth.getInstance();
-        mAuthListener = new FirebaseAuth.AuthStateListener() {
-            @Override
-            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
-                FirebaseUser user = firebaseAuth.getCurrentUser();
-                if (user != null) {
-                    // User is signed in
-                    Log.d(TAG, "onAuthStateChanged:signed_in:" + user.getUid());
-                } else {
-                    // User is signed out
-                    Log.d(TAG, "onAuthStateChanged:signed_out");
-                }
+        mAuthListener = FirebaseAuth -> {
+            FirebaseUser user = FirebaseAuth.getCurrentUser();
+            if (user != null) {
+                // User is signed in
+                Log.d(TAG, "onAuthStateChanged:signed_in:" + user.getUid());
+            } else {
+                // User is signed out
+                Log.d(TAG, "onAuthStateChanged:signed_out");
             }
         };
 
     }
 
     @Override
-    public void onStart() { //made public for firebase
+    public void onStart() {
         super.onStart();
         mAuth.addAuthStateListener(mAuthListener);
     }
 
     @Override
-    public void onStop() { //made public for firebase
+    public void onStop() {
         super.onStop();
         if (mAuthListener != null) {
             mAuth.removeAuthStateListener(mAuthListener);
@@ -96,7 +77,7 @@ public class LoginActivity extends AppCompatActivity {
 
     /**
      * login is the method called when the login button is pressed- if the data is validated,
-     * will call signin (which attempts to login using firebase authentication)- else, the login
+     * will call sign in (which attempts to login using Firebase authentication)- else, the login
      * is aborted
      */
     public void login() {
@@ -111,7 +92,7 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     /**
-     * called if login attempt is succesfull- calls new intent
+     * called if login attempt is successful - calls new intent
      * @param user the user that has logged in
      */
     public void proceedLogin(FirebaseUser user) {
@@ -124,7 +105,7 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     /**
-     * called if there is an unsuccesfull login attempt- clears login password field
+     * called if there is an unsuccessful login attempt- clears login password field
      */
     public void abortLogin() {
         passwordField.setText("");
@@ -134,7 +115,7 @@ public class LoginActivity extends AppCompatActivity {
      * Attempts to sign in or register the account specified by the login form.
      * If there are form errors (invalid email, missing fields, etc.), the
      * errors are presented and no actual login attempt is made.
-     * @return boolean if the entered data is valid and should be checked against firebase
+     * @return boolean if the entered data is valid and should be checked against Firebase
      */
     private boolean validateData() {
         // Store input values
@@ -144,7 +125,7 @@ public class LoginActivity extends AppCompatActivity {
         boolean valid = true;
         View focusView = null; //the view to be highlighted in case of error
 
-        if (password.length() == 0) {
+        if (password.isEmpty()) {
             passwordField.setError(getString(R.string.error_field_required));
             focusView = passwordField;
             valid = false;
@@ -153,7 +134,7 @@ public class LoginActivity extends AppCompatActivity {
             focusView = passwordField;
             valid = false;
         }
-        if (email.length() == 0) {
+        if (email.isEmpty()) {
             emailField.setError(getString(R.string.error_field_required));
             focusView = emailField;
             valid = false;
@@ -170,31 +151,28 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     /**
-     * Signin method- attempts to login user using firebase authentication- if successful, calls
+     * Sign in method- attempts to login user using Firebase authentication- if successful, calls
      * proceedLogin, else calls abort login
      * @param email the email entered in
      * @param password the password entered in
      */
      public void signin(String email, String password) {
         mAuth.signInWithEmailAndPassword(email, password)
-                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        Log.d(TAG, "signInWithEmail:onComplete:" + task.isSuccessful());
-                        // If sign in succeeds the auth state listener will be notified and logic
-                        // to handle the signed in user can be handled in the listener.
-                        if (task.isSuccessful()) {
-                            // Sign-in successful, proceed passing user as parameter
-                            FirebaseUser user = mAuth.getCurrentUser();
-                            proceedLogin(user);
-                        }
-                        else {
-                            // Sign-in failed, display message to user
-                            Log.w(TAG, "signInWithEmail:failed", task.getException());
-                            Toast.makeText(LoginActivity.this, "Sign-in failed",
-                                    Toast.LENGTH_SHORT).show();
-                            abortLogin();
-                        }
+                .addOnCompleteListener(this, task -> {
+                    Log.d(TAG, "signInWithEmail:onComplete:" + task.isSuccessful());
+                    // If sign in succeeds the auth state listener will be notified and logic
+                    // to handle the signed in user can be handled in the listener.
+                    if (task.isSuccessful()) {
+                        // Sign-in successful, proceed passing user as parameter
+                        FirebaseUser user = mAuth.getCurrentUser();
+                        proceedLogin(user);
+                    }
+                    else {
+                        // Sign-in failed, display message to user
+                        Log.w(TAG, "signInWithEmail:failed", task.getException());
+                        Toast.makeText(LoginActivity.this, "Sign-in failed",
+                                Toast.LENGTH_SHORT).show();
+                        abortLogin();
                     }
                 });
     }

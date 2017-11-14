@@ -4,21 +4,13 @@ import java.io.Serializable;
 
 /**
  * Account is the class that represents an account in the system. Each account has a username,
- * password, account type, firstname, lastname, and email
+ * password, account type, first name, last name, and email
  */
 public class Account implements Serializable {
-
-    //Account Type
-    private AccountType AccountType;
 
     //Credentials
     private String userName;
     private String password;
-
-    //User Data
-    private String firstName;
-    private String lastName;
-    private String email;
 
     /**
      * The constructor for the account. Sets the instance data.
@@ -31,12 +23,12 @@ public class Account implements Serializable {
      */
     public Account(AccountType accountType, String username, String password, String firstName,
                    String lastName, String email) {
-        this.AccountType = accountType;
+        cs2340.rat_app.model.AccountType accountType1 = accountType;
         this.userName = username;
         this.password = password;
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.email = email;
+        String firstName1 = firstName;
+        String lastName1 = lastName;
+        String email1 = email;
     }
 
     /**

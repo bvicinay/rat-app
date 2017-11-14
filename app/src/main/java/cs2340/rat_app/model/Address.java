@@ -3,10 +3,6 @@ package cs2340.rat_app.model;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-/**
- * Created by Borja Vicinay on 10/9/2017.
- */
-
 public class Address implements Parcelable {
 
     //instance variables
@@ -16,7 +12,7 @@ public class Address implements Parcelable {
     private String city;
 
     /**
-     * default construstor
+     * default constructor
      * @param street the street- String
      * @param borough the borough- String
      * @param zip the zip- int
@@ -119,10 +115,12 @@ public class Address implements Parcelable {
 
     //For passing through an intent
     public static final Parcelable.Creator<Address> CREATOR = new Parcelable.Creator<Address>() {
+        @Override
         public Address createFromParcel(Parcel in) {
             return new Address(in);
         }
 
+        @Override
         public Address[] newArray(int size) {
             return new Address[size];
         }

@@ -4,20 +4,17 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 
 //Firebase
-import com.google.android.gms.tasks.Task;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import android.support.annotation.NonNull;
+
 import android.util.Log;
+import android.widget.SpinnerAdapter;
 import android.widget.Toast;
 
 import cs2340.rat_app.R;
@@ -33,7 +30,6 @@ public class RegisterActivity extends AppCompatActivity {
     private EditText lastField;
     private EditText emailField;
     private EditText passwordField;
-    private Spinner actTypeField;
 
     //Firebase
     private FirebaseAuth mAuth;
@@ -50,31 +46,28 @@ public class RegisterActivity extends AppCompatActivity {
         lastField = (EditText) findViewById(R.id.last_name);
         emailField = (EditText) findViewById(R.id.email);
         passwordField = (EditText) findViewById(R.id.password);
-        actTypeField = (Spinner) findViewById(R.id.account_type_spinner);
+        Spinner actTypeField = (Spinner) findViewById(R.id.account_type_spinner);
 
         //Add options to account type spinner
-        ArrayAdapter<String> spinnerAdapter = new ArrayAdapter(this,
+        SpinnerAdapter spinnerAdapter = new ArrayAdapter(this,
                 android.R.layout.simple_spinner_item, AccountType.values());
         actTypeField.setAdapter(spinnerAdapter);
 
         // When register button is pressed
         Button registerButton = (Button) findViewById(R.id.register_button);
-        registerButton.setOnClickListener((view) -> { register(); });
+        registerButton.setOnClickListener((view) -> register());
 
 
         //Firebase
         mAuth = FirebaseAuth.getInstance();
-        mAuthListener = new FirebaseAuth.AuthStateListener() {
-            @Override
-            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
-                FirebaseUser user = firebaseAuth.getCurrentUser();
-                if (user != null) {
-                    // User is signed in
-                    Log.d(TAG, "onAuthStateChanged:signed_in:" + user.getUid());
-                } else {
-                    // User is signed out
-                    Log.d(TAG, "onAuthStateChanged:signed_out");
-                }
+        mAuthListener = firebaseAuth -> {
+            FirebaseUser user = firebaseAuth.getCurrentUser();
+            if (user != null) {
+                // User is signed in
+                Log.d(TAG, "onAuthStateChanged:signed_in:" + user.getUid());
+            } else {
+                // User is signed out
+                Log.d(TAG, "onAuthStateChanged:signed_out");
             }
         };
 
@@ -121,7 +114,7 @@ public class RegisterActivity extends AppCompatActivity {
     }
 
     /**
-     * Called if registration attempt is unsuccesfull- clears password field
+     * Called if registration attempt is unsuccessful- clears password field
      */
     public void abortRegister() {
         passwordField.setText("");
@@ -141,17 +134,17 @@ public class RegisterActivity extends AppCompatActivity {
         boolean valid = true;
         View focusView = null; //the view to be highlighted in case of error
 
-        if (first.length() == 0) {
+        if (first.isEmpty()) {
             firstField.setError(getString(R.string.error_field_required));
             focusView = firstField;
             valid = false;
         }
-        if (last.length() == 0) {
+        if (last.isEmpty()) {
             lastField.setError(getString(R.string.error_field_required));
             focusView = lastField;
             valid = false;
         }
-        if (password.length() == 0) {
+        if (password.isEmpty()) {
             passwordField.setError(getString(R.string.error_field_required));
             focusView = passwordField;
             valid = false;
@@ -160,7 +153,7 @@ public class RegisterActivity extends AppCompatActivity {
             focusView = passwordField;
             valid = false;
         }
-        if (email.length() == 0) {
+        if (email.isEmpty()) {
             emailField.setError(getString(R.string.error_field_required));
             focusView = emailField;
             valid = false;
@@ -189,23 +182,20 @@ public class RegisterActivity extends AppCompatActivity {
 
         // Create user on database
         mAuth.createUserWithEmailAndPassword(email, password)
-                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if (task.isSuccessful()) {
-                            // Registration successful, proceed passing user as parameter
-                            Log.d(TAG, "createUserWithEmail:success");
-                            FirebaseUser user = mAuth.getCurrentUser();
-                            Toast.makeText(RegisterActivity.this, "Account created",
-                                    Toast.LENGTH_SHORT).show();
-                            proceedRegister(emailFinal, passFinal, user);
-                        } else {
-                            // Registration failed, display message to the user, abort.
-                            Log.w(TAG, "createUserWithEmail:failure", task.getException());
-                            Toast.makeText(RegisterActivity.this, "Failed to register",
-                                    Toast.LENGTH_SHORT).show();
-                            abortRegister();
-                        }
+                .addOnCompleteListener(this, task -> {
+                    if (task.isSuccessful()) {
+                        // Registration successful, proceed passing user as parameter
+                        Log.d(TAG, "createUserWithEmail:success");
+                        FirebaseUser user = mAuth.getCurrentUser();
+                        Toast.makeText(RegisterActivity.this, "Account created",
+                                Toast.LENGTH_SHORT).show();
+                        proceedRegister(emailFinal, passFinal, user);
+                    } else {
+                        // Registration failed, display message to the user, abort.
+                        Log.w(TAG, "createUserWithEmail:failure", task.getException());
+                        Toast.makeText(RegisterActivity.this, "Failed to register",
+                                Toast.LENGTH_SHORT).show();
+                        abortRegister();
                     }
                 });
     }

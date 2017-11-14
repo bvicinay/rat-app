@@ -18,7 +18,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="15dp"
-        android:text="0000"
+        android:text=""
         android:layout_below="@+id/header"
         android:layout_alignParentStart="true"
         android:layout_marginStart="20dp"
@@ -29,7 +29,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="25dp"
-        android:text="date"
+        android:text="@string/dateLabel"
         android:layout_below="@+id/key"
         android:layout_alignStart="@+id/key" />
 
@@ -38,7 +38,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="22dp"
-        android:text="Location Type"
+        android:text="@string/loctypeLabel"
         android:layout_below="@+id/date"
         android:layout_alignStart="@+id/date" />
 
@@ -47,7 +47,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
-        android:text="00000"
+        android:text="@string/zipLabel"
         android:layout_below="@+id/locType"
         android:layout_alignStart="@+id/locType" />
 
@@ -56,7 +56,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="22dp"
-        android:text="Address"
+        android:text="@string/addressLabel"
         android:layout_below="@+id/zipCode"
         android:layout_alignStart="@+id/zipCode" />
 
@@ -65,7 +65,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
-        android:text="City"
+        android:text="@string/cityLabel"
         android:layout_below="@+id/address"
         android:layout_alignStart="@+id/address" />
 
@@ -73,7 +73,7 @@
         android:id="@+id/borough"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Borough"
+        android:text="@string/boroughLabel"
         android:layout_above="@+id/date"
         android:layout_toEndOf="@+id/header" />
 
@@ -81,7 +81,7 @@
         android:id="@+id/longitude"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="00000"
+        android:text="@string/longitudeLabel"
         android:layout_above="@+id/locType"
         android:layout_alignStart="@+id/borough" />
 
@@ -89,7 +89,7 @@
         android:id="@+id/latitude"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="00000"
+        android:text="@string/latitudeLabel"
         android:layout_alignBaseline="@+id/locType"
         android:layout_alignBottom="@+id/locType"
         android:layout_alignStart="@+id/longitude" />

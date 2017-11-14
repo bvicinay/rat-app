@@ -121,4 +121,12 @@
     <string name="title_ratsighting_detail">RatSighting Detail</string>
     <string name="title_activity_maps">Map</string>
     <string name="title_activity_single_rat_maps">Map</string>
+    <string name="cityLabel">City</string>
+    <string name="addressLabel">Address</string>
+    <string name="zipLabel">00000</string>
+    <string name="loctypeLabel">Location Type</string>
+    <string name="dateLabel">date</string>
+    <string name="boroughLabel">Borough</string>
+    <string name="longitudeLabel">00000</string>
+    <string name="latitudeLabel">00000</string>
 </resources>
