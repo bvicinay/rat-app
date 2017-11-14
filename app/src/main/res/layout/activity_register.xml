@@ -46,7 +46,7 @@
                         android:id="@+id/first_name"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="First Name"
+                        android:hint="@string/first_name_label"
                         android:inputType="textPersonName"
                         android:maxLines="1"/>
 
@@ -61,7 +61,7 @@
                         android:id="@+id/last_name"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="Last Name"
+                        android:hint="@string/last_name_label"
                         android:inputType="textPersonName"
                         android:maxLines="1" />
 
@@ -113,7 +113,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
                     android:layout_weight="3"
-                    android:text="Account Type: "
+                    android:text="@string/account_type_label"
                     android:textSize="18sp" />
 
                 <Spinner

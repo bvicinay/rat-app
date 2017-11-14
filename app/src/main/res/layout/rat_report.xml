@@ -14,7 +14,7 @@
         android:layout_marginLeft="32dp"
         android:layout_marginStart="32dp"
         android:layout_marginTop="33dp"
-        android:text="TextView" />
+        android:text="@string/key_label" />
 
     <TextView
         android:id="@+id/date"
@@ -24,14 +24,14 @@
         android:layout_alignStart="@+id/key"
         android:layout_below="@+id/key"
         android:layout_marginTop="18dp"
-        android:text="TextView" />
+        android:text="@string/date_label_ratreport" />
 
     <TextView
         android:id="@+id/loc_type"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
-        android:text="TextView"
+        android:text="@string/loc_type_label"
         android:layout_below="@+id/date"
         android:layout_alignLeft="@+id/date"
         android:layout_alignStart="@+id/date" />
@@ -41,7 +41,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
-        android:text="TextView"
+        android:text="@string/zip_code_label"
         android:layout_below="@+id/loc_type"
         android:layout_alignLeft="@+id/loc_type"
         android:layout_alignStart="@+id/loc_type" />
@@ -51,7 +51,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="21dp"
-        android:text="TextView"
+        android:text="@string/address_label_rr"
         android:layout_below="@+id/zip_code"
         android:layout_alignLeft="@+id/zip_code"
         android:layout_alignStart="@+id/zip_code" />
@@ -61,7 +61,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
-        android:text="TextView"
+        android:text="@string/city_label_rr"
         android:layout_below="@+id/address"
         android:layout_alignLeft="@+id/address"
         android:layout_alignStart="@+id/address" />
@@ -73,14 +73,14 @@
         android:layout_alignLeft="@+id/city"
         android:layout_alignStart="@+id/city"
         android:layout_centerVertical="true"
-        android:text="TextView" />
+        android:text="@string/borough_label" />
 
     <TextView
         android:id="@+id/latitude"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
-        android:text="TextView"
+        android:text="@string/latitude_label"
         android:layout_below="@+id/borough"
         android:layout_alignLeft="@+id/borough"
         android:layout_alignStart="@+id/borough" />
@@ -93,6 +93,6 @@
         android:layout_alignStart="@+id/latitude"
         android:layout_below="@+id/latitude"
         android:layout_marginTop="26dp"
-        android:text="TextView" />
+        android:text="@string/longitude_label" />
 
 </RelativeLayout>

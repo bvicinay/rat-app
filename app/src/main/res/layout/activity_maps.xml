@@ -19,6 +19,6 @@
         android:id="@+id/map_back_button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Back" />
+        android:text="@string/back_label_maps" />
 
 </LinearLayout>

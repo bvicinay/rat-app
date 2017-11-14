@@ -26,7 +26,7 @@
             android:adjustViewBounds="false"
             android:cropToPadding="false"
             app:srcCompat="@mipmap/rat_logo"
-            android:contentDescription="The app logo" />
+            android:contentDescription="@string/the_app_logo_label" />
 
         <TextView
             android:id="@+id/fullscreen_content"
@@ -37,7 +37,7 @@
             android:textColor="#000000"
             android:textSize="35sp"
             android:textStyle="bold"
-            android:text="YOU DIRTY RAT"/>
+            android:text="@string/you_dirty_rat_label"/>
         <TextView
             android:id="@+id/subtitle"
             android:layout_width="match_parent"
@@ -45,7 +45,7 @@
             android:gravity="center"
             android:layout_marginTop="5sp"
             android:keepScreenOn="true"
-            android:text="Mark and avoid rats."
+            android:text="@string/mark_and_avoid_rats_label"
             android:textColor="#000000"
             android:textSize="20sp"/>
     </LinearLayout>

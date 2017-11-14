@@ -8,7 +8,7 @@
         android:id="@+id/textView2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Select Finish Date:" />
+        android:text="@string/select_finish_date" />
 
     <DatePicker
         android:id="@+id/endDatePicker"
@@ -19,5 +19,5 @@
         android:id="@+id/show"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Show" />
+        android:text="@string/showLabelFilter2" />
 </LinearLayout>

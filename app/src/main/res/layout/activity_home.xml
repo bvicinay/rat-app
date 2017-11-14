@@ -9,7 +9,7 @@
     <TextView
         android:layout_width="344dp"
         android:layout_height="wrap_content"
-        android:text="Welcome to our app!"
+        android:text="@string/welcome_to_our_app_label"
         android:textAlignment="center"
         tools:layout_editor_absoluteX="8dp"
         tools:layout_editor_absoluteY="63dp"
@@ -22,7 +22,7 @@
         android:id="@+id/view_sightings"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="View Rat Sightings"
+        android:text="@string/view_rat_sightings_label"
         tools:layout_editor_absoluteX="99dp"
         tools:layout_editor_absoluteY="231dp"
         android:layout_below="@+id/textView"
@@ -36,14 +36,14 @@
         android:layout_below="@+id/add_sighting"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="39dp"
-        android:text="Logout" />
+        android:text="@string/logout_label_home" />
 
     <Button
         android:id="@+id/add_sighting"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="36dp"
-        android:text="Add Sighting"
+        android:text="@string/add_sighting_label"
         android:layout_below="@+id/view_sightings"
         android:layout_centerHorizontal="true" />
 
