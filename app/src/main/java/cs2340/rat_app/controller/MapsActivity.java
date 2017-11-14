@@ -66,7 +66,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             List<RatSighting> dateRangeRats;
 
             dateRangeRats = RatSighting.validateDateForGraph(sightings, startDate,
-                    finishDate);
+                    finishDate, 0);
 
             mMap = RatSighting.filterMap(mMap, dateRangeRats);
 

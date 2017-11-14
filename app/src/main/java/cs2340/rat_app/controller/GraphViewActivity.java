@@ -22,22 +22,20 @@ import java.util.Date;
 
 public class GraphViewActivity extends AppCompatActivity {
 
-    public static Calendar min = RatList.ratSightings.get(0).getCreation_date();
-    public static Calendar max = RatList.ratSightings.get(0).getCreation_date();
-    private Calendar startDate;
-    private Calendar finishDate;
     private List<RatSighting> sightings = RatList.getInstance();
+    private static Calendar min;
+    private static Calendar max;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_history_graph);
         GraphView graph = (GraphView) findViewById(R.id.graph);
-        int j = 0;
-        startDate = (Calendar) getIntent().getSerializableExtra("startDate");
-        finishDate = (Calendar) getIntent().getSerializableExtra("endDate");
+        Calendar startDate = (Calendar) getIntent().getSerializableExtra("startDate");
+        Calendar finishDate = (Calendar) getIntent().getSerializableExtra("endDate");
+        assignSightings();
         List<RatSighting> filteredList = RatSighting.validateDateForGraph(sightings, startDate,
-                finishDate);
+                finishDate, 1);
         HashMap<Calendar, Integer> ratSightingHashMap = RatSighting.setRatHashMap(filteredList);
 
         Set<Calendar> keys = ratSightingHashMap.keySet();
@@ -89,5 +87,27 @@ public class GraphViewActivity extends AppCompatActivity {
             return this;
         }
 
+    public static Calendar getMin() {
+        return min;
+    }
+
+    public static Calendar getMax() {
+        return max;
+    }
+
+    public static void setMin(Calendar newMin) {
+        min = newMin;
+    }
+
+    public static void setMax(Calendar newMax) {
+        max = newMax;
+    }
+
+    public void assignSightings() {
+        if (!sightings.isEmpty()) {
+            min = sightings.get(0).getCreation_date();
+            max = sightings.get(0).getCreation_date();
+        }
+    }
 }
 

@@ -186,31 +186,46 @@ public class RatSighting implements Parcelable {
     };
 
     public static List<RatSighting> validateDateForGraph(
-            Iterable<RatSighting> rats, Calendar startDate, Calendar finishDate) {
+            List<RatSighting> rats, Calendar startDate, Calendar finishDate, int h) {
         List<RatSighting> filteredList = new ArrayList<>();
         int j = 0;
+        Calendar min = null;
+        Calendar max = null;
+        try {
+            min = rats.get(0).getCreation_date();
+            max = rats.get(0).getCreation_date();
+        } catch(Exception e) {
+            Log.d("Empty List", "List is empty");
+        }
         for (RatSighting rat : rats) {
             if (rat.getCreation_date() == null) {
                 continue;
             }
-            if (rat.getCreation_date().compareTo(startDate) > 0 &&
-                    rat.getCreation_date().compareTo(finishDate) < 0) {
-                filteredList.add(rat);
-                if (j == 0) {
-                    GraphViewActivity.max = rat.getCreation_date();
-                    GraphViewActivity.min = rat.getCreation_date();
-                    j = 1;
+            try {
+                if (rat.getCreation_date().compareTo(startDate) > 0 &&
+                        rat.getCreation_date().compareTo(finishDate) < 0) {
+                    filteredList.add(rat);
+                    if (j == 0) {
+                        min = (rat.getCreation_date());
+                        max = (rat.getCreation_date());
+                        j = 1;
+                    } else {
+                        min = checkIfMin(rat, min);
+                        max = checkIfMax(rat, max);
+                    }
                 }
-                else {
-                    checkIfMin(rat, GraphViewActivity.min);
-                    checkIfMax(rat, GraphViewActivity.max);
-                }
+            } catch(Exception e) {
+                Log.d("Missing data" , "Rat is missing data");
             }
+        }
+        if (j == 1 && h == 1) {
+            GraphViewActivity.setMax(max);
+            GraphViewActivity.setMin(min);
         }
         return filteredList;
     }
 
-    private static Calendar checkIfMin(RatSighting rat, Calendar min) {
+    public static Calendar checkIfMin(RatSighting rat, Calendar min) {
         if (rat.getCreation_date().compareTo(min) < 0) {
             return rat.getCreation_date();
         }
@@ -248,7 +263,9 @@ public class RatSighting implements Parcelable {
                 mMap.addMarker(new MarkerOptions().position(new LatLng(dateRangeRats.get(i).
                         getLocation().getLatitude(), dateRangeRats.get(i).getLocation().
                         getLongitude())).title("Rat " + dateRangeRats.get(i).getKey()));
-            } catch(Exception e){}
+            } catch(Exception e){
+                Log.d("null pointer", "marker was missing longitude or latitude");
+            }
         }
         return mMap;
     }

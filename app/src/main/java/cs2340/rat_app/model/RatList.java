@@ -6,7 +6,7 @@ import java.util.ArrayList;
 public final class RatList {
 
     //ratSighting singleton
-    public static List<RatSighting> ratSightings = new ArrayList<>();
+    private static List<RatSighting> ratSightings = new ArrayList<>();
 
     /**
      * returns the singleton

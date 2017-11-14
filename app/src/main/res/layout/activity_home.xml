@@ -38,14 +38,5 @@
         android:layout_marginTop="39dp"
         android:text="@string/logout_label_home" />
 
-    <Button
-        android:id="@+id/add_sighting"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="36dp"
-        android:text="@string/add_sighting_label"
-        android:layout_below="@+id/view_sightings"
-        android:layout_centerHorizontal="true" />
-
 
 </android.widget.RelativeLayout>

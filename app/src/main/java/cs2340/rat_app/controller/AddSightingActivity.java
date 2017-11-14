@@ -13,6 +13,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.Calendar;
+import java.util.List;
 
 import cs2340.rat_app.R;
 import cs2340.rat_app.model.RatSighting;
@@ -62,8 +63,9 @@ public class AddSightingActivity extends AppCompatActivity {
 
         creation_date = Calendar.getInstance();
         date.setText(getDateStr());
-        if (!RatList.ratSightings.isEmpty()) {
-            int key1 = RatList.ratSightings.get(0).getKey() + 1;
+        List<RatSighting> ratList = RatList.getInstance();
+        if (!ratList.isEmpty()) {
+            int key1 = ratList.get(0).getKey() + 1;
             key.setText(Integer.toString(key1));
         }
 

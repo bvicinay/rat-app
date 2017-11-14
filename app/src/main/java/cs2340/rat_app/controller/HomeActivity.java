@@ -27,13 +27,6 @@ public class HomeActivity extends AppCompatActivity {
             startActivity(intent);
             getOuter().finish();
         });
-        Button addRatSighting = (Button) findViewById(R.id.add_sighting);
-        addRatSighting.setOnClickListener(v -> {
-            Intent intent = new Intent(getOuter(), AddSightingActivity.class);
-            startActivity(intent);
-        });
-
-
     }
 
     /**
