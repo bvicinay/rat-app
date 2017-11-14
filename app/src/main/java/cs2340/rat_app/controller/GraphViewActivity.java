@@ -24,11 +24,12 @@ public class GraphViewActivity extends AppCompatActivity {
 
     HashMap<Calendar, Integer> ratSightingHashMap = new HashMap<>();
     PointsGraphSeries<DataPoint> series;
-    Calendar min = RatList.ratSightings.get(0).getCreation_date();
-    Calendar max = RatList.ratSightings.get(0).getCreation_date();
+    public static Calendar min = RatList.ratSightings.get(0).getCreation_date();
+    public static Calendar max = RatList.ratSightings.get(0).getCreation_date();
     Calendar startDate = FilteredDate.startDate;
     Calendar finishDate = FilteredDate.finishDate;
     List<RatSighting> sightings = RatList.getInstance();
+    List<RatSighting> filteredList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,34 +38,9 @@ public class GraphViewActivity extends AppCompatActivity {
         GraphView graph = (GraphView) findViewById(R.id.graph);
         int j = 0;
 
-        for (RatSighting rat : sightings) {
+        filteredList = RatSighting.validateDateForGraph(sightings, startDate, finishDate);
+        ratSightingHashMap = RatSighting.setRatHashMap(filteredList);
 
-            if (rat.validateDateForGraph(rat, startDate, finishDate)) {
-                if (j == 0) {
-                    j = 1;
-                    setMax(rat);
-                    setMin(rat);
-                } else {
-                    if (rat.checkIfMax(rat, max)) {
-                        setMax(rat);
-                    }
-                    if (rat.checkIfMin(rat, min)) {
-                        setMin(rat);
-                    }
-                }
-                int month = rat.getMonth();
-                int year = rat.getYear();
-                Calendar cal = Calendar.getInstance();
-                cal.clear();
-                cal.set(Calendar.MONTH, month);
-                cal.set(Calendar.YEAR, year);
-                if (ratSightingHashMap.containsKey(cal)) {
-                    ratSightingHashMap.put(cal, ratSightingHashMap.get(cal) + 1);
-                } else {
-                    ratSightingHashMap.put(cal, 1);
-                }
-            }
-        }
         Set<Calendar> keys = ratSightingHashMap.keySet();
         DataPoint[] points = new DataPoint[keys.size()];
         int i = 0;
@@ -82,9 +58,7 @@ public class GraphViewActivity extends AppCompatActivity {
         }
         series = new PointsGraphSeries<>(points);
         graph.addSeries(series);
-
-        graph.getGridLabelRenderer().setLabelFormatter(new DateAsXAxisLabelFormatter(
-                this));
+        graph.getGridLabelRenderer().setLabelFormatter(new DateAsXAxisLabelFormatter(this));
         graph.getGridLabelRenderer().setNumHorizontalLabels(keys.size());
 
         int minMonth = min.get(Calendar.MONTH) - 1;
@@ -106,7 +80,6 @@ public class GraphViewActivity extends AppCompatActivity {
         graph.getViewport().setXAxisBoundsManual(true);
         graph.getGridLabelRenderer().setHumanRounding(false);
         graph.getViewport().setScrollable(true);
-
     }
 
     /**

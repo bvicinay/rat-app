@@ -186,11 +186,9 @@ public class RatSightingListActivity extends AppCompatActivity {
 
         @Override
         protected void onPreExecute() {
-            //mDatabase = FirebaseDatabase.getInstance().getReference();
 
-            mDatabase = FirebaseDatabase.getInstance()
+            mDatabase = FirebaseDatabase.getInstance();
             mDatabaseRef = mDatabase.getReference();
-
 
         }
 

@@ -5,7 +5,12 @@ import android.os.Parcel;
 import android.os.Parcelable;
 import android.util.Log;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Calendar;
+
+import cs2340.rat_app.controller.GraphViewActivity;
 
 public class RatSighting implements Parcelable {
 
@@ -176,29 +181,61 @@ public class RatSighting implements Parcelable {
         }
     };
 
-    public boolean validateDateForGraph(RatSighting rat, Calendar startDate, Calendar finishDate) {
-        if (rat.getCreation_date() == null) {
-            return false;
+    public static List<RatSighting> validateDateForGraph(
+            Iterable<RatSighting> rats, Calendar startDate, Calendar finishDate) {
+        List<RatSighting> filteredList = new ArrayList<>();
+        int j = 0;
+        for (RatSighting rat : rats) {
+            if (rat.getCreation_date() == null) {
+                continue;
+            }
+            if (rat.getCreation_date().compareTo(startDate) > 0 &&
+                    rat.getCreation_date().compareTo(finishDate) < 0) {
+                filteredList.add(rat);
+                if (j == 0) {
+                    GraphViewActivity.max = rat.getCreation_date();
+                    GraphViewActivity.min = rat.getCreation_date();
+                    j = 1;
+                }
+                else {
+                    checkIfMin(rat, GraphViewActivity.min);
+                    checkIfMax(rat, GraphViewActivity.max);
+                }
+            }
         }
-        if (rat.getCreation_date().compareTo(startDate) > 0 &&
-                rat.getCreation_date().compareTo(finishDate) < 0) {
-            return true;
-        }
-        return false;
+        return filteredList;
     }
 
-    public boolean checkIfMin(RatSighting rat, Calendar min) {
+    public static Calendar checkIfMin(RatSighting rat, Calendar min) {
         if (rat.getCreation_date().compareTo(min) < 0) {
-            return true;
+            return rat.getCreation_date();
         }
-        return false;
+        return min;
     }
 
-    public boolean checkIfMax(RatSighting rat, Calendar max) {
+    public static Calendar checkIfMax(RatSighting rat, Calendar max) {
         if (rat.getCreation_date().compareTo(max) > 0) {
-            return true;
+            return rat.getCreation_date();
         }
-        return false;
+        return max;
+    }
+
+    public static HashMap<Calendar, Integer> setRatHashMap(Iterable<RatSighting> filteredList) {
+        HashMap<Calendar, Integer> ratSightingHashMap = new HashMap<>();
+        for (RatSighting rat: filteredList) {
+            int month = rat.getMonth();
+            int year = rat.getYear();
+            Calendar cal = Calendar.getInstance();
+            cal.clear();
+            cal.set(Calendar.MONTH, month);
+            cal.set(Calendar.YEAR, year);
+            if (ratSightingHashMap.containsKey(cal)) {
+                ratSightingHashMap.put(cal, ratSightingHashMap.get(cal) + 1);
+            } else {
+                ratSightingHashMap.put(cal, 1);
+            }
+        }
+        return ratSightingHashMap;
     }
 
     public int getMonth() {

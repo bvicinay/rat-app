@@ -44,14 +44,6 @@ public class Address implements Parcelable {
         return street;
     }
 
- /*   *//**
-     * Street setter
-     * @param street being set
-     *//*
-    public void setStreet(String street) {
-        this.street = street;
-    }
-*/
     /**
      * Borough getter
      * @return borough
@@ -59,14 +51,6 @@ public class Address implements Parcelable {
     public String getBorough() {
         return borough;
     }
-
-  /*  *//**
-     * Borough setter
-     * @param borough being set
-     *//*
-    public void setBorough(String borough) {
-        this.borough = borough;
-    }*/
 
     /**
      * ZipCode getter
@@ -76,14 +60,6 @@ public class Address implements Parcelable {
         return zip;
     }
 
-   /* *//**
-     * ZipCode setter
-     * @param zip ZipCode being set
-     *//*
-    public void setZip(int zip) {
-        this.zip = zip;
-    }*/
-
     /**
      * City getter
      * @return city
@@ -92,14 +68,6 @@ public class Address implements Parcelable {
         return city;
     }
 
- /*   *//**
-     * City setter
-     * @param city city being set
-     *//*
-    public void setCity(String city) {
-        this.city = city;
-    }
-*/
     @Override
     public int describeContents() {
         return 0;
