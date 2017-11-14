@@ -33,7 +33,7 @@ public class FilterRatSightings2 extends AppCompatActivity {
             endDate.set(year, month, day);
 
             id = getIntent().getIntExtra("Check1", 0);
-            startDate = getIntent().getSerializableExtra("startDate", 0);
+            startDate = (Calendar) getIntent().getSerializableExtra("startDate");
             if (id == 0) {
                 Intent intent = new Intent(getOuter(), MapsActivity.class);
                 intent.putExtra("startDate", startDate);

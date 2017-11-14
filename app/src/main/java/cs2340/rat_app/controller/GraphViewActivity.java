@@ -34,8 +34,8 @@ public class GraphViewActivity extends AppCompatActivity {
         setContentView(R.layout.activity_history_graph);
         GraphView graph = (GraphView) findViewById(R.id.graph);
         int j = 0;
-        startDate = getIntent().getSerializableExtra("startDate");
-        finishDate = getIntent().getSerializableExtra("endDate");
+        startDate = (Calendar) getIntent().getSerializableExtra("startDate");
+        finishDate = (Calendar) getIntent().getSerializableExtra("endDate");
         List<RatSighting> filteredList = RatSighting.validateDateForGraph(sightings, startDate,
                 finishDate);
         HashMap<Calendar, Integer> ratSightingHashMap = RatSighting.setRatHashMap(filteredList);

@@ -28,8 +28,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps);
-        startDate = getIntent().getSerializableExtra("startDate");
-        finishDate = getIntent().getSerializableExtra("finishDate");
+        startDate = (Calendar) getIntent().getSerializableExtra("startDate");
+        finishDate = (Calendar) getIntent().getSerializableExtra("finishDate");
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
