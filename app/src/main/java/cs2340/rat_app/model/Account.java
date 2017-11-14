@@ -21,7 +21,7 @@ public class Account implements Serializable {
      * @param lastName String that will be set as the last name for the account.
      * @param email String that will be set as the email of the account.
      */
-    public Account(AccountType accountType, String username, String password, String firstName,
+  /*  public Account(AccountType accountType, String username, String password, String firstName,
                    String lastName, String email) {
         cs2340.rat_app.model.AccountType accountType1 = accountType;
         this.userName = username;
@@ -29,7 +29,7 @@ public class Account implements Serializable {
         String firstName1 = firstName;
         String lastName1 = lastName;
         String email1 = email;
-    }
+    }*/
 
     /**
      * Getter method for the username.
