@@ -60,7 +60,8 @@ public class RatSighting implements Parcelable {
             String[] dateData = creation_date.split("/");
             dateData[2] = dateData[2].split(" ")[0];
             Calendar calendar = Calendar.getInstance();
-            calendar.set(Integer.parseInt(dateData[2]), Integer.parseInt(dateData[0]), Integer.parseInt(dateData[1]));
+            calendar.set(Integer.parseInt(dateData[2]), Integer.parseInt(dateData[0]),
+                    Integer.parseInt(dateData[1]));
             this.creation_date = calendar;
         } catch (Exception e) { // Add any date to keep data valid
             Calendar calendar = Calendar.getInstance();

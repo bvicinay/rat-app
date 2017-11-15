@@ -67,7 +67,8 @@ public class RatSightingListActivity extends AppCompatActivity {
         d1.execute(100);
 
         //When add sighting fab button is pressed
-        FloatingActionButton addSighting = (FloatingActionButton) findViewById(R.id.fab_add_sighting);
+        FloatingActionButton addSighting = (FloatingActionButton)
+                findViewById(R.id.fab_add_sighting);
         addSighting.setOnClickListener(view -> {
             Intent intent = new Intent(getOuter(), AddSightingActivity.class);
             startActivity(intent);

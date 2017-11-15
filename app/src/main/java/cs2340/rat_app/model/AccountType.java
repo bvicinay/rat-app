@@ -14,6 +14,4 @@ public enum AccountType {
     AccountType(String name) {
     }
 
-    //public String getName() {return name;}
-
 }

@@ -3,6 +3,9 @@ package cs2340.rat_app.model;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+/**
+ * Address class for holding the address of a Rat Sighting
+ */
 public class Address implements Parcelable {
 
     //instance variables

@@ -88,22 +88,6 @@ public class GraphViewActivity extends AppCompatActivity {
         v1.setScrollable(true);
     }
 
-    /**
-     *
-      * @return
-     */
-    public GraphViewActivity getOuter() {
-            return this;
-        }
-
-    public static Calendar getMin() {
-        return min;
-    }
-
-    public static Calendar getMax() {
-        return max;
-    }
-
     public static void setMin(Calendar newMin) {
         min = newMin;
     }
