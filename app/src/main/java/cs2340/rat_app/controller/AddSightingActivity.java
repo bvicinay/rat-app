@@ -118,64 +118,148 @@ public class AddSightingActivity extends AppCompatActivity {
 
 
 
-            boolean valid = true;
+        boolean valid = true;
 
-            View focusView = null; //highlighted view in case of error
+        View focusView = null; //highlighted view in case of error
 
-            if (locType.isEmpty()) {
-                locTypeField.setError("This field is required");
-                focusView = locTypeField;
-                valid = false;
-            }
-
-            if (zipCode.isEmpty()) {
-                zipCodeField.setError("this field is required");
-                focusView = zipCodeField;
-                valid = false;
-            }
-
-            if (address.isEmpty()) {
-                addressField.setError("this field is required");
-                focusView = addressField;
-                valid = false;
-            }
-
-            if (city.isEmpty()) {
-                cityField.setError("this field is required");
-                focusView = cityField;
-                valid = false;
-            }
-
-            if (borough.isEmpty()) {
-                boroughField.setError("this field is required");
-                focusView = boroughField;
-                valid = false;
-            }
-
-            if (latitude.isEmpty()) {
-                latitudeField.setError("this field is required");
-                focusView = latitudeField;
-                valid = false;
-            }
-
-            if (longitude.isEmpty()) {
-                longitudeField.setError("this field is required");
-                focusView = longitudeField;
-                valid = false;
-            }
-
-            if (!valid) {
-                focusView.requestFocus();
-            }
-
-            return valid;
-
+        if (!validateLocType(locType)) {
+            locTypeField.setError("This field is required");
+            focusView = locTypeField;
+            valid = false;
         }
 
-        /**
-         * method that creates a new rat object if all the data is properly validated
-         * @throws Exception if there is invalid data entered in the fields
-         */
+        if (!validateZip(zipCode)) {
+            zipCodeField.setError("this field is required");
+            focusView = zipCodeField;
+            valid = false;
+        }
+
+        if (!validateAddress(address)) {
+            addressField.setError("this field is required");
+            focusView = addressField;
+            valid = false;
+        }
+
+        if (!validateCity(city)) {
+            cityField.setError("this field is required");
+            focusView = cityField;
+            valid = false;
+        }
+
+        if (!validateBorough(borough)) {
+            boroughField.setError("this field is required");
+            focusView = boroughField;
+            valid = false;
+        }
+
+        if (!validateLatitude(latitude)) {
+            latitudeField.setError("this field is required");
+            focusView = latitudeField;
+            valid = false;
+        }
+
+        if (!validateLongitude(longitude)) {
+            longitudeField.setError("this field is required");
+            focusView = longitudeField;
+            valid = false;
+        }
+
+        if (!valid) {
+            focusView.requestFocus();
+        }
+
+        return valid;
+
+    }
+
+    /**
+     * Method to return true if locType is a valid entry and false otherwise
+     * @param locType string to be validated
+     * @return true if valid, false otherwise
+     */
+    public static boolean validateLocType(String locType) {
+        if (locType.isEmpty()) {
+            return false;
+        }
+        return true;
+    }
+
+    /**
+     * Method to return true if zipCode is a valid entry and false otherwise
+     * @param zipCode string to be validated
+     * @return true if valid, false otherwise
+     */
+    public static boolean validateZip(String zipCode) {
+        if (zipCode.isEmpty()) {
+            return false;
+        }
+        return true;
+    }
+
+    /**
+     * Method to return true if address is a valid entry and false otherwise
+     * @param address string to be validated
+     * @return true if valid, false otherwise
+     */
+    public static boolean validateAddress(String address) {
+        if (address.isEmpty()) {
+            return false;
+        }
+        return true;
+    }
+
+    /**
+     * Method to return true if city is a valid entry and false otherwise
+     * @param city string to be validated
+     * @return true if valid, false otherwise
+     */
+    public static boolean validateCity(String city) {
+        if (city.isEmpty()) {
+            return false;
+        }
+        return true;
+    }
+
+    /**
+     * Method to return true if borough is a valid entry and false otherwise
+     * @param borough string to be validated
+     * @return true if valid, false otherwise
+     */
+    public static boolean validateBorough(String borough) {
+        if (borough.isEmpty()) {
+            return false;
+        }
+        return true;
+    }
+
+    /**
+     * Method to return true if latitude is a valid entry and false otherwise
+     * @param latitude string to be validated
+     * @return true if valid, false otherwise
+     */
+    public static boolean validateLatitude(String latitude) {
+        if (latitude.isEmpty()) {
+            return false;
+        }
+        return true;
+    }
+
+    /**
+     * Method to return true if longitude is a valid entry and false otherwise
+     * @param longitude string to be validated
+     * @return true if valid, false otherwise
+     */
+    public static boolean validateLongitude(String longitude) {
+        if (longitude.isEmpty()) {
+            return false;
+        }
+        return true;
+    }
+
+    /**
+     * method that creates a new rat object if all the data is properly validated
+     * @throws Exception if there is invalid data entered in the fields
+     */
     private void createRat() {
 
         if (validateData()) {
