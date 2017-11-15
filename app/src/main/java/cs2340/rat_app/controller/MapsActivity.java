@@ -5,6 +5,7 @@ import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.Button;
+import android.location.Location;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -28,8 +29,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps);
-        startDate = (Calendar) getIntent().getSerializableExtra("startDate");
-        finishDate = (Calendar) getIntent().getSerializableExtra("finishDate");
+        Intent in = getIntent();
+        startDate = (Calendar) in.getSerializableExtra("startDate");
+        finishDate = (Calendar) in.getSerializableExtra("finishDate");
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
@@ -41,7 +43,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             Intent intent = new Intent(getOuter(), RatSightingListActivity.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             startActivity(intent);
-            getOuter().finish();
+            finishActivity();
         });
 
 
@@ -78,9 +80,15 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     }
 
     private void updateMapView(GoogleMap mMap, List<RatSighting> dateRangeRats) {
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(new LatLng(dateRangeRats.get(0).
-                getLocation().getLatitude(), dateRangeRats.get(0).getLocation().getLongitude())));
+        RatSighting rat = dateRangeRats.get(0);
+        Location loc = rat.getLocation();
+        mMap.moveCamera(CameraUpdateFactory.newLatLng(new LatLng(loc.getLatitude(),
+                loc.getLongitude())));
     }
 
     private MapsActivity getOuter() { return this; }
+
+    private void finishActivity() {
+        this.finish();
+    }
 }

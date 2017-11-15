@@ -6,9 +6,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.TextView;
+import android.location.Location;
 
 import cs2340.rat_app.R;
 import cs2340.rat_app.model.RatSighting;
+import cs2340.rat_app.model.Address;
 
 public class RatReportActivity extends AppCompatActivity{
 
@@ -20,6 +22,7 @@ public class RatReportActivity extends AppCompatActivity{
             Intent in = getIntent();
             Bundle b = in.getExtras();
             RatSighting curr = (RatSighting) b.get("RatSighting");
+            Address ad = curr.getAddress();
 
             TextView key = (TextView) findViewById(R.id.key);
             key.setText("Key : " + curr.getKey());
@@ -31,22 +34,23 @@ public class RatReportActivity extends AppCompatActivity{
             locType.setText("Location : " + curr.getLocation_type());
 
             TextView zipCode = (TextView) findViewById(R.id.zip_code);
-            zipCode.setText("Zip Code : " + curr.getAddress().getZip());
+            zipCode.setText("Zip Code : " + ad.getZip());
 
             TextView address = (TextView) findViewById(R.id.address);
-            address.setText("Address : " + curr.getAddress().getStreet());
+            address.setText("Address : " + ad.getStreet());
 
             TextView city = (TextView) findViewById(R.id.city);
-            city.setText("City : " + curr.getAddress().getCity());
+            city.setText("City : " + ad.getCity());
 
             TextView borough = (TextView) findViewById(R.id.borough);
-            borough.setText("Borough : " + curr.getAddress().getBorough());
+            borough.setText("Borough : " + ad.getBorough());
 
             DecimalFormat df = new DecimalFormat("#.###");
             TextView latitude = (TextView) findViewById(R.id.latitude);
-            latitude.setText("Latitude : " + df.format(curr.getLocation().getLatitude()));
+            Location loc = curr.getLocation();
+            latitude.setText("Latitude : " + df.format(loc.getLatitude()));
             TextView longitude = (TextView) findViewById(R.id.longitude);
-            longitude.setText("Longitude : " + df.format(curr.getLocation().getLongitude()));
+            longitude.setText("Longitude : " + df.format(loc.getLongitude()));
         } catch (Exception e) {
             Log.d("null pointer exception" , "Caught a null pointer");
         }
