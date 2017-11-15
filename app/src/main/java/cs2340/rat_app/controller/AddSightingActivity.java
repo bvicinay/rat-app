@@ -118,6 +118,13 @@ public class AddSightingActivity extends AppCompatActivity {
 
     /**
      * boolean that returns whether all the editable fields have data in them
+     * @param locType location type string to be validated
+     * @param zipCode zipCode string to be validated
+     * @param address address string to be validated
+     * @param city city string to be validated
+     * @param borough borough string to be validated
+     * @param latitude latitude string to be validated
+     * @param longitude longitude string to be validated
      * @return a boolean stating if all the fields have been filled
      */
     public boolean validateData(String locType, String zipCode, String address, String city,
