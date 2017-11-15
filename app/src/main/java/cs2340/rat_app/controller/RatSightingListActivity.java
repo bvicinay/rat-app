@@ -167,8 +167,7 @@ public class RatSightingListActivity extends AppCompatActivity {
             holder.itemSubtitle.setText(r1.getStreet());
             holder.layout.setOnClickListener(v -> {
                 Intent intent = new Intent(getOuter(), RatReportActivity.class);
-                RatSighting selected = dataSet.get(position);
-                intent.putExtra("RatSighting", dataSet.get(position));
+                intent.putExtra("RatSighting", r1);
                 startActivity(intent);
             });
 
