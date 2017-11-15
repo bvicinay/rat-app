@@ -17,7 +17,7 @@ import java.util.Calendar;
 import cs2340.rat_app.R;
 import cs2340.rat_app.model.RatSighting;
 import cs2340.rat_app.model.RatSightingRaw;
-import cs2340.rat_app.model.RatList;
+import cs2340.rat_app.model.RatSightingsList;
 
 public class AddSightingActivity extends AppCompatActivity {
 
@@ -43,6 +43,9 @@ public class AddSightingActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_report_sighting);
 
+        //Replace back button with close icon
+        this.getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_close_icon);
+
         //add rat button
         addRat = (Button) findViewById(R.id.create_rat);
         addRat.setOnClickListener((view) -> { createRat(); });
@@ -67,8 +70,8 @@ public class AddSightingActivity extends AppCompatActivity {
 
         creation_date = Calendar.getInstance();
         date.setText(getDateStr());
-        if (RatList.ratSightings.size() > 0) {
-            int key1 = RatList.ratSightings.get(0).getKey() + 1;
+        if (RatSightingsList.ratSightings.size() > 0) {
+            int key1 = RatSightingsList.ratSightings.get(0).getKey() + 1;
             key.setText(Integer.toString(key1));
         }
 

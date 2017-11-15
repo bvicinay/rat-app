@@ -1,26 +1,18 @@
 package cs2340.rat_app.controller;
 
-import com.jjoe64.graphview.DefaultLabelFormatter;
 import com.jjoe64.graphview.GraphView;
-import com.jjoe64.graphview.helper.DateAsXAxisLabelFormatter;
 import com.jjoe64.graphview.series.DataPoint;
 import com.jjoe64.graphview.series.LineGraphSeries;
-import com.jjoe64.graphview.series.BarGraphSeries;
-import com.jjoe64.graphview.series.Series;
 
 import cs2340.rat_app.R;
 import cs2340.rat_app.model.FilteredDate;
-import cs2340.rat_app.model.RatList;
+import cs2340.rat_app.model.RatSightingsList;
 import cs2340.rat_app.model.RatSighting;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
-import android.view.View;
 
 import java.text.SimpleDateFormat;
-import java.text.DateFormat;
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Set;
@@ -43,7 +35,7 @@ public class GraphViewActivity extends AppCompatActivity {
         LineGraphSeries<DataPoint> series;
         HashMap<Date, Integer> ratSightingHashMap = new HashMap<>();
 
-        for (RatSighting rat : RatList.ratSightings) {
+        for (RatSighting rat : RatSightingsList.ratSightings) {
                 if (rat.getCreation_date() == null) {
                     continue;
                 }

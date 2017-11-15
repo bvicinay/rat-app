@@ -8,7 +8,7 @@
         android:paddingLeft="8dp"
         android:paddingRight="8dp">
 
-        <Button
+        <!--<Button
             android:id="@+id/map_button"
             android:layout_width="169dp"
             android:layout_height="wrap_content"
@@ -17,33 +17,50 @@
             app:layout_anchorGravity="right|bottom"
             tools:layout_editor_absoluteX="134dp" />
 
-    <Button
-        android:id="@+id/graph_button"
-        android:layout_width="162dp"
-        android:layout_height="wrap_content"
-        android:text="Go To Graph"
-        app:layout_anchor="@+id/RatSightings_list"
-        app:layout_anchorGravity="left|bottom" />
+        <Button
+            android:id="@+id/graph_button"
+            android:layout_width="162dp"
+            android:layout_height="wrap_content"
+            android:text="Go To Graph"
+            app:layout_anchor="@+id/RatSightings_list"
+            app:layout_anchorGravity="left|bottom" />-->
 
-    <android.support.v7.widget.RecyclerView
-            android:id="@+id/RatSightings_list"
-            android:scrollbars="vertical"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="1" >
+        <android.support.v7.widget.RecyclerView
+                android:id="@+id/RatSightings_list"
+                android:scrollbars="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1" >
 
-    </android.support.v7.widget.RecyclerView>
+        </android.support.v7.widget.RecyclerView>
 
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/fab_add_sighting"
+    <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="bottom|right"
-        android:layout_marginBottom="@dimen/activity_vertical_margin"
-        android:layout_marginRight="@dimen/activity_horizontal_margin"
         app:layout_anchor="@+id/RatSightings_list"
-        app:layout_anchorGravity="right|top"
-        app:srcCompat="@drawable/ic_fab_add_icon" />
+        app:layout_anchorGravity="right|bottom"
+        android:layout_gravity="bottom|right"
+        android:orientation="vertical">
+
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/fab_filter_sightings"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/activity_vertical_margin"
+            android:layout_marginRight="@dimen/activity_horizontal_margin"
+            app:backgroundTint="@android:color/darker_gray"
+            app:srcCompat="@drawable/ic_fab_filter_icon" />
+
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/fab_add_sighting"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/activity_vertical_margin"
+            android:layout_marginRight="@dimen/activity_horizontal_margin"
+            app:srcCompat="@drawable/ic_fab_add_icon" />
+
+    </LinearLayout>
+
 
     </android.support.design.widget.CoordinatorLayout>
 

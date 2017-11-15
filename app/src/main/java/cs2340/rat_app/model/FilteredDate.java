@@ -8,6 +8,8 @@ import java.util.Calendar;
 
 //filtered date singleton
 public class FilteredDate {
+    public static boolean isFiltered = false;
+    public static boolean filterChanged = true;
     public static Calendar startDate;
     public static Calendar finishDate;
 }

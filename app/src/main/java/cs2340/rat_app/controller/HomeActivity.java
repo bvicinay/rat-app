@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.Button;
 
 import cs2340.rat_app.R;
+import cs2340.rat_app.model.RatSightingsList;
 
 public class HomeActivity extends AppCompatActivity {
 
@@ -43,7 +44,7 @@ public class HomeActivity extends AppCompatActivity {
             }
         });
 
-
+        //new RatSightingsList.LoadDatabaseDataTask().execute(100);
     }
 
     /**
