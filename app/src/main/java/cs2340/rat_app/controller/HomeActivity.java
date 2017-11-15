@@ -25,7 +25,7 @@ public class HomeActivity extends AppCompatActivity {
             Intent intent = new Intent(getOuter(), LoginActivity.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             startActivity(intent);
-            getOuter().finish();
+            endActivity();
         });
     }
 
@@ -35,4 +35,7 @@ public class HomeActivity extends AppCompatActivity {
      */
     private HomeActivity getOuter() { return this; }
 
+    private void endActivity() {
+        this.finish();
+    }
 }

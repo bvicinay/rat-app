@@ -31,7 +31,8 @@ public class FilterRatSightings1 extends AppCompatActivity {
             Calendar startDate = Calendar.getInstance();
             startDate.set(year, month, day);
 
-            id = getIntent().getIntExtra("Check", 0);
+            Intent in = getIntent();
+            id = in.getIntExtra("Check", 0);
             Intent intent = new Intent(getOuter(),FilterRatSightings2.class);
             intent.putExtra("Check1", id);
             intent.putExtra("startDate" , startDate);

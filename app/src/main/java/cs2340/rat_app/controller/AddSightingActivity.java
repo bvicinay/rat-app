@@ -3,6 +3,7 @@ package cs2340.rat_app.controller;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.text.Editable;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -48,12 +49,13 @@ public class AddSightingActivity extends AppCompatActivity {
         //back button
         Button backButton = (Button) findViewById(R.id.cancel);
         backButton.setOnClickListener(v -> {
-            Toast.makeText(AddSightingActivity.this, "Rat Report Cancelled",
-                    Toast.LENGTH_SHORT).show();
+            Toast toast = Toast.makeText(AddSightingActivity.this, "Rat Report Cancelled",
+                    Toast.LENGTH_SHORT);
+            toast.show();
             Intent intent = new Intent(getOuter(), HomeActivity.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             startActivity(intent);
-            getOuter().finish();
+            endActivity();
         });
 
         //non-editable fields
@@ -65,7 +67,8 @@ public class AddSightingActivity extends AppCompatActivity {
         date.setText(getDateStr());
         List<RatSighting> ratList = RatList.getInstance();
         if (!ratList.isEmpty()) {
-            int key1 = ratList.get(0).getKey() + 1;
+            RatSighting r1 = ratList.get(0);
+            int key1 = r1.getKey() + 1;
             key.setText(Integer.toString(key1));
         }
 
@@ -97,13 +100,20 @@ public class AddSightingActivity extends AppCompatActivity {
      */
     private boolean validateData() {
 
-        String locType = locTypeField.getText().toString();
-        String zipCode = zipCodeField.getText().toString();
-        String address = addressField.getText().toString();
-        String city = cityField.getText().toString();
-        String borough = boroughField.getText().toString();
-        String latitude = latitudeField.getText().toString();
-        String longitude = longitudeField.getText().toString();
+        Editable lc = locTypeField.getText();
+        String locType = lc.toString();
+        Editable zC = zipCodeField.getText();
+        String zipCode = zC.toString();
+        Editable aD = addressField.getText();
+        String address = aD.toString();
+        Editable ct = cityField.getText();
+        String city = ct.toString();
+        Editable br = boroughField.getText();
+        String borough = br.toString();
+        Editable lat = latitudeField.getText();
+        String latitude = lat.toString();
+        Editable lon = longitudeField.getText();
+        String longitude = lon.toString();
 
         boolean valid = true;
 
@@ -167,28 +177,40 @@ public class AddSightingActivity extends AppCompatActivity {
 
         if (validateData()) {
             try {
-                int key1 = Integer.parseInt(key.getText().toString());
-                int zip = Integer.parseInt(zipCodeField.getText().toString());
+                CharSequence k1 = key.getText();
+                int key1 = Integer.parseInt(k1.toString());
+                Editable zC = zipCodeField.getText();
+                int zip = Integer.parseInt(zC.toString());
+                Editable lc = locTypeField.getText();
+                Editable aD = addressField.getText();
+                Editable ct = cityField.getText();
+                Editable br = boroughField.getText();
+                Editable lat = latitudeField.getText();
+                Editable lon = longitudeField.getText();
+                CharSequence date1 = date.getText();
                 RatSighting newSighting = new RatSighting(
                         key1,
-                        date.getText().toString(),
-                        locTypeField.getText().toString(),
-                        addressField.getText().toString(),
-                        boroughField.getText().toString(),
+                        date1.toString(),
+                        lc.toString(),
+                        aD.toString(),
+                        br.toString(),
                         zip,
-                        cityField.getText().toString(),
-                        latitudeField.getText().toString(),
-                        longitudeField.getText().toString());
+                        ct.toString(),
+                        lat.toString(),
+                        lon.toString());
                 RatSightingRaw raw = new RatSightingRaw(newSighting);
-                DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
-                DatabaseReference newRequestReference = mDatabase.child("rat_sightings").push();
+                FirebaseDatabase mDatabase = FirebaseDatabase.getInstance();
+                DatabaseReference mDatabaseRef = mDatabase.getReference();
+                DatabaseReference newRequestReference = mDatabaseRef.child("rat_sightings");
+                newRequestReference.push();
                 newRequestReference.setValue(raw);
-                Toast.makeText(AddSightingActivity.this, "Rat Report Added",
-                        Toast.LENGTH_SHORT).show();
+                Toast toast = Toast.makeText(AddSightingActivity.this, "Rat Report Added",
+                        Toast.LENGTH_SHORT);
+                toast.show();
                 Intent intent = new Intent(getOuter(), HomeActivity.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(intent);
-                getOuter().finish();
+                endActivity();
             } catch (Exception e) {
                 errorText.setText("Please enter valid data");
             }
@@ -203,5 +225,9 @@ public class AddSightingActivity extends AppCompatActivity {
      */
     private AddSightingActivity getOuter() {
         return this;
+    }
+
+    private void endActivity() {
+        this.finish();
     }
 }

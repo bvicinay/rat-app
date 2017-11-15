@@ -3,6 +3,7 @@ package cs2340.rat_app.controller;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.text.Editable;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -85,7 +86,9 @@ public class LoginActivity extends AppCompatActivity {
         emailField.setError(null);
         passwordField.setError(null);
         if (validateData()) {
-            signin(emailField.getText().toString(), passwordField.getText().toString());
+            Editable email = emailField.getText();
+            Editable password = passwordField.getText();
+            signin(email.toString(), password.toString());
         } else {
             abortLogin();
         }
@@ -96,8 +99,9 @@ public class LoginActivity extends AppCompatActivity {
      * @param user the user that has logged in
      */
     private void proceedLogin(FirebaseUser user) {
-        Toast.makeText(LoginActivity.this, "Signed-in",
-                Toast.LENGTH_SHORT).show();
+        Toast toast = Toast.makeText(LoginActivity.this, "Signed-in",
+                Toast.LENGTH_SHORT);
+        toast.show();
         Intent intent = new Intent(this, HomeActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(intent);
@@ -119,8 +123,10 @@ public class LoginActivity extends AppCompatActivity {
      */
     private boolean validateData() {
         // Store input values
-        String email = emailField.getText().toString();
-        String password = passwordField.getText().toString();
+        Editable em = emailField.getText();
+        String email = em.toString();
+        Editable pass = passwordField.getText();
+        String password = pass.toString();
 
         boolean valid = true;
         View focusView = null; //the view to be highlighted in case of error
@@ -170,8 +176,9 @@ public class LoginActivity extends AppCompatActivity {
                     else {
                         // Sign-in failed, display message to user
                         Log.w(TAG, "signInWithEmail:failed", task.getException());
-                        Toast.makeText(LoginActivity.this, "Sign-in failed",
-                                Toast.LENGTH_SHORT).show();
+                        Toast toast = Toast.makeText(LoginActivity.this, "Sign-in failed",
+                                Toast.LENGTH_SHORT);
+                        toast.show();
                         abortLogin();
                     }
                 });
