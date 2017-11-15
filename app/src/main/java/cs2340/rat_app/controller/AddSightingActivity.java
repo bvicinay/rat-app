@@ -35,13 +35,6 @@ public class AddSightingActivity extends AppCompatActivity {
     private EditText boroughField;
     private EditText latitudeField;
     private EditText longitudeField;
-    private String locTypeString;
-    private String zipCodeString;
-    private String addressString;
-    private String cityString;
-    private String boroughString;
-    private String latitudeString;
-    private String longitudeString;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -88,21 +81,6 @@ public class AddSightingActivity extends AppCompatActivity {
         latitudeField = (EditText) findViewById(R.id.latitude);
         longitudeField = (EditText) findViewById(R.id.longitude);
 
-        //editable fields to String
-        Editable lc = locTypeField.getText();
-        locTypeString = lc.toString();
-        Editable zC = zipCodeField.getText();
-        zipCodeString = zC.toString();
-        Editable aD = addressField.getText();
-        addressString = aD.toString();
-        Editable ct = cityField.getText();
-        cityString = ct.toString();
-        Editable br = boroughField.getText();
-        boroughString = br.toString();
-        Editable lat = latitudeField.getText();
-        latitudeString = lat.toString();
-        Editable lon = longitudeField.getText();
-        longitudeString = lon.toString();
     }
 
     /**
@@ -118,80 +96,90 @@ public class AddSightingActivity extends AppCompatActivity {
 
     /**
      * boolean that returns whether all the editable fields have data in them
-     * @param locType location type string to be validated
-     * @param zipCode zipCode string to be validated
-     * @param address address string to be validated
-     * @param city city string to be validated
-     * @param borough borough string to be validated
-     * @param latitude latitude string to be validated
-     * @param longitude longitude string to be validated
      * @return a boolean stating if all the fields have been filled
      */
-    public boolean validateData(String locType, String zipCode, String address, String city,
-                                 String borough, String latitude, String longitude) {
 
-        boolean valid = true;
+    private boolean validateData() {
 
-        View focusView = null; //highlighted view in case of error
+        Editable lc = locTypeField.getText();
+        String locType = lc.toString();
+        Editable zC = zipCodeField.getText();
+        String zipCode = zC.toString();
+        Editable aD = addressField.getText();
+        String address = aD.toString();
+        Editable ct = cityField.getText();
+        String city = ct.toString();
+        Editable br = boroughField.getText();
+        String borough = br.toString();
+        Editable lat = latitudeField.getText();
+        String latitude = lat.toString();
+        Editable lon = longitudeField.getText();
+        String longitude = lon.toString();
 
-        if (locType.isEmpty()) {
-            locTypeField.setError("This field is required");
-            focusView = locTypeField;
-            valid = false;
+
+
+            boolean valid = true;
+
+            View focusView = null; //highlighted view in case of error
+
+            if (locType.isEmpty()) {
+                locTypeField.setError("This field is required");
+                focusView = locTypeField;
+                valid = false;
+            }
+
+            if (zipCode.isEmpty()) {
+                zipCodeField.setError("this field is required");
+                focusView = zipCodeField;
+                valid = false;
+            }
+
+            if (address.isEmpty()) {
+                addressField.setError("this field is required");
+                focusView = addressField;
+                valid = false;
+            }
+
+            if (city.isEmpty()) {
+                cityField.setError("this field is required");
+                focusView = cityField;
+                valid = false;
+            }
+
+            if (borough.isEmpty()) {
+                boroughField.setError("this field is required");
+                focusView = boroughField;
+                valid = false;
+            }
+
+            if (latitude.isEmpty()) {
+                latitudeField.setError("this field is required");
+                focusView = latitudeField;
+                valid = false;
+            }
+
+            if (longitude.isEmpty()) {
+                longitudeField.setError("this field is required");
+                focusView = longitudeField;
+                valid = false;
+            }
+
+            if (!valid) {
+                focusView.requestFocus();
+            }
+
+            return valid;
+
         }
 
-        if (zipCode.isEmpty()) {
-            zipCodeField.setError("this field is required");
-            focusView = zipCodeField;
-            valid = false;
-        }
-
-        if (address.isEmpty()) {
-            addressField.setError("this field is required");
-            focusView = addressField;
-            valid = false;
-        }
-
-        if (city.isEmpty()) {
-            cityField.setError("this field is required");
-            focusView = cityField;
-            valid = false;
-        }
-
-        if (borough.isEmpty()) {
-            boroughField.setError("this field is required");
-            focusView = boroughField;
-            valid = false;
-        }
-
-        if (latitude.isEmpty()) {
-            latitudeField.setError("this field is required");
-            focusView = latitudeField;
-            valid = false;
-        }
-
-        if (longitude.isEmpty()) {
-            longitudeField.setError("this field is required");
-            focusView = longitudeField;
-            valid = false;
-        }
-
-        if (!valid) {
-            focusView.requestFocus();
-        }
-
-        return valid;
-
-    }
-
-    /**
-     * method that creates a new rat object if all the data is properly validated
-     * @throws Exception if there is invalid data entered in the fields
-     */
+        /**
+         * method that creates a new rat object if all the data is properly validated
+         * @throws Exception if there is invalid data entered in the fields
+         */
     private void createRat() {
 
-        if (validateData(locTypeString, zipCodeString, addressString, cityString,
-                boroughString, latitudeString, longitudeString)) {
+        if (validateData()) {
+
             try {
                 CharSequence k1 = key.getText();
                 int key1 = Integer.parseInt(k1.toString());
