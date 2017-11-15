@@ -98,21 +98,22 @@ public class AddSightingActivity extends AppCompatActivity {
      * boolean that returns whether all the editable fields have data in them
      * @return a boolean stating if all the fields have been filled
      */
-    private boolean validateData() {
+    public boolean validateData(Editable lc, Editable zC, Editable aD, Editable ct,
+                                 Editable br, Editable lat, Editable lon) {
 
-        Editable lc = locTypeField.getText();
+        //Editable lc = locTypeField.getText();
         String locType = lc.toString();
-        Editable zC = zipCodeField.getText();
+        //Editable zC = zipCodeField.getText();
         String zipCode = zC.toString();
-        Editable aD = addressField.getText();
+        //Editable aD = addressField.getText();
         String address = aD.toString();
-        Editable ct = cityField.getText();
+        //Editable ct = cityField.getText();
         String city = ct.toString();
-        Editable br = boroughField.getText();
+        //Editable br = boroughField.getText();
         String borough = br.toString();
-        Editable lat = latitudeField.getText();
+        //Editable lat = latitudeField.getText();
         String latitude = lat.toString();
-        Editable lon = longitudeField.getText();
+        //Editable lon = longitudeField.getText();
         String longitude = lon.toString();
 
         boolean valid = true;
@@ -175,7 +176,9 @@ public class AddSightingActivity extends AppCompatActivity {
      */
     private void createRat() {
 
-        if (validateData()) {
+        if (validateData(locTypeField.getText(), zipCodeField.getText(),
+                addressField.getText(), cityField.getText(), boroughField.getText(),
+                latitudeField.getText(), longitudeField.getText())) {
             try {
                 CharSequence k1 = key.getText();
                 int key1 = Integer.parseInt(k1.toString());

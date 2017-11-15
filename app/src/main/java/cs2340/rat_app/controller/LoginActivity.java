@@ -88,7 +88,7 @@ public class LoginActivity extends AppCompatActivity {
         if (validateData()) {
             Editable email = emailField.getText();
             Editable password = passwordField.getText();
-            signin(email.toString(), password.toString());
+            signIn(email.toString(), password.toString());
         } else {
             abortLogin();
         }
@@ -162,7 +162,7 @@ public class LoginActivity extends AppCompatActivity {
      * @param email the email entered in
      * @param password the password entered in
      */
-    private void signin(String email, String password) {
+    private void signIn(String email, String password) {
         mAuth.signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this, task -> {
                     Log.d(TAG, "signInWithEmail:onComplete:" + task.isSuccessful());
