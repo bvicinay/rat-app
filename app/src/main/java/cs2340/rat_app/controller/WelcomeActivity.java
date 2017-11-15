@@ -19,7 +19,7 @@ public class WelcomeActivity extends AppCompatActivity {
             Intent intent = new Intent(getOuter(), LoginActivity.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             startActivity(intent);
-            getOuter().finish();
+            endActivity();
         });
     }
 
@@ -29,5 +29,9 @@ public class WelcomeActivity extends AppCompatActivity {
      */
     private WelcomeActivity getOuter() {
         return this;
+    }
+
+    private void endActivity() {
+        this.finish();
     }
 }

@@ -192,8 +192,9 @@ public class RatSighting implements Parcelable {
         Calendar min = null;
         Calendar max = null;
         try {
-            min = rats.get(0).getCreation_date();
-            max = rats.get(0).getCreation_date();
+            RatSighting r1 = rats.get(0);
+            min = r1.getCreation_date();
+            max = r1.getCreation_date();
         } catch(Exception e) {
             Log.d("Empty List", "List is empty");
         }
@@ -202,8 +203,9 @@ public class RatSighting implements Parcelable {
                 continue;
             }
             try {
-                if (rat.getCreation_date().compareTo(startDate) > 0 &&
-                        rat.getCreation_date().compareTo(finishDate) < 0) {
+                Calendar c1 = rat.getCreation_date();
+                if (c1.compareTo(startDate) >= 0 &&
+                        c1.compareTo(finishDate) <= 0) {
                     filteredList.add(rat);
                     if (j == 0) {
                         min = (rat.getCreation_date());
@@ -226,14 +228,16 @@ public class RatSighting implements Parcelable {
     }
 
     private static Calendar checkIfMin(RatSighting rat, Calendar min) {
-        if (rat.getCreation_date().compareTo(min) < 0) {
+        Calendar c1 = rat.getCreation_date();
+        if (c1.compareTo(min) < 0) {
             return rat.getCreation_date();
         }
         return min;
     }
 
     private static Calendar checkIfMax(RatSighting rat, Calendar max) {
-        if (rat.getCreation_date().compareTo(max) > 0) {
+        Calendar c1 = rat.getCreation_date();
+        if (c1.compareTo(max) > 0) {
             return rat.getCreation_date();
         }
         return max;
@@ -260,9 +264,10 @@ public class RatSighting implements Parcelable {
     public static GoogleMap filterMap(GoogleMap mMap, List<RatSighting> dateRangeRats) {
         for (int i = 0; i < dateRangeRats.size(); i++) {
             try {
-                mMap.addMarker(new MarkerOptions().position(new LatLng(dateRangeRats.get(i).
-                        getLocation().getLatitude(), dateRangeRats.get(i).getLocation().
-                        getLongitude())).title("Rat " + dateRangeRats.get(i).getKey()));
+                RatSighting rat = dateRangeRats.get(i);
+                Location loc = rat.getLocation();
+                mMap.addMarker(new MarkerOptions().position(new LatLng(loc.getLatitude(),
+                        loc.getLongitude())).title("Rat " + rat.getKey()));
             } catch(Exception e){
                 Log.d("null pointer", "marker was missing longitude or latitude");
             }

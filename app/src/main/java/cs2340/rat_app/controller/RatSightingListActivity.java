@@ -63,7 +63,8 @@ public class RatSightingListActivity extends AppCompatActivity {
         adapter = new RatSightingAdapter(sightingsList);
         sightingsRecyclerView.setAdapter(adapter);
 
-        new LoadLocalData().execute(100);
+        LoadLocalData d1 = new LoadLocalData();
+        d1.execute(100);
 
         //When add sighting fab button is pressed
         FloatingActionButton addSighting = (FloatingActionButton) findViewById(R.id.fab_add_sighting);
@@ -96,7 +97,8 @@ public class RatSightingListActivity extends AppCompatActivity {
         mDatabase = FirebaseDatabase.getInstance();
         mDatabaseRef = mDatabase.getReference();
 
-        Query ratSightingsQuery = mDatabaseRef.child("rat_sightings").limitToFirst(100);
+        Query ratSightingsQuery = mDatabaseRef.child("rat_sightings");
+        ratSightingsQuery.limitToFirst(100);
         ratSightingsQuery.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
@@ -159,9 +161,10 @@ public class RatSightingListActivity extends AppCompatActivity {
 
         @Override
         public void onBindViewHolder(ViewHolder holder, final int position) {
-            holder.itemTitle.setText(dataSet.get(position).getTitle());
-            holder.itemDate.setText(dataSet.get(position).getDateStr());
-            holder.itemSubtitle.setText(dataSet.get(position).getStreet());
+            RatSighting r1 = dataSet.get(position);
+            holder.itemTitle.setText(r1.getTitle());
+            holder.itemDate.setText(r1.getDateStr());
+            holder.itemSubtitle.setText(r1.getStreet());
             holder.layout.setOnClickListener(v -> {
                 Intent intent = new Intent(getOuter(), RatReportActivity.class);
                 RatSighting selected = dataSet.get(position);
@@ -192,7 +195,8 @@ public class RatSightingListActivity extends AppCompatActivity {
 
         @Override
         protected Integer doInBackground(Integer... params) {
-            Query ratSightingsQuery = mDatabaseRef.child("rat_sightings").limitToFirst(params[0]);
+            Query ratSightingsQuery = mDatabaseRef.child("rat_sightings");
+            ratSightingsQuery.limitToFirst(params[0]);
             ratSightingsQuery.addChildEventListener(new ChildEventListener() {
                 @Override
                 public void onChildAdded(DataSnapshot dataSnapshot, String s) {

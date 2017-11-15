@@ -3,6 +3,7 @@ package cs2340.rat_app.controller;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.text.Editable;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -93,7 +94,9 @@ public class RegisterActivity extends AppCompatActivity {
      */
     private void register() {
         if (validateData()) {
-            createAccount(emailField.getText().toString(), passwordField.getText().toString());
+            Editable em = emailField.getText();
+            Editable pass = passwordField.getText();
+            createAccount(em.toString(), pass.toString());
         } else {
             abortRegister();
         }
@@ -126,10 +129,14 @@ public class RegisterActivity extends AppCompatActivity {
      * @return true if all data is acceptable, false otherwise.
      */
     private boolean validateData() {
-        String first = firstField.getText().toString();
-        String last = lastField.getText().toString();
-        String email = emailField.getText().toString();
-        String password = passwordField.getText().toString();
+        Editable firstName = firstField.getText();
+        Editable lastName = lastField.getText();
+        Editable em = emailField.getText();
+        Editable pass = passwordField.getText();
+        String first = firstName.toString();
+        String last = lastName.toString();
+        String email = em.toString();
+        String password = pass.toString();
 
         boolean valid = true;
         View focusView = null; //the view to be highlighted in case of error
@@ -187,14 +194,16 @@ public class RegisterActivity extends AppCompatActivity {
                         // Registration successful, proceed passing user as parameter
                         Log.d(TAG, "createUserWithEmail:success");
                         FirebaseUser user = mAuth.getCurrentUser();
-                        Toast.makeText(RegisterActivity.this, "Account created",
-                                Toast.LENGTH_SHORT).show();
+                        Toast toast = Toast.makeText(RegisterActivity.this, "Account created",
+                                Toast.LENGTH_SHORT);
+                        toast.show();
                         proceedRegister(emailFinal, passFinal, user);
                     } else {
                         // Registration failed, display message to the user, abort.
                         Log.w(TAG, "createUserWithEmail:failure", task.getException());
-                        Toast.makeText(RegisterActivity.this, "Failed to register",
-                                Toast.LENGTH_SHORT).show();
+                        Toast toast = Toast.makeText(RegisterActivity.this, "Failed to register",
+                                Toast.LENGTH_SHORT);
+                        toast.show();
                         abortRegister();
                     }
                 });
