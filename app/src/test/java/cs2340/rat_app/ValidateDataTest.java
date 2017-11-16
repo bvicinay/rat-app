@@ -5,7 +5,6 @@ import org.junit.Test;
 import cs2340.rat_app.controller.AddSightingActivity;
 
 import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 /**
