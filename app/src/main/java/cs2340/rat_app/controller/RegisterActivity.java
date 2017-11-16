@@ -141,30 +141,30 @@ public class RegisterActivity extends AppCompatActivity {
         boolean valid = true;
         View focusView = null; //the view to be highlighted in case of error
 
-        if (first.isEmpty()) {
+        if (!validateFirstName(first)) {
             firstField.setError(getString(R.string.error_field_required));
             focusView = firstField;
             valid = false;
         }
-        if (last.isEmpty()) {
+        if (validateLastName(last)) {
             lastField.setError(getString(R.string.error_field_required));
             focusView = lastField;
             valid = false;
         }
-        if (password.isEmpty()) {
+        if (validatePassword(password) == 1) {
             passwordField.setError(getString(R.string.error_field_required));
             focusView = passwordField;
             valid = false;
-        } else if (password.length() < 8) {
-            emailField.setError(getString(R.string.error_invalid_email));
+        } else if (validatePassword(password) == 2) {
+            emailField.setError(getString(R.string.error_invalid_password));
             focusView = passwordField;
             valid = false;
         }
-        if (email.isEmpty()) {
+        if (validateEmail(email) == 1) {
             emailField.setError(getString(R.string.error_field_required));
             focusView = emailField;
             valid = false;
-        } else if (!email.contains("@") || !email.contains(".")) {
+        } else if (validateEmail(email) == 2) {
             emailField.setError(getString(R.string.error_invalid_email));
             focusView = emailField;
             valid = false;
@@ -174,6 +174,67 @@ public class RegisterActivity extends AppCompatActivity {
             focusView.requestFocus();
         }
         return valid;
+    }
+    /**
+     * This method ensures that the information passed into the first name field
+     * is acceptable.
+     * @return true if all data is acceptable, false otherwise.
+     */
+
+    public static boolean validateFirstName(String firstName) {
+        if (firstName.length() == 0) {
+            return false;
+        }
+
+        return true;
+    }
+
+    /**
+     * This method ensures that the information passed into the last name field
+     * is acceptable.
+     * @return true if all data is acceptable, false otherwise.
+     */
+
+    public static boolean validateLastName(String lastName) {
+        if (lastName.length() == 0) {
+            return false;
+        }
+        return true;
+    }
+
+    /**
+     * This method ensures that the information passed into the password field
+     * is acceptable.
+     * @return 1 if the length of the password is 0, 2 if the password is
+     * shorter than 8 characters, and 3 if the password is acceptable
+     */
+
+    public static int validatePassword(String password) {
+        if (password.length() == 0 ) {
+            return 1;
+        } else if (password.length() < 8) {
+            return 2;
+        }
+        return 3;
+    }
+
+
+    /**
+     * This method ensures that the information passed into the email field
+     * is acceptable.
+     * @return 1 if the length of the email is 0, 2 if the password
+     * does not contain either an @ symbol or a period;
+     * and 3 if the password is acceptable
+     */
+
+    public static int validateEmail(String email) {
+        if (email.length() == 0) {
+            return 1;
+        } else if (!email.contains("@") || !email.contains(".")) {
+            return 2;
+        }
+        return 3;
+
     }
 
     /**
