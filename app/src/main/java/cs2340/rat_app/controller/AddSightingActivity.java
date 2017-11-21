@@ -120,14 +120,10 @@ public class AddSightingActivity extends AppCompatActivity {
         String latitude = lat.toString();
         Editable lon = longitudeField.getText();
         String longitude = lon.toString();
-        return validateHelper(locType, zipCode, address, city, borough,
-                latitude, longitude);
-    }
 
-    private boolean validateHelper(String locType, String zipCode, String address, String city,
-                                   String borough, String latitude, String longitude) {
         boolean valid = true;
         View focusView = null;
+
         if (!validateLocType(locType)) {
             locTypeField.setError("This field is required");
             focusView = locTypeField;
