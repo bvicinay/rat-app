@@ -121,14 +121,6 @@ public class RatSighting implements Parcelable {
     }
 
     /**
-     * address getter
-     * @return address
-     */
-    public Address getAddress() {
-        return address;
-    }
-
-    /**
      * location getter
      * @return location
      */
