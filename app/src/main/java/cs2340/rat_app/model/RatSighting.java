@@ -54,6 +54,7 @@ public class RatSighting implements Parcelable {
                        String latitude, String longitude) {
         this.key = key;
         this.location_type = location_type;
+
         this.address = new Address(street, borough, zip, city);
         // Parse string to Date (if possible)
         try {
@@ -171,20 +172,22 @@ public class RatSighting implements Parcelable {
         dest.writeParcelable(location, flags);
     }
 
-    /**
-     * for passing through via a parcel
-     */
-    public static final Parcelable.Creator CREATOR = new Parcelable.Creator() {
-        @Override
-        public RatSighting createFromParcel(Parcel in) {
-            return new RatSighting(in);
-        }
-
-        @Override
-        public RatSighting[] newArray(int size) {
-            return new RatSighting[size];
-        }
-    };
+// --Commented out by Inspection START (11/20/17, 7:56 PM):
+//    /**
+//     * for passing through via a parcel
+//     */
+//    public static final Parcelable.Creator CREATOR = new Parcelable.Creator() {
+//        @Override
+//        public RatSighting createFromParcel(Parcel in) {
+//            return new RatSighting(in);
+//        }
+//
+//        @Override
+//        public RatSighting[] newArray(int size) {
+//            return new RatSighting[size];
+//        }
+//    };
+// --Commented out by Inspection STOP (11/20/17, 7:56 PM)
 
     public static List<RatSighting> validateDateForGraph(
             List<RatSighting> rats, Calendar startDate, Calendar finishDate, int h) {
