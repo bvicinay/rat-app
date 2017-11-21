@@ -104,7 +104,7 @@ public class RatSighting implements Parcelable {
     }
 
     /**
-     * location_type getter
+     * location type getter
      * @return location_type
      */
     public String getLocation_type() {
