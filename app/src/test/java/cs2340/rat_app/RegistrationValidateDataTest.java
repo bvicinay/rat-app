@@ -7,10 +7,6 @@ import cs2340.rat_app.controller.RegisterActivity;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
-/**
- * Created by Steven Tinsley
- */
-
 public class RegistrationValidateDataTest {
 
 

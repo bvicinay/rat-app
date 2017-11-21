@@ -172,7 +172,7 @@ public class RatSighting implements Parcelable {
 
     /**
      * City getter
-     * @return Citiy
+     * @return City
      */
     public String getCity() {
         return address.getCity();
@@ -225,9 +225,9 @@ public class RatSighting implements Parcelable {
     }
 
     /**
-     * Creates a hashmap mapping dates to number of sightings on that date
+     * Creates a HashMap mapping dates to number of sightings on that date
      * @param filteredList list of filtered RatSightings
-     * @return finished hashmap to be passed in to graph
+     * @return finished HashMap to be passed in to graph
      */
     public static HashMap<Calendar, Integer> setRatHashMap(Iterable<RatSighting> filteredList) {
         HashMap<Calendar, Integer> ratSightingHashMap = new HashMap<>();
