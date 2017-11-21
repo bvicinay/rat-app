@@ -205,8 +205,8 @@ public class RatSighting implements Parcelable {
             }
             try {
                 Calendar c1 = rat.getCreation_date();
-                if (c1.compareTo(startDate) >= 0 &&
-                        c1.compareTo(finishDate) <= 0) {
+                if ((c1.compareTo(startDate) >= 0) &&
+                        (c1.compareTo(finishDate) <= 0)) {
                     filteredList.add(rat);
                     if (j == 0) {
                         min = (rat.getCreation_date());
@@ -221,7 +221,7 @@ public class RatSighting implements Parcelable {
                 Log.d("Missing data" , "Rat is missing data");
             }
         }
-        if (j == 1 && h == 1) {
+        if ((j == 1) && (h == 1)) {
             GraphViewActivity.setMax(max);
             GraphViewActivity.setMin(min);
         }

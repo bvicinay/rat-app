@@ -1,5 +1,6 @@
 package cs2340.rat_app.controller;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.icu.text.DecimalFormat;
 import android.support.v7.app.AppCompatActivity;
@@ -14,6 +15,7 @@ import cs2340.rat_app.model.Address;
 
 public class RatReportActivity extends AppCompatActivity{
 
+    @SuppressLint("SetTextI18n")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -21,8 +23,8 @@ public class RatReportActivity extends AppCompatActivity{
             setContentView(R.layout.rat_report);
             Intent in = getIntent();
             Bundle b = in.getExtras();
-            RatSighting curr = (RatSighting) b.get("RatSighting");
-            Address ad = curr.getAddress();
+            RatSighting curr = (RatSighting) ((b != null) ? b.get("RatSighting") : null);
+            Address ad = (curr != null) ? curr.getAddress() : null;
 
             TextView key = (TextView) findViewById(R.id.key);
             key.setText("Key : " + curr.getKey());
@@ -59,9 +61,9 @@ public class RatReportActivity extends AppCompatActivity{
     /**
      * return this activity
      * @return RatReportActivity
-     */
+     *//*
     public RatReportActivity getOuter() {
         return this;
-    }
+    }*/
 
 }

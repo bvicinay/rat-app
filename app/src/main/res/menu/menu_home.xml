@@ -1,7 +1,8 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context="cs2340.rat_app.controller.HomeActivity">
+    tools:context="cs2340.rat_app.controller.HomeActivity"
+    tools:keep="@menu/menu_home">
     <item
         android:id="@+id/action_settings"
         android:orderInCategory="100"

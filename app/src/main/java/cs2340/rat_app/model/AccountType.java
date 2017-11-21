@@ -7,11 +7,20 @@ public enum AccountType {
     USER("USER"),
     ADMIN("ADMINISTRATOR");
 
+    private final String theType;
+
     /**
      * Constructor for the enum type.
      * @param name String that will be used to determine the type of the account.
-     */
+     **/
+
     AccountType(String name) {
+        this.theType = name;
+    }
+
+    @Override
+    public String toString() {
+        return theType;
     }
 
 }

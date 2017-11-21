@@ -1,5 +1,6 @@
 package cs2340.rat_app.controller;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -36,6 +37,7 @@ public class AddSightingActivity extends AppCompatActivity {
     private EditText latitudeField;
     private EditText longitudeField;
 
+    @SuppressLint("SetTextI18n")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -178,10 +180,7 @@ public class AddSightingActivity extends AppCompatActivity {
      * @return true if valid, false otherwise
      */
     public static boolean validateLocType(String locType) {
-        if (locType.isEmpty()) {
-            return false;
-        }
-        return true;
+        return !locType.isEmpty();
     }
 
     /**
@@ -190,10 +189,7 @@ public class AddSightingActivity extends AppCompatActivity {
      * @return true if valid, false otherwise
      */
     public static boolean validateZip(String zipCode) {
-        if (zipCode.isEmpty()) {
-            return false;
-        }
-        return true;
+        return !zipCode.isEmpty();
     }
 
     /**
@@ -202,10 +198,7 @@ public class AddSightingActivity extends AppCompatActivity {
      * @return true if valid, false otherwise
      */
     public static boolean validateAddress(String address) {
-        if (address.isEmpty()) {
-            return false;
-        }
-        return true;
+        return !address.isEmpty();
     }
 
     /**
@@ -214,10 +207,7 @@ public class AddSightingActivity extends AppCompatActivity {
      * @return true if valid, false otherwise
      */
     public static boolean validateCity(String city) {
-        if (city.isEmpty()) {
-            return false;
-        }
-        return true;
+        return !city.isEmpty();
     }
 
     /**
@@ -226,10 +216,7 @@ public class AddSightingActivity extends AppCompatActivity {
      * @return true if valid, false otherwise
      */
     public static boolean validateBorough(String borough) {
-        if (borough.isEmpty()) {
-            return false;
-        }
-        return true;
+        return !borough.isEmpty();
     }
 
     /**
@@ -238,10 +225,7 @@ public class AddSightingActivity extends AppCompatActivity {
      * @return true if valid, false otherwise
      */
     public static boolean validateLatitude(String latitude) {
-        if (latitude.isEmpty()) {
-            return false;
-        }
-        return true;
+        return !latitude.isEmpty();
     }
 
     /**
@@ -250,16 +234,14 @@ public class AddSightingActivity extends AppCompatActivity {
      * @return true if valid, false otherwise
      */
     public static boolean validateLongitude(String longitude) {
-        if (longitude.isEmpty()) {
-            return false;
-        }
-        return true;
+        return !longitude.isEmpty();
     }
 
     /**
      * method that creates a new rat object if all the data is properly validated
      * @throws Exception if there is invalid data entered in the fields
      */
+    @SuppressLint("SetTextI18n")
     private void createRat() {
 
         if (validateData()) {

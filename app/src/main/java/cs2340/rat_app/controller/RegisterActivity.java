@@ -15,7 +15,6 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
 import android.util.Log;
-import android.widget.SpinnerAdapter;
 import android.widget.Toast;
 
 import cs2340.rat_app.R;
@@ -50,7 +49,7 @@ public class RegisterActivity extends AppCompatActivity {
         Spinner actTypeField = (Spinner) findViewById(R.id.account_type_spinner);
 
         //Add options to account type spinner
-        ArrayAdapter<String> spinnerAdapter = new ArrayAdapter(this,
+        ArrayAdapter<AccountType> spinnerAdapter = new ArrayAdapter<>(this,
                 android.R.layout.simple_spinner_item, AccountType.values());
         actTypeField.setAdapter(spinnerAdapter);
 
@@ -109,7 +108,7 @@ public class RegisterActivity extends AppCompatActivity {
      * @param password the password of the registered account
      * @param user the new firebase user
      */
-    private void proceedRegister(String email, String password, FirebaseUser user) {
+    private void proceedRegister() {//future params:String email, String password, FirebaseUser user
         Intent intent = new Intent(this, LoginActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(intent);
@@ -182,11 +181,7 @@ public class RegisterActivity extends AppCompatActivity {
      */
 
     public static boolean validateFirstName(String firstName) {
-        if (firstName.length() == 0) {
-            return false;
-        }
-
-        return true;
+        return !firstName.isEmpty();
     }
 
     /**
@@ -196,10 +191,7 @@ public class RegisterActivity extends AppCompatActivity {
      */
 
     public static boolean validateLastName(String lastName) {
-        if (lastName.length() == 0) {
-            return false;
-        }
-        return true;
+        return !lastName.isEmpty();
     }
 
     /**
@@ -210,7 +202,7 @@ public class RegisterActivity extends AppCompatActivity {
      */
 
     public static int validatePassword(String password) {
-        if (password.length() == 0 ) {
+        if (password.isEmpty()) {
             return 1;
         } else if (password.length() < 8) {
             return 2;
@@ -228,7 +220,7 @@ public class RegisterActivity extends AppCompatActivity {
      */
 
     public static int validateEmail(String email) {
-        if (email.length() == 0) {
+        if (email.isEmpty()) {
             return 1;
         } else if (!email.contains("@") || !email.contains(".")) {
             return 2;
@@ -273,9 +265,9 @@ public class RegisterActivity extends AppCompatActivity {
     /**
      * outer method returns instance of this class
      * @return RegisterActivity
-     */
+     *//*
     private RegisterActivity getOuter() {
         return this;
-    }
+    }*/
 }
 

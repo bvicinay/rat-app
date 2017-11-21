@@ -37,9 +37,8 @@ public class RatSightingListActivity extends AppCompatActivity {
     //Firebase
     private static FirebaseDatabase mDatabase;
     private static DatabaseReference mDatabaseRef;
-    private ValueEventListener sightingsListener;
 
-    private static final String TAG = "RatSightingListActivity";
+   // private static final String TAG = "RatSightingListActivity";
 
     //Button viewMap;
 
@@ -92,7 +91,7 @@ public class RatSightingListActivity extends AppCompatActivity {
 
     /**
      * populates the singleton with first 100 items from database
-     */
+     *//*
     private void importFromDatabase() {
 
         mDatabase = FirebaseDatabase.getInstance();
@@ -117,7 +116,7 @@ public class RatSightingListActivity extends AppCompatActivity {
             @Override
             public void onCancelled(DatabaseError databaseError) { }
         });
-    }
+    }*/
 
     public class RatSightingAdapter extends RecyclerView.Adapter<RatSightingAdapter.ViewHolder> {
 

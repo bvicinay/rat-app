@@ -40,7 +40,8 @@
         android:layout_marginTop="22dp"
         android:text="@string/loctypeLabel"
         android:layout_below="@+id/date"
-        android:layout_alignStart="@+id/date" />
+        android:layout_alignStart="@+id/date"
+        android:inputType="text" />
 
     <EditText
         android:id="@+id/zipCode"
@@ -49,7 +50,8 @@
         android:layout_marginTop="24dp"
         android:text="@string/zipLabel"
         android:layout_below="@+id/locType"
-        android:layout_alignStart="@+id/locType" />
+        android:layout_alignStart="@+id/locType"
+        android:inputType="text" />
 
     <EditText
         android:id="@+id/address"
@@ -58,7 +60,8 @@
         android:layout_marginTop="22dp"
         android:text="@string/addressLabel"
         android:layout_below="@+id/zipCode"
-        android:layout_alignStart="@+id/zipCode" />
+        android:layout_alignStart="@+id/zipCode"
+        android:inputType="text" />
 
     <EditText
         android:id="@+id/city"
@@ -67,7 +70,8 @@
         android:layout_marginTop="24dp"
         android:text="@string/cityLabel"
         android:layout_below="@+id/address"
-        android:layout_alignStart="@+id/address" />
+        android:layout_alignStart="@+id/address"
+        android:inputType="text" />
 
     <EditText
         android:id="@+id/borough"
@@ -75,7 +79,8 @@
         android:layout_height="wrap_content"
         android:text="@string/boroughLabel"
         android:layout_above="@+id/date"
-        android:layout_toEndOf="@+id/header" />
+        android:layout_toEndOf="@+id/header"
+        android:inputType="text" />
 
     <EditText
         android:id="@+id/longitude"
@@ -83,7 +88,8 @@
         android:layout_height="wrap_content"
         android:text="@string/longitudeLabel"
         android:layout_above="@+id/locType"
-        android:layout_alignStart="@+id/borough" />
+        android:layout_alignStart="@+id/borough"
+        android:inputType="text" />
 
     <EditText
         android:id="@+id/latitude"
@@ -92,7 +98,8 @@
         android:text="@string/latitudeLabel"
         android:layout_alignBaseline="@+id/locType"
         android:layout_alignBottom="@+id/locType"
-        android:layout_alignStart="@+id/longitude" />
+        android:layout_alignStart="@+id/longitude"
+        android:inputType="text" />
 
     <Button
         android:id="@+id/create_rat"

@@ -26,8 +26,8 @@ import java.util.Date;
 public class GraphViewActivity extends AppCompatActivity {
 
     private final List<RatSighting> sightings = RatList.getInstance();
-    private static Calendar min;
-    private static Calendar max;
+    private Calendar min; //Removed static for inspection
+    private Calendar max;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
