@@ -11,7 +11,6 @@ import android.location.Location;
 
 import cs2340.rat_app.R;
 import cs2340.rat_app.model.RatSighting;
-import cs2340.rat_app.model.Address;
 
 /**
  * Screen that shows details about a rat sighting

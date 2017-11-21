@@ -26,7 +26,7 @@ public class RatSightingRaw {
         borough = sighting.getBorough();
         city = sighting.getCity();
         created_date = sighting.getDateStr();
-        incident_address = sighting.getAddress().toString();
+        incident_address = (String) sighting.getStreet();
         incident_zip = Integer.toString(sighting.getZip());
         location_type = sighting.getLocation_type();
         latitude = Double.toString(sighting.getLocation().getLatitude());
