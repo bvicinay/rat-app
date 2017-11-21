@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -41,7 +42,8 @@
         android:text="@string/loctypeLabel"
         android:layout_below="@+id/date"
         android:layout_alignStart="@+id/date"
-        android:inputType="text" />
+        android:inputType="text"
+        tools:ignore="LabelFor" />
 
     <EditText
         android:id="@+id/zipCode"
@@ -51,7 +53,8 @@
         android:text="@string/zipLabel"
         android:layout_below="@+id/locType"
         android:layout_alignStart="@+id/locType"
-        android:inputType="text" />
+        android:inputType="text"
+        tools:ignore="LabelFor" />
 
     <EditText
         android:id="@+id/address"
@@ -61,7 +64,8 @@
         android:text="@string/addressLabel"
         android:layout_below="@+id/zipCode"
         android:layout_alignStart="@+id/zipCode"
-        android:inputType="text" />
+        android:inputType="text"
+        tools:ignore="LabelFor" />
 
     <EditText
         android:id="@+id/city"
@@ -71,7 +75,8 @@
         android:text="@string/cityLabel"
         android:layout_below="@+id/address"
         android:layout_alignStart="@+id/address"
-        android:inputType="text" />
+        android:inputType="text"
+        tools:ignore="LabelFor" />
 
     <EditText
         android:id="@+id/borough"
@@ -80,7 +85,8 @@
         android:text="@string/boroughLabel"
         android:layout_above="@+id/date"
         android:layout_toEndOf="@+id/header"
-        android:inputType="text" />
+        android:inputType="text"
+        tools:ignore="LabelFor" />
 
     <EditText
         android:id="@+id/longitude"
@@ -89,7 +95,8 @@
         android:text="@string/longitudeLabel"
         android:layout_above="@+id/locType"
         android:layout_alignStart="@+id/borough"
-        android:inputType="text" />
+        android:inputType="text"
+        tools:ignore="LabelFor" />
 
     <EditText
         android:id="@+id/latitude"
@@ -99,7 +106,8 @@
         android:layout_alignBaseline="@+id/locType"
         android:layout_alignBottom="@+id/locType"
         android:layout_alignStart="@+id/longitude"
-        android:inputType="text" />
+        android:inputType="text"
+        tools:ignore="LabelFor" />
 
     <Button
         android:id="@+id/create_rat"

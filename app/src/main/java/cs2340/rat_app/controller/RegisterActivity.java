@@ -15,6 +15,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
 import android.util.Log;
+import android.widget.SpinnerAdapter;
 import android.widget.Toast;
 
 import cs2340.rat_app.R;
@@ -49,7 +50,7 @@ public class RegisterActivity extends AppCompatActivity {
         Spinner actTypeField = (Spinner) findViewById(R.id.account_type_spinner);
 
         //Add options to account type spinner
-        ArrayAdapter<AccountType> spinnerAdapter = new ArrayAdapter<>(this,
+        SpinnerAdapter spinnerAdapter = new ArrayAdapter<>(this,
                 android.R.layout.simple_spinner_item, AccountType.values());
         actTypeField.setAdapter(spinnerAdapter);
 
