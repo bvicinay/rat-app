@@ -134,10 +134,12 @@ public class RegisterActivity extends AppCompatActivity {
         String last = lastName.toString();
         String email = em.toString();
         String password = pass.toString();
+        return validateHelper(first, last, email, password);
+    }
 
+    private boolean validateHelper(String first, String last, String email, CharSequence password) {
         boolean valid = true;
-        View focusView = null; //the view to be highlighted in case of error
-
+        View focusView = null;
         if (!validateFirstName(first)) {
             firstField.setError(getString(R.string.error_field_required));
             focusView = firstField;

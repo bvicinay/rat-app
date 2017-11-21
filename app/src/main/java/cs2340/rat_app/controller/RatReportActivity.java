@@ -16,8 +16,7 @@ import cs2340.rat_app.model.Address;
 /**
  * Screen that shows details about a rat sighting
  */
-
-public class RatReportActivity extends AppCompatActivity{
+public class RatReportActivity extends AppCompatActivity {
 
     private RatSighting curr;
     private Address ad;
@@ -30,8 +29,7 @@ public class RatReportActivity extends AppCompatActivity{
             setContentView(R.layout.rat_report);
             Intent in = getIntent();
             Bundle b = in.getExtras();
-            curr = (RatSighting) ((b != null) ? b.get("RatSighting") : null);
-            ad = (curr != null) ? curr.getAddress() : null;
+            curr = (RatSighting) b.get("RatSighting");
             setFields();
         } catch (Exception e) {
             Log.d("null pointer exception" , "Caught a null pointer");
@@ -39,10 +37,9 @@ public class RatReportActivity extends AppCompatActivity{
     }
 
     /*
-    * sets the values for the view fields
+     * sets the values for the view fields
      */
-    public void setFields() {
-        if (curr != null) {
+    private void setFields() {
             TextView key = findViewById(R.id.key);
             key.setText("Key : " + (curr.getKey()));
 
@@ -59,21 +56,19 @@ public class RatReportActivity extends AppCompatActivity{
             latitude.setText("Latitude : " + df.format(loc.getLatitude()));
             TextView longitude = findViewById(R.id.longitude);
             longitude.setText("Longitude : " + df.format(loc.getLongitude()));
-        }
-        if (ad != null) {
+
             TextView zipCode = findViewById(R.id.zip_code);
             zipCode.setText("Zip Code : " + (curr.getZip()));
 
             TextView address = findViewById(R.id.address);
-            address.setText("Address : " + (ad.getStreet() != null ? curr.getStreet()
+            address.setText("Address : " + (curr.getStreet() != null ? curr.getStreet()
                     : "No street"));
 
             TextView city = findViewById(R.id.city);
-            city.setText("City : " + (ad.getCity() != null ? curr.getCity() : "No city"));
+            city.setText("City : " + (curr.getCity() != null ? curr.getCity() : "No city"));
 
             TextView borough = findViewById(R.id.borough);
-            borough.setText("Borough : " + (ad.getBorough() != null ? curr.getBorough()
+            borough.setText("Borough : " + (curr.getBorough() != null ? curr.getBorough()
                     : "No Borough"));
-        }
     }
 }
