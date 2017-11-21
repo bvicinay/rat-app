@@ -43,11 +43,11 @@ public class RegisterActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
         // Set up the login form.
-        firstField = (EditText) findViewById(R.id.first_name);
-        lastField = (EditText) findViewById(R.id.last_name);
-        emailField = (EditText) findViewById(R.id.email);
-        passwordField = (EditText) findViewById(R.id.password);
-        Spinner actTypeField = (Spinner) findViewById(R.id.account_type_spinner);
+        firstField = findViewById(R.id.first_name);
+        lastField = findViewById(R.id.last_name);
+        emailField = findViewById(R.id.email);
+        passwordField = findViewById(R.id.password);
+        Spinner actTypeField = findViewById(R.id.account_type_spinner);
 
         //Add options to account type spinner
         ArrayAdapter<String> spinnerAdapter = new ArrayAdapter(this,
@@ -55,7 +55,7 @@ public class RegisterActivity extends AppCompatActivity {
         actTypeField.setAdapter(spinnerAdapter);
 
         // When register button is pressed
-        Button registerButton = (Button) findViewById(R.id.register_button);
+        Button registerButton = findViewById(R.id.register_button);
         registerButton.setOnClickListener((view) -> register());
 
 
@@ -262,13 +262,5 @@ public class RegisterActivity extends AppCompatActivity {
                     }
                 });
     }
-
-    /**
-     * outer method returns instance of this class
-     * @return RegisterActivity
-     *//*
-    private RegisterActivity getOuter() {
-        return this;
-    }*/
 }
 

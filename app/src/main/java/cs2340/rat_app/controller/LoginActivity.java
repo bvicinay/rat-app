@@ -96,7 +96,6 @@ public class LoginActivity extends AppCompatActivity {
 
     /**
      * called if login attempt is successful - calls new intent
-     * @param user the user that has logged in
      */
     private void proceedLogin() { //May pass FirebaseUser user as param in future
         Toast toast = Toast.makeText(LoginActivity.this, "Signed-in",
@@ -171,7 +170,7 @@ public class LoginActivity extends AppCompatActivity {
                     if (task.isSuccessful()) {
                         // Sign-in successful, proceed passing user as parameter
                         FirebaseUser user = mAuth.getCurrentUser();
-                        proceedLogin(user);
+                        proceedLogin();
                     }
                     else {
                         // Sign-in failed, display message to user

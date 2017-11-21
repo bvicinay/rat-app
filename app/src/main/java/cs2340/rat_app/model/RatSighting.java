@@ -9,6 +9,7 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
+import java.security.Key;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -287,15 +288,21 @@ public class RatSighting implements Parcelable {
         return creation_date.get(Calendar.YEAR);
     }
 
-    public static RatSightingRaw makeRawSighting(RatSighting sighting) {
-        String key = Integer.toString(sighting.getKey());
-        String borough = sighting.getAddress().getBorough();
-        String city = sighting.getAddress().getCity();
-        String created_date = sighting.getDateStr();
-        String incident_address = sighting.getAddress().getStreet();
-        String incident_zip = Integer.toString(sighting.getAddress().getZip());
-        String location_type = sighting.getLocation_type();
-        String latitude = Double.toString(sighting.getLocation().getLatitude());
-        String longitude = Double.toString(sighting.getLocation().getLongitude());
+    public static String[] makeRawSighting(RatSighting sighting) {
+        String[] sightingInformation = new String[9];
+        Address address = sighting.getAddress();
+        int key = sighting.getKey();
+        int zip = address.getZip();
+        Location location = sighting.getLocation();
+        sightingInformation[0] = Integer.toString(key);
+        sightingInformation[1] = address.getBorough();
+        sightingInformation[2] = address.getCity();
+        sightingInformation[3] = sighting.getDateStr();
+        sightingInformation[4] = address.getStreet();
+        sightingInformation[5] = Integer.toString(zip);
+        sightingInformation[6] = sighting.getLocation_type();
+        sightingInformation[7] = Double.toString(location.getLatitude());
+        sightingInformation[8] = Double.toString(location.getLongitude());
+        return sightingInformation;
     }
 }
