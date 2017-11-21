@@ -43,7 +43,7 @@ public class Address implements Parcelable {
      * Street getter
      * @return street
      */
-    public String getStreet() {
+    public CharSequence getStreet() {
         return street;
     }
 

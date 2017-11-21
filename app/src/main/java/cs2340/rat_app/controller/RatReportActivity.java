@@ -38,6 +38,9 @@ public class RatReportActivity extends AppCompatActivity{
         }
     }
 
+    /*
+    * sets the values for the view fields
+     */
     public void setFields() {
         if (curr != null) {
             TextView key = findViewById(R.id.key);
@@ -62,13 +65,15 @@ public class RatReportActivity extends AppCompatActivity{
             zipCode.setText("Zip Code : " + (curr.getZip()));
 
             TextView address = findViewById(R.id.address);
-            address.setText("Address : " + (ad.getStreet() != null ? curr.getStreet() : "No street"));
+            address.setText("Address : " + (ad.getStreet() != null ? curr.getStreet()
+                    : "No street"));
 
             TextView city = findViewById(R.id.city);
             city.setText("City : " + (ad.getCity() != null ? curr.getCity() : "No city"));
 
             TextView borough = findViewById(R.id.borough);
-            borough.setText("Borough : " + (ad.getBorough() != null ? curr.getBorough() : "No Borough"));
+            borough.setText("Borough : " + (ad.getBorough() != null ? curr.getBorough()
+                    : "No Borough"));
         }
     }
 }
