@@ -9,13 +9,10 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
-import java.security.Key;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Calendar;
-
-import cs2340.rat_app.controller.GraphViewActivity;
 
 public class RatSighting implements Parcelable {
 
