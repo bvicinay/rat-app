@@ -150,7 +150,7 @@ public class RatSighting implements Parcelable {
      * Street getter
      * @return Street
      */
-    public String getStreet() {
+    public CharSequence getStreet() {
         return address.getStreet();
     }
 
@@ -158,7 +158,7 @@ public class RatSighting implements Parcelable {
      * Zip getter
      * @return Zip
      */
-    private int getZip() {
+    public int getZip() {
         return address.getZip();
     }
 
@@ -166,7 +166,7 @@ public class RatSighting implements Parcelable {
      * Borough getter
      * @return Borough
      */
-    private String getBorough() {
+    public String getBorough() {
         return address.getBorough();
     }
 
@@ -174,7 +174,7 @@ public class RatSighting implements Parcelable {
      * City getter
      * @return Citiy
      */
-    private String getCity() {
+    public String getCity() {
         return address.getCity();
     }
 
