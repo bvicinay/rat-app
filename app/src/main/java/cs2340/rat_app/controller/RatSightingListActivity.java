@@ -34,8 +34,6 @@ public class RatSightingListActivity extends AppCompatActivity {
     private static RecyclerView.Adapter adapter;
     private static List<RatSighting> sightingsList;
 
-    //Firebase
-    private static FirebaseDatabase mDatabase;
     private static DatabaseReference mDatabaseRef;
 
    // private static final String TAG = "RatSightingListActivity";
@@ -53,7 +51,7 @@ public class RatSightingListActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_rat_sightings_list);
 
-        RecyclerView sightingsRecyclerView = (RecyclerView) findViewById(R.id.RatSightings_list);
+        RecyclerView sightingsRecyclerView = findViewById(R.id.RatSightings_list);
 
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
         sightingsRecyclerView.setLayoutManager(layoutManager);
@@ -66,21 +64,20 @@ public class RatSightingListActivity extends AppCompatActivity {
         d1.execute(100);
 
         //When add sighting fab button is pressed
-        FloatingActionButton addSighting = (FloatingActionButton)
-                findViewById(R.id.fab_add_sighting);
+        FloatingActionButton addSighting = findViewById(R.id.fab_add_sighting);
         addSighting.setOnClickListener(view -> {
             Intent intent = new Intent(getOuter(), AddSightingActivity.class);
             startActivity(intent);
         });
 
 
-        Button viewMap = (Button) findViewById(R.id.map_button);
+        Button viewMap = findViewById(R.id.map_button);
         viewMap.setOnClickListener(v -> {
             Intent intent = new Intent(getOuter(), FilterRatSightings1.class);
             intent.putExtra("Check", 0);
             startActivity(intent);
         });
-        Button viewGraph = (Button) findViewById(R.id.graph_button);
+        Button viewGraph = findViewById(R.id.graph_button);
         viewGraph.setOnClickListener(v -> {
             Intent intent = new Intent(getOuter(), FilterRatSightings1.class);
             intent.putExtra("Check", 1);
@@ -187,7 +184,7 @@ public class RatSightingListActivity extends AppCompatActivity {
         @Override
         protected void onPreExecute() {
 
-            mDatabase = FirebaseDatabase.getInstance();
+            FirebaseDatabase mDatabase = FirebaseDatabase.getInstance();
             mDatabaseRef = mDatabase.getReference();
 
         }

@@ -50,7 +50,7 @@ public class RegisterActivity extends AppCompatActivity {
         Spinner actTypeField = findViewById(R.id.account_type_spinner);
 
         //Add options to account type spinner
-        ArrayAdapter<String> spinnerAdapter = new ArrayAdapter(this,
+        SpinnerAdapter spinnerAdapter = new ArrayAdapter(this,
                 android.R.layout.simple_spinner_item, AccountType.values());
         actTypeField.setAdapter(spinnerAdapter);
 
@@ -105,11 +105,8 @@ public class RegisterActivity extends AppCompatActivity {
 
     /**
      * Called if a registration attempt is successful
-     * @param email the email of the registered account
-     * @param password the password of the registered account
-     * @param user the new firebase user
      */
-    private void proceedRegister(String email, String password, FirebaseUser user) {
+    private void proceedRegister() {
         Intent intent = new Intent(this, LoginActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(intent);
@@ -178,6 +175,7 @@ public class RegisterActivity extends AppCompatActivity {
     /**
      * This method ensures that the information passed into the first name field
      * is acceptable.
+     * @param firstName
      * @return true if all data is acceptable, false otherwise.
      */
 
@@ -188,6 +186,7 @@ public class RegisterActivity extends AppCompatActivity {
     /**
      * This method ensures that the information passed into the last name field
      * is acceptable.
+     * @param lastName
      * @return true if all data is acceptable, false otherwise.
      */
 
@@ -198,11 +197,12 @@ public class RegisterActivity extends AppCompatActivity {
     /**
      * This method ensures that the information passed into the password field
      * is acceptable.
+     * @param password
      * @return 1 if the length of the password is 0, 2 if the password is
      * shorter than 8 characters, and 3 if the password is acceptable
      */
 
-    public static int validatePassword(String password) {
+    public static int validatePassword(CharSequence password) {
         if (password.length() == 0 ) {
             return 1;
         } else if (password.length() < 8) {
@@ -215,13 +215,14 @@ public class RegisterActivity extends AppCompatActivity {
     /**
      * This method ensures that the information passed into the email field
      * is acceptable.
+     * @param email
      * @return 1 if the length of the email is 0, 2 if the password
      * does not contain either an @ symbol or a period;
      * and 3 if the password is acceptable
      */
 
     public static int validateEmail(String email) {
-        if (email.length() == 0) {
+        if (email.isEmpty()) {
             return 1;
         } else if (!email.contains("@") || !email.contains(".")) {
             return 2;
@@ -251,7 +252,7 @@ public class RegisterActivity extends AppCompatActivity {
                         Toast toast = Toast.makeText(RegisterActivity.this, "Account created",
                                 Toast.LENGTH_SHORT);
                         toast.show();
-                        proceedRegister(emailFinal, passFinal, user);
+                        proceedRegister();
                     } else {
                         // Registration failed, display message to the user, abort.
                         Log.w(TAG, "createUserWithEmail:failure", task.getException());

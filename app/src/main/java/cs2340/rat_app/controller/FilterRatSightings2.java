@@ -21,10 +21,10 @@ public class FilterRatSightings2 extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_filter_rat_sightings2);
 
-        Button next = (Button) findViewById(R.id.show);
+        Button next = findViewById(R.id.show);
         next.setOnClickListener(view -> {
             // Retrieve data from date picker
-            datePicker = (DatePicker) findViewById(R.id.endDatePicker);
+            datePicker = findViewById(R.id.endDatePicker);
             int day = datePicker.getDayOfMonth();
             int month = datePicker.getMonth() + 1;
             int year = datePicker.getYear();

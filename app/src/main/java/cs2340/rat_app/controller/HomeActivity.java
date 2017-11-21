@@ -15,12 +15,12 @@ public class HomeActivity extends AppCompatActivity {
         setContentView(R.layout.activity_home);
 
         // When register button is pressed
-        Button viewRatSightings = (Button) findViewById(R.id.view_sightings);
+        Button viewRatSightings = findViewById(R.id.view_sightings);
         viewRatSightings.setOnClickListener(view -> {
             Intent intent = new Intent(getOuter(), RatSightingListActivity.class);
             startActivity(intent);
         });
-        Button backButton = (Button) findViewById(R.id.logout);
+        Button backButton = findViewById(R.id.logout);
         backButton.setOnClickListener(v -> {
             Intent intent = new Intent(getOuter(), LoginActivity.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);

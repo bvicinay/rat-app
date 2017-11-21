@@ -33,7 +33,7 @@ public class GraphViewActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_history_graph);
-        GraphView graph = (GraphView) findViewById(R.id.graph);
+        GraphView graph = findViewById(R.id.graph);
         Intent in = getIntent();
         Calendar startDate = (Calendar) in.getSerializableExtra("startDate");
         Calendar finishDate = (Calendar) in.getSerializableExtra("endDate");

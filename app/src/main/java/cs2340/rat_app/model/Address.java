@@ -84,19 +84,15 @@ public class Address implements Parcelable {
         parcel.writeString(city);
     }
 
-// --Commented out by Inspection START (11/20/17, 7:56 PM):
-//    //For passing through an intent
-//    public static final Parcelable.Creator<Address> CREATOR = new Parcelable.Creator<Address>() {
-//        @Override
-//        public Address createFromParcel(Parcel in) {
-//            return new Address(in);
-//        }
-//
-//        @Override
-//        public Address[] newArray(int size) {
-//            return new Address[size];
-//        }
-//    };
-// --Commented out by Inspection STOP (11/20/17, 7:56 PM)
+    public static final Parcelable.Creator<Address> CREATOR = new Parcelable.Creator<Address>() {
+       @Override
+        public Address createFromParcel(Parcel in) {
+           return new Address(in);
+       }
 
+       @Override
+       public Address[] newArray(int size) {
+           return new Address[size];
+       }
+   };
 }

@@ -80,6 +80,7 @@ public class RatSighting implements Parcelable {
 
     }
     public RatSighting(RatSightingRaw rs) {
+
         this(Integer.parseInt(rs.getKey()), rs.getCreated_date(), rs.getLocation_type(),
                 rs.getIncident_address(), rs.getBorough(), Integer.parseInt(rs.getIncident_zip()),
                 rs.getCity(), rs.getLatitude(), rs.getLongitude());
@@ -173,22 +174,17 @@ public class RatSighting implements Parcelable {
         dest.writeParcelable(location, flags);
     }
 
-// --Commented out by Inspection START (11/20/17, 7:56 PM):
-//    /**
-//     * for passing through via a parcel
-//     */
-//    public static final Parcelable.Creator CREATOR = new Parcelable.Creator() {
-//        @Override
-//        public RatSighting createFromParcel(Parcel in) {
-//            return new RatSighting(in);
-//        }
-//
-//        @Override
-//        public RatSighting[] newArray(int size) {
-//            return new RatSighting[size];
-//        }
-//    };
-// --Commented out by Inspection STOP (11/20/17, 7:56 PM)
+    public static final Parcelable.Creator CREATOR = new Parcelable.Creator() {
+       @Override
+        public RatSighting createFromParcel(Parcel in) {
+            return new RatSighting(in);
+       }
+
+        @Override
+       public RatSighting[] newArray(int size) {
+           return new RatSighting[size];
+       }
+    };
 
     public static List<RatSighting> validateDateForGraph(
             List<RatSighting> rats, Calendar startDate, Calendar finishDate, int h) {

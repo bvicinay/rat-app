@@ -45,11 +45,11 @@ public class AddSightingActivity extends AppCompatActivity {
         setContentView(R.layout.activity_report_sighting);
 
         //add rat button
-        Button addRat = (Button) findViewById(R.id.create_rat);
+        Button addRat = findViewById(R.id.create_rat);
         addRat.setOnClickListener((view) -> createRat());
 
         //back button
-        Button backButton = (Button) findViewById(R.id.cancel);
+        Button backButton = findViewById(R.id.cancel);
         backButton.setOnClickListener(v -> {
             Toast toast = Toast.makeText(AddSightingActivity.this, "Rat Report Cancelled",
                     Toast.LENGTH_SHORT);
@@ -61,9 +61,9 @@ public class AddSightingActivity extends AppCompatActivity {
         });
 
         //non-editable fields
-        key = (TextView) findViewById(R.id.key);
-        date = (TextView) findViewById(R.id.date);
-        errorText = (TextView) findViewById(R.id.error_text);
+        key = findViewById(R.id.key);
+        date = findViewById(R.id.date);
+        errorText = findViewById(R.id.error_text);
 
         creation_date = Calendar.getInstance();
         date.setText(getDateStr());
@@ -75,13 +75,13 @@ public class AddSightingActivity extends AppCompatActivity {
         }
 
         //editable fields
-        locTypeField = (EditText) findViewById(R.id.locType);
-        zipCodeField = (EditText) findViewById(R.id.zipCode);
-        addressField = (EditText) findViewById(R.id.address);
-        cityField = (EditText) findViewById(R.id.city);
-        boroughField = (EditText) findViewById(R.id.borough);
-        latitudeField = (EditText) findViewById(R.id.latitude);
-        longitudeField = (EditText) findViewById(R.id.longitude);
+        locTypeField = findViewById(R.id.locType);
+        zipCodeField = findViewById(R.id.zipCode);
+        addressField = findViewById(R.id.address);
+        cityField = findViewById(R.id.city);
+        boroughField = findViewById(R.id.borough);
+        latitudeField = findViewById(R.id.latitude);
+        longitudeField = findViewById(R.id.longitude);
 
     }
 

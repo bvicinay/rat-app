@@ -34,15 +34,15 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         // Set up the login form.
-        emailField = (EditText) findViewById(R.id.email);
-        passwordField = (EditText) findViewById(R.id.password);
+        emailField = findViewById(R.id.email);
+        passwordField = findViewById(R.id.password);
 
         // When sign-in button is pressed
-        Button signInButton = (Button) findViewById(R.id.sign_in_button);
+        Button signInButton = findViewById(R.id.sign_in_button);
         signInButton.setOnClickListener(view -> login());
 
         // When register button is pressed
-        Button toRegisterButton = (Button) findViewById(R.id.toRegister_button);
+        Button toRegisterButton = findViewById(R.id.toRegister_button);
         toRegisterButton.setOnClickListener(view -> {
             Intent intent = new Intent(getOuter(), RegisterActivity.class);
             startActivity(intent);
