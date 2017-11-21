@@ -14,6 +14,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Calendar;
 
+/**
+ * Represents a Rat Sighting
+ */
+
 public class RatSighting implements Parcelable {
 
     //Instance Variables
@@ -76,6 +80,11 @@ public class RatSighting implements Parcelable {
         this.location = l;
 
     }
+
+    /**
+     * Rat Sighting object constructor that utilizes a raw sighting
+     * @param rs raw rat sighting from firebase
+     */
     public RatSighting(RatSightingRaw rs) {
         this(Integer.parseInt(rs.getKey()), rs.getCreated_date(), rs.getLocation_type(),
                 rs.getIncident_address(), rs.getBorough(), Integer.parseInt(rs.getIncident_zip()),
@@ -188,6 +197,13 @@ public class RatSighting implements Parcelable {
         return creation_date.get(Calendar.YEAR);
     }
 
+    /**
+     * Checks whether the data to be used in the map/graph is valid
+     * @param rats RatSightings
+     * @param startDate filter
+     * @param finishDate filter
+     * @return list of rat sightings
+     */
     public static List<RatSighting> validateDataForMapAndGraph(
             Iterable<RatSighting> rats, Calendar startDate, Calendar finishDate) {
         List<RatSighting> filteredList = new ArrayList<>();
@@ -208,6 +224,11 @@ public class RatSighting implements Parcelable {
         return filteredList;
     }
 
+    /**
+     * Creates a hashmap mapping dates to number of sightings on that date
+     * @param filteredList list of filtered RatSightings
+     * @return finished hashmap to be passed in to graph
+     */
     public static HashMap<Calendar, Integer> setRatHashMap(Iterable<RatSighting> filteredList) {
         HashMap<Calendar, Integer> ratSightingHashMap = new HashMap<>();
         for (RatSighting rat: filteredList) {
@@ -226,6 +247,12 @@ public class RatSighting implements Parcelable {
         return ratSightingHashMap;
     }
 
+    /**
+     * Filtered map RatSightings
+     * @param mMap google map
+     * @param dateRangeRats rats in the date range
+     * @return the google map to be used
+     */
     public static GoogleMap filterMap(GoogleMap mMap, List<RatSighting> dateRangeRats) {
         for (int i = 0; i < dateRangeRats.size(); i++) {
             try {

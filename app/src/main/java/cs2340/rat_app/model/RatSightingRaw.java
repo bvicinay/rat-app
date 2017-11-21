@@ -1,5 +1,9 @@
 package cs2340.rat_app.model;
 
+/**
+ * Raw rat sightings utilized in Firebase
+ */
+
 public class RatSightingRaw {
 
     //Instance Variables

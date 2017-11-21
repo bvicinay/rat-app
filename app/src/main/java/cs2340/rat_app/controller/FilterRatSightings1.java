@@ -10,6 +10,10 @@ import java.util.Calendar;
 
 import cs2340.rat_app.R;
 
+/**
+ * Filter start date screen
+ */
+
 public class FilterRatSightings1 extends AppCompatActivity {
 
     private DatePicker datePicker;

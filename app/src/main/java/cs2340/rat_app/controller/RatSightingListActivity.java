@@ -28,6 +28,9 @@ import cs2340.rat_app.model.RatList;
 import cs2340.rat_app.model.RatSighting;
 import cs2340.rat_app.model.RatSightingRaw;
 
+/**
+ * Displays a list of RatSightings using a RecyclerView
+ */
 public class RatSightingListActivity extends AppCompatActivity {
 
     private static RecyclerView.Adapter adapter;
@@ -139,6 +142,10 @@ public class RatSightingListActivity extends AppCompatActivity {
             }
         }
 
+        /**
+         * Constructor for the adapter that takes in the rat sightings
+         * @param data data to be passed in to adapter
+         */
         public RatSightingAdapter(List<RatSighting> data) {
             dataSet = data;
         }

@@ -3,6 +3,10 @@ package cs2340.rat_app.model;
 import java.util.List;
 import java.util.ArrayList;
 
+/**
+ * Singleton to store rat data once it is imported
+ */
+
 public final class RatList {
 
     //ratSighting singleton

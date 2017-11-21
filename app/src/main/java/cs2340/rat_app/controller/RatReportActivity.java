@@ -13,6 +13,10 @@ import cs2340.rat_app.R;
 import cs2340.rat_app.model.RatSighting;
 import cs2340.rat_app.model.Address;
 
+/**
+ * Screen that shows details about a rat sighting
+ */
+
 public class RatReportActivity extends AppCompatActivity{
 
     @SuppressLint("SetTextI18n")

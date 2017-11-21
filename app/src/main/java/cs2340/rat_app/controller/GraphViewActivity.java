@@ -22,7 +22,9 @@ import java.util.List;
 import java.util.Set;
 import java.util.Date;
 
-
+/**
+ * Graph screen activity
+ */
 public class GraphViewActivity extends AppCompatActivity {
 
     private final List<RatSighting> sightings = RatList.getInstance();

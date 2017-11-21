@@ -20,6 +20,10 @@ import cs2340.rat_app.R;
 import cs2340.rat_app.model.RatList;
 import cs2340.rat_app.model.RatSighting;
 
+/**
+ * Map screen
+ */
+
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
 
     private Calendar startDate;

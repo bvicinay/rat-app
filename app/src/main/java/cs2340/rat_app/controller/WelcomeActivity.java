@@ -7,6 +7,9 @@ import android.widget.Button;
 
 import cs2340.rat_app.R;
 
+/**
+ * Activity displayed on startup
+ */
 public class WelcomeActivity extends AppCompatActivity {
 
     @Override

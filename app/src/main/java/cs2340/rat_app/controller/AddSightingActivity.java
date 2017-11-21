@@ -242,7 +242,6 @@ public class AddSightingActivity extends AppCompatActivity {
 
     /**
      * method that creates a new rat object if all the data is properly validated
-     * @throws Exception if there is invalid data entered in the fields
      */
     @SuppressLint("SetTextI18n")
     private void createRat() {

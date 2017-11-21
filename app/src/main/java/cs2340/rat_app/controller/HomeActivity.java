@@ -7,6 +7,10 @@ import android.widget.Button;
 
 import cs2340.rat_app.R;
 
+/**
+ * Home activity when the user logs in
+ */
+
 public class HomeActivity extends AppCompatActivity {
 
     @Override

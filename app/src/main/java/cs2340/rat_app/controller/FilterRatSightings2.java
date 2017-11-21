@@ -10,6 +10,9 @@ import java.util.Calendar;
 
 import cs2340.rat_app.R;
 
+/**
+ * Screen to select end date filter
+ */
 public class FilterRatSightings2 extends AppCompatActivity {
 
     private DatePicker datePicker;

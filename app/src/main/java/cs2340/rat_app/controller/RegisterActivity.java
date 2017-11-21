@@ -20,7 +20,6 @@ import android.widget.Toast;
 
 import cs2340.rat_app.R;
 import cs2340.rat_app.model.AccountType;
-import cs2340.rat_app.model.RatSighting;
 
 /**
  * A login screen that offers login via email/password.
@@ -176,7 +175,7 @@ public class RegisterActivity extends AppCompatActivity {
     /**
      * This method ensures that the information passed into the first name field
      * is acceptable.
-     * @param firstName
+     * @param firstName first name input
      * @return true if all data is acceptable, false otherwise.
      */
 
@@ -187,7 +186,7 @@ public class RegisterActivity extends AppCompatActivity {
     /**
      * This method ensures that the information passed into the last name field
      * is acceptable.
-     * @param lastName
+     * @param lastName last name input
      * @return true if all data is acceptable, false otherwise.
      */
 
@@ -198,7 +197,7 @@ public class RegisterActivity extends AppCompatActivity {
     /**
      * This method ensures that the information passed into the password field
      * is acceptable.
-     * @param password
+     * @param password psw input
      * @return 1 if the length of the password is 0, 2 if the password is
      * shorter than 8 characters, and 3 if the password is acceptable
      */
@@ -216,7 +215,7 @@ public class RegisterActivity extends AppCompatActivity {
     /**
      * This method ensures that the information passed into the email field
      * is acceptable.
-     * @param email
+     * @param email email input
      * @return 1 if the length of the email is 0, 2 if the password
      * does not contain either an @ symbol or a period;
      * and 3 if the password is acceptable
