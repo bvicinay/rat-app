@@ -2,14 +2,9 @@ package cs2340.rat_app;
 
 import org.junit.Test;
 
-import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
-import java.util.Date;
-
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 
 import cs2340.rat_app.model.RatSighting;
 
@@ -20,14 +15,22 @@ import static org.junit.Assert.assertTrue;
  * Created by colton on 11/21/17.
  */
 
+/*
+ * Test class to see if the graph filter works correctly
+ */
+@SuppressWarnings("DefaultFileTemplate")
 public class ValidateDataForGraphTest {
 
-    List<RatSighting> rats1 = new ArrayList<>();
-    List<RatSighting> filteredList = new ArrayList<>();
-    Calendar startDate;
-    Calendar endDate;
-    DateFormat formatter = new SimpleDateFormat("MM/dd/yy");
+    private final List<RatSighting> rats1 = new ArrayList<>();
+    private List<RatSighting> filteredList = new ArrayList<>();
+    private Calendar startDate;
+    private Calendar endDate;
 
+
+    /*
+     * Test method to see if the graph filter works correctly
+     */
+    @Test
     public void testValidateTrue() {
         setStartAndEndDates();
         populateRatList();
@@ -35,20 +38,21 @@ public class ValidateDataForGraphTest {
         assertFalse(rats1.size() == filteredList.size());
         assertTrue(rats1.size() == 10);
         assertTrue(filteredList.size() == 5);
-        assertTrue(rats1.get(1) == filteredList.get(0) );
-        assertTrue(rats1.get(9) == filteredList.get(5));
+        assertTrue(rats1.get(1) == filteredList.get(0));
+        assertTrue(rats1.get(9) == filteredList.get(4));
     }
 
     private void setStartAndEndDates() {
-        Date date = null;
-        try {
-            date = formatter.parse("01/29/02");
-        } catch (ParseException e1) {
-            e1.printStackTrace();
-        }
         startDate = Calendar.getInstance();
-        startDate.setTime(date);
+        startDate.clear();
+        startDate.set(Calendar.YEAR, 2);
+        startDate.set(Calendar.MONTH, 1);
+        startDate.set(Calendar.DATE, 29);
         endDate = Calendar.getInstance();
+        endDate.clear();
+        endDate.set(Calendar.YEAR, 17);
+        endDate.set(Calendar.MONTH, 11);
+        endDate.set(Calendar.DATE, 21);
     }
 
     private void populateRatList() {

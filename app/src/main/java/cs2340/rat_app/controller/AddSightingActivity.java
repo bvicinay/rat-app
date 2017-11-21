@@ -268,11 +268,10 @@ public class AddSightingActivity extends AppCompatActivity {
                 RatSightingRaw raw = new RatSightingRaw(newSighting);
                 FirebaseDatabase mDatabase = FirebaseDatabase.getInstance();
                 DatabaseReference mDatabaseRef = mDatabase.getReference();
-                DatabaseReference newRequestReference = mDatabaseRef.child("rat_sightings");
-                newRequestReference.push();
+                DatabaseReference newRequestReference = mDatabaseRef.child("rat_sightings").push();
                 newRequestReference.setValue(raw);
-                Toast toast = Toast.makeText(AddSightingActivity.this, "Rat Report Added",
-                        Toast.LENGTH_SHORT);
+                Toast toast = Toast.makeText(AddSightingActivity.this,
+                        "Rat Report Added", Toast.LENGTH_SHORT);
                 toast.show();
                 Intent intent = new Intent(getOuter(), HomeActivity.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);

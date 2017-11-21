@@ -142,7 +142,7 @@ public class RatSighting implements Parcelable {
      * Street getter
      * @return Street
      */
-    public CharSequence getStreet() {
+    public String getStreet() {
         return address.getStreet();
     }
 

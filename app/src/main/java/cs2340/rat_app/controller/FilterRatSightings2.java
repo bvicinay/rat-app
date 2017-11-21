@@ -33,6 +33,7 @@ public class FilterRatSightings2 extends AppCompatActivity {
             int year = datePicker.getYear();
 
             Calendar endDate = Calendar.getInstance();
+            endDate.clear();
             endDate.set(year, month, day);
 
             Intent in = getIntent();

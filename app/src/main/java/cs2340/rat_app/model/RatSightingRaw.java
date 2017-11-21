@@ -1,9 +1,8 @@
 package cs2340.rat_app.model;
 
-/**
- * Raw rat sightings utilized in Firebase
+/*
+ * Class for creating a raw rat sighting
  */
-
 public class RatSightingRaw {
 
     //Instance Variables
@@ -26,11 +25,12 @@ public class RatSightingRaw {
         borough = sighting.getBorough();
         city = sighting.getCity();
         created_date = sighting.getDateStr();
-        incident_address = (String) sighting.getStreet();
+        incident_address = sighting.getStreet();
         incident_zip = Integer.toString(sighting.getZip());
         location_type = sighting.getLocation_type();
         latitude = Double.toString(sighting.getLocation().getLatitude());
         longitude = Double.toString(sighting.getLocation().getLongitude());
+
     }
 
     /**

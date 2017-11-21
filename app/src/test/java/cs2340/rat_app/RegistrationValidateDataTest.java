@@ -7,9 +7,14 @@ import cs2340.rat_app.controller.RegisterActivity;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
+/*
+ * Class for testing registration validation
+ */
 public class RegistrationValidateDataTest {
 
-
+    /*
+     * Test method to see if registration validation works properly
+     */
     @Test
     public void testValidateData() {
         String firstFail = "";
