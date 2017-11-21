@@ -38,10 +38,6 @@ public class RatSightingListActivity extends AppCompatActivity {
 
     private static DatabaseReference mDatabaseRef;
 
-   // private static final String TAG = "RatSightingListActivity";
-
-    //Button viewMap;
-
     @Override
     protected void onResume() {
         super.onResume();

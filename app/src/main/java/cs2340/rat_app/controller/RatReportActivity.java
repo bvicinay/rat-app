@@ -19,7 +19,6 @@ import cs2340.rat_app.model.Address;
 public class RatReportActivity extends AppCompatActivity {
 
     private RatSighting curr;
-    private Address ad;
 
     @SuppressLint("SetTextI18n")
     @Override
