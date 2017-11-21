@@ -27,29 +27,29 @@ public class RatReportActivity extends AppCompatActivity{
             Address ad = (curr != null) ? curr.getAddress() : null;
 
             TextView key = findViewById(R.id.key);
-            key.setText("Key : " + curr.getKey());
+            key.setText("Key : " + (curr != null ? curr.getKey() : 0));
 
             TextView date = findViewById(R.id.date);
-            date.setText("Date : " + curr.getDateStr());
+            date.setText("Date : " + (curr != null ? curr.getDateStr() : "No Date"));
 
             TextView locType = findViewById(R.id.loc_type);
-            locType.setText("Location : " + curr.getLocation_type());
+            locType.setText("Location : " + (curr != null ? curr.getLocation_type() : "No Type"));
 
             TextView zipCode = findViewById(R.id.zip_code);
-            zipCode.setText("Zip Code : " + ad.getZip());
+            zipCode.setText("Zip Code : " + (ad != null ? ad.getZip() : 0));
 
             TextView address = findViewById(R.id.address);
-            address.setText("Address : " + ad.getStreet());
+            address.setText("Address : " + (ad != null ? ad.getStreet() : "No street"));
 
             TextView city = findViewById(R.id.city);
-            city.setText("City : " + ad.getCity());
+            city.setText("City : " + (ad != null ? ad.getCity() : "No city"));
 
             TextView borough = findViewById(R.id.borough);
-            borough.setText("Borough : " + ad.getBorough());
+            borough.setText("Borough : " + (ad != null ? ad.getBorough() : "No Borough"));
 
             DecimalFormat df = new DecimalFormat("#.###");
             TextView latitude = findViewById(R.id.latitude);
-            Location loc = curr.getLocation();
+            Location loc = curr != null ? curr.getLocation() : new Location("No data");
             latitude.setText("Latitude : " + df.format(loc.getLatitude()));
             TextView longitude = findViewById(R.id.longitude);
             longitude.setText("Longitude : " + df.format(loc.getLongitude()));

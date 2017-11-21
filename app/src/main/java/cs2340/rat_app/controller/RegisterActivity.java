@@ -236,11 +236,9 @@ public class RegisterActivity extends AppCompatActivity {
      * @param email the email of the account being created
      * @param password the password of the account being created
      */
-    private void createAccount(String email, String password) {
+    private void createAccount(final String email, final String password) {
         // Data is already validated
         Log.d(TAG, "createAccount:" + email);
-        final String emailFinal = email;
-        final String passFinal = password;
 
         // Create user on database
         mAuth.createUserWithEmailAndPassword(email, password)

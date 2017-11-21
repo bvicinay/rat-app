@@ -9,7 +9,6 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
-import java.security.Key;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -145,8 +144,32 @@ public class RatSighting implements Parcelable {
      * Street getter
      * @return Street
      */
-    public CharSequence getStreet() {
+    public String getStreet() {
         return address.getStreet();
+    }
+
+    /**
+     * Zip getter
+     * @return Zip
+     */
+    public int getZip() {
+        return address.getZip();
+    }
+
+    /**
+     * Borough getter
+     * @return Borough
+     */
+    public String getBorough() {
+        return address.getBorough();
+    }
+
+    /**
+     * City getter
+     * @return Citiy
+     */
+    public String getCity() {
+        return address.getCity();
     }
 
     /**
@@ -222,6 +245,8 @@ public class RatSighting implements Parcelable {
             }
         }
         if ((j == 1) && (h == 1)) {
+            this.graphMax = max;
+            this.graphMin = min;
             GraphViewActivity.setMax(max);
             GraphViewActivity.setMin(min);
         }
@@ -286,15 +311,15 @@ public class RatSighting implements Parcelable {
 
     public static String[] makeRawSighting(RatSighting sighting) {
         String[] sightingInformation = new String[9];
-        Address address = sighting.getAddress();
+        //Address address = sighting.getAddress();
         int key = sighting.getKey();
-        int zip = address.getZip();
+        int zip = sighting.getZip();
         Location location = sighting.getLocation();
         sightingInformation[0] = Integer.toString(key);
-        sightingInformation[1] = address.getBorough();
-        sightingInformation[2] = address.getCity();
+        sightingInformation[1] = sighting.getBorough();
+        sightingInformation[2] = sighting.getCity();
         sightingInformation[3] = sighting.getDateStr();
-        sightingInformation[4] = address.getStreet();
+        sightingInformation[4] = sighting.getStreet();
         sightingInformation[5] = Integer.toString(zip);
         sightingInformation[6] = sighting.getLocation_type();
         sightingInformation[7] = Double.toString(location.getLatitude());

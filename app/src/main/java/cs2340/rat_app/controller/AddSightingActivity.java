@@ -22,6 +22,9 @@ import cs2340.rat_app.model.RatSighting;
 import cs2340.rat_app.model.RatSightingRaw;
 import cs2340.rat_app.model.RatList;
 
+/**
+ * Activity for the User to add a rat sighting
+ */
 public class AddSightingActivity extends AppCompatActivity {
 
     //instance variables
@@ -242,7 +245,7 @@ public class AddSightingActivity extends AppCompatActivity {
      * @throws Exception if there is invalid data entered in the fields
      */
     @SuppressLint("SetTextI18n")
-    private void createRat() {
+    private void createRat() throws Exception {
 
         if (validateData()) {
 
