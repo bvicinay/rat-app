@@ -286,4 +286,16 @@ public class RatSighting implements Parcelable {
     private int getYear() {
         return creation_date.get(Calendar.YEAR);
     }
+
+    public static RatSightingRaw makeRawSighting(RatSighting sighting) {
+        String key = Integer.toString(sighting.getKey());
+        String borough = sighting.getAddress().getBorough();
+        String city = sighting.getAddress().getCity();
+        String created_date = sighting.getDateStr();
+        String incident_address = sighting.getAddress().getStreet();
+        String incident_zip = Integer.toString(sighting.getAddress().getZip());
+        String location_type = sighting.getLocation_type();
+        String latitude = Double.toString(sighting.getLocation().getLatitude());
+        String longitude = Double.toString(sighting.getLocation().getLongitude());
+    }
 }

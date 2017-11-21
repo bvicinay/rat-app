@@ -18,7 +18,8 @@ public class RatSightingRaw {
      * @param sighting the ratSighting being constructed from
      */
     public RatSightingRaw(RatSighting sighting) {
-        key = Integer.toString(sighting.getKey());
+        RatSightingRaw rat = RatSighting.makeRawSighting(sighting);
+        key = rat.getKey();
         borough = sighting.getAddress().getBorough();
         city = sighting.getAddress().getCity();
         created_date = sighting.getDateStr();

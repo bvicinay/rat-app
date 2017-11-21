@@ -50,7 +50,7 @@ public class RegisterActivity extends AppCompatActivity {
         Spinner actTypeField = (Spinner) findViewById(R.id.account_type_spinner);
 
         //Add options to account type spinner
-        SpinnerAdapter spinnerAdapter = new ArrayAdapter<>(this,
+        ArrayAdapter<String> spinnerAdapter = new ArrayAdapter(this,
                 android.R.layout.simple_spinner_item, AccountType.values());
         actTypeField.setAdapter(spinnerAdapter);
 
@@ -109,7 +109,7 @@ public class RegisterActivity extends AppCompatActivity {
      * @param password the password of the registered account
      * @param user the new firebase user
      */
-    private void proceedRegister() {//future params:String email, String password, FirebaseUser user
+    private void proceedRegister(String email, String password, FirebaseUser user) {
         Intent intent = new Intent(this, LoginActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(intent);
@@ -203,7 +203,7 @@ public class RegisterActivity extends AppCompatActivity {
      */
 
     public static int validatePassword(String password) {
-        if (password.isEmpty()) {
+        if (password.length() == 0 ) {
             return 1;
         } else if (password.length() < 8) {
             return 2;
@@ -221,7 +221,7 @@ public class RegisterActivity extends AppCompatActivity {
      */
 
     public static int validateEmail(String email) {
-        if (email.isEmpty()) {
+        if (email.length() == 0) {
             return 1;
         } else if (!email.contains("@") || !email.contains(".")) {
             return 2;
