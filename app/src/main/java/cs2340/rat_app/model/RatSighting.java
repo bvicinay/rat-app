@@ -77,7 +77,6 @@ public class RatSighting implements Parcelable {
 
     }
     public RatSighting(RatSightingRaw rs) {
-
         this(Integer.parseInt(rs.getKey()), rs.getCreated_date(), rs.getLocation_type(),
                 rs.getIncident_address(), rs.getBorough(), Integer.parseInt(rs.getIncident_zip()),
                 rs.getCity(), rs.getLatitude(), rs.getLongitude());
@@ -181,31 +180,13 @@ public class RatSighting implements Parcelable {
         return month + "/" + day + "/" + year;
     }
 
-    @Override
-    public int describeContents() {
-        return 0;
+    private int getMonth() {
+        return creation_date.get(Calendar.MONTH);
     }
 
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-        dest.writeInt(key);
-        dest.writeSerializable(creation_date);
-        dest.writeString(location_type);
-        dest.writeParcelable(address, flags);
-        dest.writeParcelable(location, flags);
+    private int getYear() {
+        return creation_date.get(Calendar.YEAR);
     }
-
-    public static final Parcelable.Creator CREATOR = new Parcelable.Creator() {
-       @Override
-        public RatSighting createFromParcel(Parcel in) {
-            return new RatSighting(in);
-       }
-
-        @Override
-       public RatSighting[] newArray(int size) {
-           return new RatSighting[size];
-       }
-    };
 
     public static List<RatSighting> validateDataForMapAndGraph(
             Iterable<RatSighting> rats, Calendar startDate, Calendar finishDate) {
@@ -259,29 +240,29 @@ public class RatSighting implements Parcelable {
         return mMap;
     }
 
-    private int getMonth() {
-        return creation_date.get(Calendar.MONTH);
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(key);
+        dest.writeSerializable(creation_date);
+        dest.writeString(location_type);
+        dest.writeParcelable(address, flags);
+        dest.writeParcelable(location, flags);
     }
 
-    private int getYear() {
-        return creation_date.get(Calendar.YEAR);
-    }
+    public static final Parcelable.Creator CREATOR = new Parcelable.Creator() {
+        @Override
+        public RatSighting createFromParcel(Parcel in) {
+            return new RatSighting(in);
+        }
 
-    public static String[] makeRawSighting(RatSighting sighting) {
-        String[] sightingInformation = new String[9];
-        //Address address = sighting.getAddress();
-        int key = sighting.getKey();
-        int zip = sighting.getZip();
-        Location location = sighting.getLocation();
-        sightingInformation[0] = Integer.toString(key);
-        sightingInformation[1] = sighting.getBorough();
-        sightingInformation[2] = sighting.getCity();
-        sightingInformation[3] = sighting.getDateStr();
-        sightingInformation[4] = sighting.getStreet();
-        sightingInformation[5] = Integer.toString(zip);
-        sightingInformation[6] = sighting.getLocation_type();
-        sightingInformation[7] = Double.toString(location.getLatitude());
-        sightingInformation[8] = Double.toString(location.getLongitude());
-        return sightingInformation;
+        @Override
+        public RatSighting[] newArray(int size) {
+            return new RatSighting[size];
+        }
+    };
+
+    @Override
+    public int describeContents() {
+        return 0;
     }
 }

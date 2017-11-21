@@ -18,16 +18,15 @@ public class RatSightingRaw {
      * @param sighting the ratSighting being constructed from
      */
     public RatSightingRaw(RatSighting sighting) {
-        String[] ratInfo = RatSighting.makeRawSighting(sighting);
-        key = ratInfo[0];
-        borough = ratInfo[1];
-        city = ratInfo[2];
-        created_date = ratInfo[3];
-        incident_address = ratInfo[4];
-        incident_zip = ratInfo[5];
-        location_type = ratInfo[6];
-        latitude = ratInfo[7];
-        longitude = ratInfo[8];
+        key = Integer.toString(sighting.getKey());
+        borough = sighting.getBorough();
+        city = sighting.getCity();
+        created_date = sighting.getDateStr();
+        incident_address = sighting.getAddress().toString();
+        incident_zip = Integer.toString(sighting.getZip());
+        location_type = sighting.getLocation_type();
+        latitude = Double.toString(sighting.getLocation().getLatitude());
+        longitude = Double.toString(sighting.getLocation().getLongitude());
     }
 
     /**
