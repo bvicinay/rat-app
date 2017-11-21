@@ -49,7 +49,7 @@ public class RatReportActivity extends AppCompatActivity{
 
             DecimalFormat df = new DecimalFormat("#.###");
             TextView latitude = findViewById(R.id.latitude);
-            Location loc = curr != null ? curr.getLocation() : new Location("No data");
+            Location loc = (curr != null) ? curr.getLocation() : new Location("No data");
             latitude.setText("Latitude : " + df.format(loc.getLatitude()));
             TextView longitude = findViewById(R.id.longitude);
             longitude.setText("Longitude : " + df.format(loc.getLongitude()));
