@@ -209,19 +209,9 @@ public class RatSighting implements Parcelable {
        }
     };
 
-    public static List<RatSighting> validateDateForGraph(
-            List<RatSighting> rats, Calendar startDate, Calendar finishDate, int h) {
+    public static List<RatSighting> validateDataForMapAndGraph(
+            Iterable<RatSighting> rats, Calendar startDate, Calendar finishDate) {
         List<RatSighting> filteredList = new ArrayList<>();
-        int j = 0;
-        Calendar min = null;
-        Calendar max = null;
-        try {
-            RatSighting r1 = rats.get(0);
-            min = r1.getCreation_date();
-            max = r1.getCreation_date();
-        } catch(Exception e) {
-            Log.d("Empty List", "List is empty");
-        }
         for (RatSighting rat : rats) {
             if (rat.getCreation_date() == null) {
                 continue;
@@ -231,40 +221,12 @@ public class RatSighting implements Parcelable {
                 if ((c1.compareTo(startDate) >= 0) &&
                         (c1.compareTo(finishDate) <= 0)) {
                     filteredList.add(rat);
-                    if (j == 0) {
-                        min = (rat.getCreation_date());
-                        max = (rat.getCreation_date());
-                        j = 1;
-                    } else {
-                        min = checkIfMin(rat, min);
-                        max = checkIfMax(rat, max);
-                    }
                 }
-            } catch(Exception e) {
-                Log.d("Missing data" , "Rat is missing data");
+            } catch (Exception e) {
+                Log.d("Missing data", "Rat is missing data");
             }
         }
-        if ((j == 1) && (h == 1)) {
-            graphMax = max;
-            graphMin = min;
-        }
         return filteredList;
-    }
-
-    private static Calendar checkIfMin(RatSighting rat, Calendar min) {
-        Calendar c1 = rat.getCreation_date();
-        if (c1.compareTo(min) < 0) {
-            return rat.getCreation_date();
-        }
-        return min;
-    }
-
-    private static Calendar checkIfMax(RatSighting rat, Calendar max) {
-        Calendar c1 = rat.getCreation_date();
-        if (c1.compareTo(max) > 0) {
-            return rat.getCreation_date();
-        }
-        return max;
     }
 
     public static HashMap<Calendar, Integer> setRatHashMap(Iterable<RatSighting> filteredList) {
