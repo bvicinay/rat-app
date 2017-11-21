@@ -27,7 +27,7 @@ public class ValidateDataForGraphTest {
     private Calendar endDate;
 
 
-    /*
+    /**
      * Test method to see if the graph filter works correctly
      */
     @Test

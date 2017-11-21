@@ -200,10 +200,10 @@ public class RatSighting implements Parcelable {
             Iterable<RatSighting> rats, Calendar startDate, Calendar finishDate) {
         List<RatSighting> filteredList = new ArrayList<>();
         for (RatSighting rat : rats) {
+            try {
             if (rat.getCreation_date() == null) {
                 continue;
             }
-            try {
                 Calendar c1 = rat.getCreation_date();
                 if ((c1.compareTo(startDate) >= 0) &&
                         (c1.compareTo(finishDate) <= 0)) {

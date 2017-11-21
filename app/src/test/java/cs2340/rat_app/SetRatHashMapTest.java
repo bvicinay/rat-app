@@ -23,7 +23,7 @@ import static org.junit.Assert.assertNotEquals;
 @SuppressWarnings("DefaultFileTemplate")
 public class SetRatHashMapTest {
 
-    /*
+    /**
      * Test method to see if hash map works properly
      */
     @Test

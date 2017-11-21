@@ -1,6 +1,6 @@
 package cs2340.rat_app.model;
 
-/*
+/**
  * Class for creating a raw rat sighting
  */
 public class RatSightingRaw {

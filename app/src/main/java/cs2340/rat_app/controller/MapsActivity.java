@@ -74,8 +74,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             dateRangeRats = RatSighting.validateDataForMapAndGraph(sightings, startDate,
                     finishDate);
 
-            mMap = RatSighting.filterMap(mMap, dateRangeRats);
-
             updateMapView(mMap, dateRangeRats);
 
         } catch(Exception e) {
@@ -84,6 +82,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     }
 
     private void updateMapView(GoogleMap mMap, List<RatSighting> dateRangeRats) {
+        mMap = RatSighting.filterMap(mMap, dateRangeRats);
         RatSighting rat = dateRangeRats.get(0);
         Location loc = rat.getLocation();
         mMap.moveCamera(CameraUpdateFactory.newLatLng(new LatLng(loc.getLatitude(),
