@@ -20,6 +20,7 @@ import android.widget.Toast;
 
 import cs2340.rat_app.R;
 import cs2340.rat_app.model.AccountType;
+import cs2340.rat_app.model.RatSighting;
 
 /**
  * A login screen that offers login via email/password.

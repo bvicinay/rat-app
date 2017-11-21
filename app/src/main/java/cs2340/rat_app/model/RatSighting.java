@@ -99,7 +99,7 @@ public class RatSighting implements Parcelable {
      * Calendar object getter
      * @return creation_date
      */
-    public Calendar getCreation_date() {
+    private Calendar getCreation_date() {
         return creation_date;
     }
 
@@ -149,7 +149,7 @@ public class RatSighting implements Parcelable {
      * Zip getter
      * @return Zip
      */
-    public int getZip() {
+    private int getZip() {
         return address.getZip();
     }
 
@@ -157,7 +157,7 @@ public class RatSighting implements Parcelable {
      * Borough getter
      * @return Borough
      */
-    public String getBorough() {
+    private String getBorough() {
         return address.getBorough();
     }
 
@@ -165,7 +165,7 @@ public class RatSighting implements Parcelable {
      * City getter
      * @return Citiy
      */
-    public String getCity() {
+    private String getCity() {
         return address.getCity();
     }
 
