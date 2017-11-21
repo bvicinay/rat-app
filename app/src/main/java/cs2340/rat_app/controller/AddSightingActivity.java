@@ -245,7 +245,7 @@ public class AddSightingActivity extends AppCompatActivity {
      * @throws Exception if there is invalid data entered in the fields
      */
     @SuppressLint("SetTextI18n")
-    private void createRat() throws Exception {
+    private void createRat() {
 
         if (validateData()) {
 
