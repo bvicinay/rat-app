@@ -40,6 +40,8 @@ public class GraphViewActivity extends AppCompatActivity {
         assignSightings();
         List<RatSighting> filteredList = RatSighting.validateDateForGraph(sightings, startDate,
                 finishDate, 1);
+        min = RatSighting.getGraphMin();
+        max = RatSighting.getGraphMax();
         HashMap<Calendar, Integer> ratSightingHashMap = RatSighting.setRatHashMap(filteredList);
 
         Set<Calendar> keys = ratSightingHashMap.keySet();

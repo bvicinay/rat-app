@@ -9,6 +9,7 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
+import java.security.Key;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -24,6 +25,8 @@ public class RatSighting implements Parcelable {
     private final String location_type;
     private final Address address;
     private final Location location;
+    private static Calendar graphMin;
+    private static Calendar graphMax;
 
     /**
      * RatSighting constructor called by parcel
@@ -245,10 +248,8 @@ public class RatSighting implements Parcelable {
             }
         }
         if ((j == 1) && (h == 1)) {
-            this.graphMax = max;
-            this.graphMin = min;
-            GraphViewActivity.setMax(max);
-            GraphViewActivity.setMin(min);
+            graphMax = max;
+            graphMin = min;
         }
         return filteredList;
     }
@@ -325,5 +326,13 @@ public class RatSighting implements Parcelable {
         sightingInformation[7] = Double.toString(location.getLatitude());
         sightingInformation[8] = Double.toString(location.getLongitude());
         return sightingInformation;
+    }
+
+    public static Calendar getGraphMax() {
+        return graphMax;
+    }
+
+    public static Calendar getGraphMin() {
+        return graphMin;
     }
 }
