@@ -50,7 +50,7 @@ public class RegisterActivity extends AppCompatActivity {
         Spinner actTypeField = findViewById(R.id.account_type_spinner);
 
         //Add options to account type spinner
-        SpinnerAdapter spinnerAdapter = new ArrayAdapter(this,
+        @SuppressWarnings("unchecked") SpinnerAdapter spinnerAdapter = new ArrayAdapter(this,
                 android.R.layout.simple_spinner_item, AccountType.values());
         actTypeField.setAdapter(spinnerAdapter);
 
