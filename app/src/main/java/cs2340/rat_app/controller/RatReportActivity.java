@@ -19,7 +19,7 @@ public class RatReportActivity extends AppCompatActivity{
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        try { //
+        try {
             setContentView(R.layout.rat_report);
             Intent in = getIntent();
             Bundle b = in.getExtras();
