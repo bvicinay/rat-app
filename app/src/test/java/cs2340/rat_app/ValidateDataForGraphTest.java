@@ -56,7 +56,7 @@ public class ValidateDataForGraphTest {
     }
 
     private void populateRatList() {
-        rats1.add(new RatSighting(50, "04/15/01", "Frat House",
+        rats1.add(new RatSighting(50, null, "Frat House",
                 "5th St", "Tau Kap", 30313, "Atl", "50",
                 "50"));
         rats1.add(new RatSighting(50, "09/17/04", "Frat House",

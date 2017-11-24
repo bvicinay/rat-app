@@ -3,6 +3,7 @@ package cs2340.rat_app;
 import org.junit.Test;
 
 import cs2340.rat_app.controller.AddSightingActivity;
+import cs2340.rat_app.model.RatSighting;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
@@ -27,6 +28,8 @@ public class ValidateDataTest {
         assertTrue(AddSightingActivity.validateAddress("159 5th Street"));
         assertTrue(AddSightingActivity.validateCity("Atlanta"));
         assertTrue(AddSightingActivity.validateBorough("Georgia"));
+        assertFalse(AddSightingActivity.validateZip("Hey guys"));
+        assertFalse(AddSightingActivity.validateLongitude("Heyo "));
         assertTrue(AddSightingActivity.validateLatitude("10000"));
         assertTrue(AddSightingActivity.validateLongitude("10000"));
 
@@ -92,6 +95,7 @@ public class ValidateDataTest {
     @Test
     public void testValidateLongitude() {
         assertFalse(AddSightingActivity.validateLongitude(""));
-        assertTrue(AddSightingActivity.validateLongitude("3031323232"));
+        assertTrue(AddSightingActivity.validateLongitude("330313"));
     }
+
 }
