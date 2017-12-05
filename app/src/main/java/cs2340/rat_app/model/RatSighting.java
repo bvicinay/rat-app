@@ -21,7 +21,7 @@ import java.util.Calendar;
 public class RatSighting implements Parcelable {
 
     //Instance Variables
-    private final int key;
+    private final String key;
     private Calendar creation_date;
     private final String location_type;
     private final Address address;
@@ -32,7 +32,7 @@ public class RatSighting implements Parcelable {
      * @param p the parcel being passed through
      */
     private RatSighting(Parcel p) {
-        key = p.readInt();
+        key = p.readString();
         creation_date = (Calendar) p.readSerializable();
         location_type = p.readString();
         address = p.readParcelable(Address.class.getClassLoader());
@@ -51,8 +51,8 @@ public class RatSighting implements Parcelable {
      * @param latitude the latitude
      * @param longitude the longitude
      */
-    public RatSighting(int key, String creation_date, String location_type,
-                       String street, String borough, int zip, String city,
+    public RatSighting(String key, String creation_date, String location_type,
+                       String street, String borough, String zip, String city,
                        String latitude, String longitude) {
         this.key = key;
         this.location_type = location_type;
@@ -86,8 +86,8 @@ public class RatSighting implements Parcelable {
      * @param rs raw rat sighting from firebase
      */
     public RatSighting(RatSightingRaw rs) {
-        this(Integer.parseInt(rs.getKey()), rs.getCreated_date(), rs.getLocation_type(),
-                rs.getIncident_address(), rs.getBorough(), Integer.parseInt(rs.getIncident_zip()),
+        this(rs.getKey(), rs.getCreated_date(), rs.getLocation_type(),
+                rs.getIncident_address(), rs.getBorough(), rs.getIncident_zip(),
                 rs.getCity(), rs.getLatitude(), rs.getLongitude());
     }
 
@@ -100,7 +100,7 @@ public class RatSighting implements Parcelable {
      * Key getter
      * @return key
      */
-    public int getKey() {
+    public String getKey() {
         return key;
     }
 
@@ -150,7 +150,7 @@ public class RatSighting implements Parcelable {
      * Zip getter
      * @return Zip
      */
-    public int getZip() {
+    public String getZip() {
         return address.getZip();
     }
 
@@ -261,7 +261,7 @@ public class RatSighting implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-        dest.writeInt(key);
+        dest.writeString(key);
         dest.writeSerializable(creation_date);
         dest.writeString(location_type);
         dest.writeParcelable(address, flags);

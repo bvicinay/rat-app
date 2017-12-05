@@ -11,7 +11,7 @@ public class Address implements Parcelable {
     //instance variables
     private final String street;
     private final String borough;
-    private final int zip;
+    private final String zip;
     private final String city;
 
     /**
@@ -21,7 +21,7 @@ public class Address implements Parcelable {
      * @param zip the zip- int
      * @param city the city- string
      */
-    public Address(String street, String borough, int zip, String city) {
+    public Address(String street, String borough, String zip, String city) {
         this.street = street;
         this.borough = borough;
         this.zip = zip;
@@ -35,7 +35,7 @@ public class Address implements Parcelable {
     public Address(Parcel p) {
         street = p.readString();
         borough = p.readString();
-        zip = p.readInt();
+        zip = p.readString();
         city = p.readString();
     }
 
@@ -59,7 +59,7 @@ public class Address implements Parcelable {
      * ZipCode getter
      * @return ZipCode
      */
-    public int getZip() {
+    public String getZip() {
         return zip;
     }
 
@@ -80,7 +80,7 @@ public class Address implements Parcelable {
     public void writeToParcel(Parcel parcel, int i) {
         parcel.writeString(street);
         parcel.writeString(borough);
-        parcel.writeInt(zip);
+        parcel.writeString(zip);
         parcel.writeString(city);
     }
 

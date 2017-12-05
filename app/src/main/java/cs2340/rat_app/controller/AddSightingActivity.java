@@ -73,8 +73,8 @@ public class AddSightingActivity extends AppCompatActivity {
         List<RatSighting> ratList = RatList.getInstance();
         if (!ratList.isEmpty()) {
             RatSighting r1 = ratList.get(0);
-            int key1 = r1.getKey() + 1;
-            key.setText(Integer.toString(key1));
+            String key1 = r1.getKey() + 1;
+            key.setText(key1);
         }
 
         //editable fields
@@ -245,9 +245,8 @@ public class AddSightingActivity extends AppCompatActivity {
 
             try {
                 CharSequence k1 = key.getText();
-                int key1 = Integer.parseInt(k1.toString());
                 Editable zC = zipCodeField.getText();
-                int zip = Integer.parseInt(zC.toString());
+                CharSequence zip = zC.toString();
                 Editable lc = locTypeField.getText();
                 Editable aD = addressField.getText();
                 Editable ct = cityField.getText();
@@ -256,12 +255,12 @@ public class AddSightingActivity extends AppCompatActivity {
                 Editable lon = longitudeField.getText();
                 CharSequence date1 = date.getText();
                 RatSighting newSighting = new RatSighting(
-                        key1,
+                        (String) k1,
                         date1.toString(),
                         lc.toString(),
                         aD.toString(),
                         br.toString(),
-                        zip,
+                        (String) zip,
                         ct.toString(),
                         lat.toString(),
                         lon.toString());

@@ -21,12 +21,12 @@ public class RatSightingRaw {
      * @param sighting the ratSighting being constructed from
      */
     public RatSightingRaw(RatSighting sighting) {
-        key = Integer.toString(sighting.getKey());
+        key = sighting.getKey();
         borough = sighting.getBorough();
         city = sighting.getCity();
         created_date = sighting.getDateStr();
         incident_address = sighting.getStreet();
-        incident_zip = Integer.toString(sighting.getZip());
+        incident_zip = sighting.getZip();
         location_type = sighting.getLocation_type();
         latitude = Double.toString(sighting.getLocation().getLatitude());
         longitude = Double.toString(sighting.getLocation().getLongitude());
