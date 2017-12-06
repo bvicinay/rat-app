@@ -18,6 +18,7 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 
@@ -51,7 +52,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         setContentView(R.layout.activity_maps);
         Intent in = getIntent();
         startDate = (Calendar) in.getSerializableExtra("startDate");
-        finishDate = (Calendar) in.getSerializableExtra("finishDate");
+        finishDate = (Calendar) in.getSerializableExtra("endDate");
         //create fused location provider client
         fusedLoc = LocationServices.getFusedLocationProviderClient(this);
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
@@ -87,15 +88,22 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         mMap = googleMap;
         try {
             List<RatSighting> sightings = RatList.getInstance();
-            List<RatSighting> dateRangeRats;
+            List<RatSighting> filteredList = RatSighting.validateDataForMapAndGraph(sightings,
+                    startDate, finishDate);
 
-            dateRangeRats = RatSighting.validateDataForMapAndGraph(sightings, startDate,
-                    finishDate);
+            for (int i = 0; i < filteredList.size(); i++) {
+                try {
+                    RatSighting rat = filteredList.get(i);
+                    Location loc = rat.getLocation();
+                    mMap.addMarker(new MarkerOptions().position(new LatLng(loc.getLatitude(),
+                            loc.getLongitude())).title("Rat " + rat.getKey()));
+                } catch (Exception e) {
+                    Log.d("null pointer", "marker was missing longitude or latitude");
+                }
+            }
             getLocationPermission();
-            updateMapView(mMap, dateRangeRats);
-            updateLocationUI();
             getDeviceLocation();
-
+            updateLocationUI();
         } catch(Exception e) {
             Log.d("Exception", "no data in the range", e);
         }
@@ -132,14 +140,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         } catch (SecurityException e)  {
             Log.e("Exception: %s", e.getMessage());
         }
-    }
-
-    private void updateMapView(GoogleMap mMap, List<RatSighting> dateRangeRats) {
-        mMap = RatSighting.filterMap(mMap, dateRangeRats);
-        RatSighting rat = dateRangeRats.get(0);
-        Location loc = rat.getLocation();
-        //mMap.moveCamera(CameraUpdateFactory.newLatLng(new LatLng(loc.getLatitude(),
-        //        loc.getLongitude())));
     }
 
     /**

@@ -63,7 +63,7 @@ public class RatSighting implements Parcelable {
             String[] dateData = creation_date.split("/");
             dateData[2] = dateData[2].split(" ")[0];
             Calendar calendar = Calendar.getInstance();
-            calendar.set(Integer.parseInt(dateData[2]), Integer.parseInt(dateData[0]),
+            calendar.set(Integer.parseInt(dateData[2]), Integer.parseInt(dateData[0]) - 1,
                     Integer.parseInt(dateData[1]));
             this.creation_date = calendar;
         } catch (Exception e) { // Add any date to keep data valid
@@ -175,7 +175,7 @@ public class RatSighting implements Parcelable {
      * @return date
      */
     public String getDateStr() {
-        String month = Integer.toString(creation_date.get(Calendar.MONTH));
+        String month = Integer.toString(creation_date.get(Calendar.MONTH) + 1);
         String day = Integer.toString(creation_date.get(Calendar.DATE));
         String year = Integer.toString(creation_date.get(Calendar.YEAR));
         return month + "/" + day + "/" + year;

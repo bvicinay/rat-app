@@ -29,7 +29,7 @@ public class FilterRatSightings2 extends AppCompatActivity {
             // Retrieve data from date picker
             datePicker = findViewById(R.id.endDatePicker);
             int day = datePicker.getDayOfMonth();
-            int month = datePicker.getMonth() + 1;
+            int month = datePicker.getMonth();
             int year = datePicker.getYear();
 
             Calendar endDate = Calendar.getInstance();

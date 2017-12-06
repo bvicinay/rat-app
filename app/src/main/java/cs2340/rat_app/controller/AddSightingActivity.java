@@ -71,11 +71,7 @@ public class AddSightingActivity extends AppCompatActivity {
         creation_date = Calendar.getInstance();
         date.setText(getDateStr());
         List<RatSighting> ratList = RatList.getInstance();
-        if (!ratList.isEmpty()) {
-            RatSighting r1 = ratList.get(0);
-            String key1 = r1.getKey() + 1;
-            key.setText(key1);
-        }
+        key.setText("to be generated");
 
         //editable fields
         locTypeField = findViewById(R.id.locType);
@@ -97,6 +93,17 @@ public class AddSightingActivity extends AppCompatActivity {
         String day = Integer.toString(creation_date.get(Calendar.DATE));
         String year = Integer.toString(creation_date.get(Calendar.YEAR));
         return (Integer.parseInt(month) + 1) + "/" + day + "/" + year;
+    }
+
+    /**
+     * returns a String representation of calender object- mm/dd/yyyy
+     * @return a String representation of a Calendar object- date
+     */
+    private CharSequence getRawDateStr() {
+        String month = Integer.toString(creation_date.get(Calendar.MONTH));
+        String day = Integer.toString(creation_date.get(Calendar.DATE));
+        String year = Integer.toString(creation_date.get(Calendar.YEAR));
+        return (Integer.parseInt(month)) + "/" + day + "/" + year;
     }
 
     /**
@@ -253,10 +260,9 @@ public class AddSightingActivity extends AppCompatActivity {
                 Editable br = boroughField.getText();
                 Editable lat = latitudeField.getText();
                 Editable lon = longitudeField.getText();
-                CharSequence date1 = date.getText();
                 RatSighting newSighting = new RatSighting(
                         (String) k1,
-                        date1.toString(),
+                        (String) getDateStr(),
                         lc.toString(),
                         aD.toString(),
                         br.toString(),
