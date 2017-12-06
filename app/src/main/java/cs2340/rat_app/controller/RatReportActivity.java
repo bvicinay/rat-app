@@ -40,13 +40,7 @@ public class RatReportActivity extends AppCompatActivity {
             Log.d("null pointer exception" , "Caught a null pointer");
         }
 
-        if (FBUser.getInstance()) {
-            View fbShare = findViewById(R.id.fb_share_btn);
-            fbShare.setVisibility(View.VISIBLE);
-        } else {
-            View fbShare = findViewById(R.id.fb_share_btn);
-            fbShare.setVisibility(View.INVISIBLE);
-        }
+
         Button shareButton = (Button) findViewById(R.id.sharebutton);
         shareButton.setOnClickListener(new View.OnClickListener() {
 
