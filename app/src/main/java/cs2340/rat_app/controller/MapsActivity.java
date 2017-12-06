@@ -17,6 +17,7 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -40,21 +41,30 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private FusedLocationProviderClient fusedLoc;
     private boolean mLocationPermissionGranted;
     private Location mlastKnownLoc;
-    private static final int DEFAULT_ZOOM = 15;
+    private static final int DEFAULT_ZOOM = 10;
     private static final int PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION = 1;
     //default loc is New York City
-    private final LatLng mDefaultLoc = new LatLng(40.7128, 74.0060);
+    private final LatLng mDefaultLoc = new LatLng(40.7128, -74.0060);
     private GoogleMap mMap;
+    private CameraPosition mCameraPosition;
+
+    private static final String KEY_CAMERA_POSITION = "camera_position";
+    private static final String KEY_LOCATION = "location";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        if (savedInstanceState != null) {
+            mlastKnownLoc = savedInstanceState.getParcelable(KEY_LOCATION);
+            mCameraPosition = savedInstanceState.getParcelable(KEY_CAMERA_POSITION);
+        }
         setContentView(R.layout.activity_maps);
         Intent in = getIntent();
         startDate = (Calendar) in.getSerializableExtra("startDate");
         finishDate = (Calendar) in.getSerializableExtra("endDate");
         //create fused location provider client
         fusedLoc = LocationServices.getFusedLocationProviderClient(this);
+
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
@@ -86,6 +96,15 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
+        mMap.setMapType(GoogleMap.MAP_TYPE_HYBRID);
+
+
+        getLocationPermission();
+
+        updateLocationUI();
+
+        getDeviceLocation();
+
         try {
             List<RatSighting> sightings = RatList.getInstance();
             List<RatSighting> filteredList = RatSighting.validateDataForMapAndGraph(sightings,
@@ -101,12 +120,10 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                     Log.d("null pointer", "marker was missing longitude or latitude");
                 }
             }
-            getLocationPermission();
-            updateLocationUI();
-            getDeviceLocation();
         } catch(Exception e) {
             Log.d("Exception", "no data in the range", e);
         }
+
     }
     /**
      * Gets the current location of the device, and positions the map's camera.
@@ -125,11 +142,14 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                         if (task.isSuccessful()) {
                             // Set the map's camera position to the current location of the device.
                             mlastKnownLoc = task.getResult();
+                            //if (mlastKnownLoc != null){
                             mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(
                                     new LatLng(mlastKnownLoc.getLatitude(),
                                             mlastKnownLoc.getLongitude()), DEFAULT_ZOOM));
+                            //}
                         } else {
-
+                            //Log.d(TAG, "Current location is null. Using defaults.");
+                            //Log.e(TAG, "Exception: %s", task.getException());
                             mMap.moveCamera(CameraUpdateFactory
                                     .newLatLngZoom(mDefaultLoc, DEFAULT_ZOOM));
                             mMap.getUiSettings().setMyLocationButtonEnabled(false);
@@ -175,9 +195,15 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 if (grantResults.length > 0
                         && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     mLocationPermissionGranted = true;
+                    //getDeviceLocation();
+                } else {
+                    mMap.moveCamera(CameraUpdateFactory
+                            .newLatLngZoom(mDefaultLoc, DEFAULT_ZOOM));
+                    mMap.getUiSettings().setMyLocationButtonEnabled(false);
                 }
             }
         }
+
         updateLocationUI();
     }
 
@@ -196,10 +222,19 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 mMap.setMyLocationEnabled(false);
                 mMap.getUiSettings().setMyLocationButtonEnabled(false);
                 mlastKnownLoc = null;
-                getLocationPermission();
+                //getLocationPermission();
             }
         } catch (SecurityException e)  {
             Log.e("Exception: %s", e.getMessage());
+        }
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        if (mMap != null) {
+            outState.putParcelable(KEY_CAMERA_POSITION, mMap.getCameraPosition());
+            outState.putParcelable(KEY_LOCATION, mlastKnownLoc);
+            super.onSaveInstanceState(outState);
         }
     }
 
