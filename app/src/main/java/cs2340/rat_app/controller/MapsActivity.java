@@ -1,5 +1,6 @@
 package cs2340.rat_app.controller;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.support.annotation.NonNull;
@@ -12,6 +13,7 @@ import android.widget.Button;
 import android.location.Location;
 
 import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -21,6 +23,7 @@ import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 
 import java.util.Calendar;
@@ -79,9 +82,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             finishActivity();
         });
 
-
     }
-
 
     /**
      * Manipulates the map once available.
@@ -98,11 +99,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         mMap = googleMap;
         mMap.setMapType(GoogleMap.MAP_TYPE_HYBRID);
 
-
         getLocationPermission();
-
         updateLocationUI();
-
         getDeviceLocation();
 
         try {
@@ -123,16 +121,12 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         } catch(Exception e) {
             Log.d("Exception", "no data in the range", e);
         }
-
     }
+
     /**
      * Gets the current location of the device, and positions the map's camera.
      */
     private void getDeviceLocation() {
-        /*
-         * Get the best and most recent location of the device, which may be null in rare
-         * cases when a location is not available.
-         */
         try {
             if (mLocationPermissionGranted) {
                 Task<Location> locationResult = fusedLoc.getLastLocation();
@@ -141,15 +135,17 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                     public void onComplete(@NonNull Task<Location> task) {
                         if (task.isSuccessful()) {
                             // Set the map's camera position to the current location of the device.
-                            mlastKnownLoc = task.getResult();
-                            //if (mlastKnownLoc != null){
+                            mlastKnownLoc = locationResult.getResult();
+                            if (mlastKnownLoc != null){
                             mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(
                                     new LatLng(mlastKnownLoc.getLatitude(),
                                             mlastKnownLoc.getLongitude()), DEFAULT_ZOOM));
-                            //}
+                            } else {
+                                mMap.moveCamera(CameraUpdateFactory
+                                        .newLatLngZoom(mDefaultLoc, DEFAULT_ZOOM));
+                                //need to update location
+                            }
                         } else {
-                            //Log.d(TAG, "Current location is null. Using defaults.");
-                            //Log.e(TAG, "Exception: %s", task.getException());
                             mMap.moveCamera(CameraUpdateFactory
                                     .newLatLngZoom(mDefaultLoc, DEFAULT_ZOOM));
                             mMap.getUiSettings().setMyLocationButtonEnabled(false);
@@ -181,6 +177,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                     PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION);
         }
     }
+
     /**
      * Handles the result of the request for location permissions.
      */
@@ -195,7 +192,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 if (grantResults.length > 0
                         && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     mLocationPermissionGranted = true;
-                    //getDeviceLocation();
                 } else {
                     mMap.moveCamera(CameraUpdateFactory
                             .newLatLngZoom(mDefaultLoc, DEFAULT_ZOOM));
@@ -222,7 +218,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 mMap.setMyLocationEnabled(false);
                 mMap.getUiSettings().setMyLocationButtonEnabled(false);
                 mlastKnownLoc = null;
-                //getLocationPermission();
             }
         } catch (SecurityException e)  {
             Log.e("Exception: %s", e.getMessage());
@@ -244,4 +239,5 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private void finishActivity() {
         this.finish();
     }
+
 }
