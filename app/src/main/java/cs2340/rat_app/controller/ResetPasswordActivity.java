@@ -17,7 +17,10 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.util.Calendar;
+
 import cs2340.rat_app.R;
+import cs2340.rat_app.model.RatSighting;
 
 public class ResetPasswordActivity extends AppCompatActivity {
 
@@ -102,13 +105,15 @@ public class ResetPasswordActivity extends AppCompatActivity {
                                     "Password Reset Sent", Toast.LENGTH_SHORT);
                             toast.show();
                             DatabaseReference newRequestReference = mDatabaseRef.child("security_logging").push();
-                            newRequestReference.setValue(email + " reset their password");
+                            newRequestReference.setValue(email + " sent a password reset at "
+                                    + RatSighting.getTimeStamp(Calendar.getInstance()));
                             Log.d(TAG, "Email sent.");
                             Intent intent = new Intent(getOuter(), LoginActivity.class);
                             startActivity(intent);
                         } else {
                             DatabaseReference newRequestReference = mDatabaseRef.child("security_logging").push();
-                            newRequestReference.setValue(email + " failed to reset their password");
+                            newRequestReference.setValue(email + " failed to reset their password at "
+                                    + RatSighting.getTimeStamp(Calendar.getInstance()));
                             Log.d(TAG, "Invalid email");
                         }
                     }

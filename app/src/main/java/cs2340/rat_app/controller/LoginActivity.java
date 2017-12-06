@@ -21,7 +21,10 @@ import com.facebook.appevents.AppEventsLogger;
 import android.util.Log;
 import android.widget.Toast;
 
+import java.util.Calendar;
+
 import cs2340.rat_app.R;
+import cs2340.rat_app.model.RatSighting;
 import cs2340.rat_app.model.User;
 
 /**
@@ -175,6 +178,8 @@ public class LoginActivity extends AppCompatActivity {
      * @param password the password entered in
      */
     private void signIn(String email, String password) {
+        FirebaseDatabase mDatabase = FirebaseDatabase.getInstance();
+        DatabaseReference mDatabaseRef = mDatabase.getReference();
         mAuth.signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this, task -> {
                     Log.d(TAG, "signInWithEmail:onComplete:" + task.isSuccessful());
@@ -183,7 +188,8 @@ public class LoginActivity extends AppCompatActivity {
                     if (task.isSuccessful()) {
                         Log.d(TAG, "signInWithEmail:onComplete:" + task.isSuccessful());
                         DatabaseReference newRequestReference = mDatabaseRef.child("security_logging").push();
-                        newRequestReference.setValue(email + "logged in");
+                        newRequestReference.setValue(email + " logged in at " +
+                                RatSighting.getTimeStamp(Calendar.getInstance()));
                         // Sign-in successful, proceed passing user as parameter
                         FirebaseUser user = mAuth.getCurrentUser();
                         proceedLogin();
@@ -192,7 +198,8 @@ public class LoginActivity extends AppCompatActivity {
                         // Sign-in failed, display message to user
                         Log.w(TAG, "signInWithEmail:failed", task.getException());
                         DatabaseReference newRequestReference = mDatabaseRef.child("security_logging").push();
-                        newRequestReference.setValue("failed login attempt");
+                        newRequestReference.setValue("failed login attempt at " +
+                                RatSighting.getTimeStamp(Calendar.getInstance()));
                         Toast toast = Toast.makeText(LoginActivity.this, "Sign-in failed",
                                 Toast.LENGTH_SHORT);
                         toast.show();

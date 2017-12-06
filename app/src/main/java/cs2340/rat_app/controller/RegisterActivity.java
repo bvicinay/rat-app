@@ -20,8 +20,11 @@ import android.util.Log;
 import android.widget.SpinnerAdapter;
 import android.widget.Toast;
 
+import java.util.Calendar;
+
 import cs2340.rat_app.R;
 import cs2340.rat_app.model.AccountType;
+import cs2340.rat_app.model.RatSighting;
 import cs2340.rat_app.model.User;
 
 /**
@@ -252,7 +255,8 @@ public class RegisterActivity extends AppCompatActivity {
                 .addOnCompleteListener(this, task -> {
                     if (task.isSuccessful()) {
                         DatabaseReference newRequestReference2 = mDatabaseRef.child("security_logging").push();
-                        newRequestReference2.setValue(email + " created an account!");
+                        newRequestReference2.setValue(email + " created an account at "
+                                + RatSighting.getTimeStamp(Calendar.getInstance()));
                         // Registration successful, proceed passing user as parameter
                         Log.d(TAG, "createUserWithEmail:success");
                         FirebaseUser user = mAuth.getCurrentUser();
@@ -262,7 +266,8 @@ public class RegisterActivity extends AppCompatActivity {
                         proceedRegister();
                     } else {
                         DatabaseReference newRequestReference2 = mDatabaseRef.child("security_logging").push();
-                        newRequestReference2.setValue(email + " failed to create an account");
+                        newRequestReference2.setValue(email + " failed to create an account at "
+                                + RatSighting.getTimeStamp(Calendar.getInstance()));
                         // Registration failed, display message to the user, abort.
                         Log.w(TAG, "createUserWithEmail:failure", task.getException());
                         Toast toast = Toast.makeText(RegisterActivity.this, "Failed to register",

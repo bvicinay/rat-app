@@ -189,6 +189,21 @@ public class RatSighting implements Parcelable {
         return creation_date.get(Calendar.YEAR);
     }
 
+    public static String getTimeStamp(Calendar cal) {
+        String month = Integer.toString(cal.get(Calendar.MONTH) + 1);
+        String day = Integer.toString(cal.get(Calendar.DATE));
+        String year = Integer.toString(cal.get(Calendar.YEAR));
+        String minutes = Integer.toString(cal.get(Calendar.MINUTE));
+        if (minutes.length() < 2) {
+            minutes = 0 + minutes;
+        }
+        String hours = Integer.toString(cal.get(Calendar.HOUR));
+        if (hours.length() < 2) {
+            hours = 0 + hours;
+        }
+        return hours + ":" + minutes + " " + month + "/" + day + "/" + year;
+    }
+
     /**
      * Checks whether the data to be used in the map/graph is valid
      * @param rats RatSightings
