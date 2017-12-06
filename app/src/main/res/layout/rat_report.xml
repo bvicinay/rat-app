@@ -85,4 +85,13 @@
         android:layout_marginTop="26dp"
         android:text="@string/longitude_label" />
 
+    <Button
+        android:id="@+id/sharebutton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/longitude"
+        android:layout_below="@+id/longitude"
+        android:layout_marginTop="27dp"
+        android:text="Share Rat Sighting" />
+
 </RelativeLayout>

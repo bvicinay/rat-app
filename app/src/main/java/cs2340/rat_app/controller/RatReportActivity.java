@@ -6,8 +6,10 @@ import android.icu.text.DecimalFormat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.TextView;
 import android.location.Location;
+import android.widget.Button;
 
 import cs2340.rat_app.R;
 import cs2340.rat_app.model.RatSighting;
@@ -32,6 +34,44 @@ public class RatReportActivity extends AppCompatActivity {
         } catch (Exception e) {
             Log.d("null pointer exception" , "Caught a null pointer");
         }
+
+
+        Button shareButton = (Button) findViewById(R.id.sharebutton);
+        shareButton.setOnClickListener(new View.OnClickListener() {
+
+
+            @Override
+            public void onClick(View v) {
+
+                DecimalFormat df = new DecimalFormat("#.###");
+                Location loc = (curr != null) ? curr.getLocation() : new Location("No data");
+
+                Intent shareIntent = new Intent(Intent.ACTION_SEND);
+                shareIntent.setType("text/plain");
+                String subject = "Rat Sighting: " + (curr.getKey());
+                String body = "Key:" + (curr.getKey())
+                        + "\nDate : " + (curr.getDateStr() != null ? curr.getDateStr() : "No Date")
+                        + "\nLocation : " + (curr.getLocation_type() != null ?
+                        curr.getLocation_type() : "No Type")
+                        + "\nZip Code : " + (curr.getZip())
+                        + "\nAddress : " + (curr.getStreet() != null ? curr.getStreet()
+                        : "No street")
+                        + "\nCity : " + (curr.getCity() != null ? curr.getCity() : "No city")
+                        + "\nBorough : " + (curr.getBorough() != null ? curr.getBorough()
+                        : "No Borough")
+                        + "\nLatitude : " + df.format(loc.getLatitude())
+                        + "\nLongitude : " + df.format(loc.getLongitude());
+
+                shareIntent.putExtra(Intent.EXTRA_SUBJECT, subject);
+                shareIntent.putExtra(Intent.EXTRA_TEXT, body);
+                startActivity(Intent.createChooser(shareIntent, "Share Rat Sighting: "));
+            }
+
+
+        });
+
+
+
     }
 
     /*
