@@ -191,7 +191,7 @@ public class LoginActivity extends AppCompatActivity {
                         newRequestReference.setValue(email + " logged in at " +
                                 RatSighting.getTimeStamp(Calendar.getInstance()));
                         // Sign-in successful, proceed passing user as parameter
-                        FirebaseUser user = mAuth.getCurrentUser();
+                        User.ourInstance = FirebaseAuth.getInstance().getCurrentUser();
                         proceedLogin();
                     }
                     else {

@@ -277,7 +277,7 @@ public class AddSightingActivity extends AppCompatActivity {
                 DatabaseReference newRequestReference = mDatabaseRef.child("rat_sightings").push();
                 newRequestReference.setValue(raw);
                 DatabaseReference newRequestReference2 = mDatabaseRef.child("security_logging").push();
-                newRequestReference2.setValue(User.getInstance() + " added a rat sighting at " +
+                newRequestReference2.setValue(User.getInstance().getEmail() + " added a rat sighting at " +
                         RatSighting.getTimeStamp(Calendar.getInstance()));
                 Toast toast = Toast.makeText(AddSightingActivity.this,
                         "Rat Report Added", Toast.LENGTH_SHORT);
@@ -288,7 +288,7 @@ public class AddSightingActivity extends AppCompatActivity {
                 endActivity();
             } catch (Exception e) {
                 DatabaseReference newRequestReference2 = mDatabaseRef.child("security_logging").push();
-                newRequestReference2.setValue(User.getInstance() + " attempted to add an invalid " +
+                newRequestReference2.setValue(User.getInstance().getEmail() + " attempted to add an invalid " +
                         "sighting at " + RatSighting.getTimeStamp(Calendar.getInstance()));
                 errorText.setText("Please enter valid data");
             }

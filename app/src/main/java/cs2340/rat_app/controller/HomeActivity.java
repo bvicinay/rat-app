@@ -6,7 +6,14 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
+import java.util.Calendar;
+
 import cs2340.rat_app.R;
+import cs2340.rat_app.model.RatSighting;
+import cs2340.rat_app.model.User;
 
 /**
  * Home activity when the user logs in
@@ -27,9 +34,14 @@ public class HomeActivity extends AppCompatActivity {
         });
         Button backButton = findViewById(R.id.logout);
         backButton.setOnClickListener(v -> {
+            FirebaseDatabase mDatabase = FirebaseDatabase.getInstance();
+            DatabaseReference mDatabaseRef = mDatabase.getReference();
             Intent intent = new Intent(getOuter(), LoginActivity.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             startActivity(intent);
+            DatabaseReference newRequestReference2 = mDatabaseRef.child("security_logging").push();
+            newRequestReference2.setValue(User.getInstance().getEmail() + " logged out at " +
+                    RatSighting.getTimeStamp(Calendar.getInstance()));
             endActivity();
         });
 
