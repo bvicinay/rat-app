@@ -1,5 +1,6 @@
 package cs2340.rat_app.controller;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
@@ -7,7 +8,7 @@ import android.text.Editable;
 import android.util.Log;
 import android.widget.EditText;
 import android.widget.Button;
-import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -20,7 +21,6 @@ public class ResetPasswordActivity extends AppCompatActivity {
 
     private static final String TAG = "Password Reset";
     private EditText email;
-    private TextView instructions;
     private Button submit;
     private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener mAuthListener;
@@ -31,7 +31,6 @@ public class ResetPasswordActivity extends AppCompatActivity {
 
         email = findViewById(R.id.email);
         submit = findViewById(R.id.submit);
-        instructions = findViewById(R.id.instructions);
 
         submit.setOnClickListener(view -> auth());
         email.setOnClickListener(vie -> auth());
@@ -95,10 +94,21 @@ public class ResetPasswordActivity extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
                         if (task.isSuccessful()) {
+                            Toast toast = Toast.makeText(ResetPasswordActivity.this,
+                                    "Password Reset Sent", Toast.LENGTH_SHORT);
+                            toast.show();
                             Log.d(TAG, "Email sent.");
+                            Intent intent = new Intent(getOuter(), LoginActivity.class);
+                            startActivity(intent);
+                        } else {
+                            Log.d(TAG, "Invalid email");
                         }
                     }
                 });
+    }
+
+    private ResetPasswordActivity getOuter() {
+        return this;
     }
 
 }
