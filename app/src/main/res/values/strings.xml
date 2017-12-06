@@ -162,4 +162,7 @@
     <string name="borough_label">TextView</string>
     <string name="latitude_label">TextView</string>
     <string name="longitude_label">TextView</string>
+    <string name="facebook_app_id">2000537083559522</string>
+    <string name="fb_login_protocol_scheme">fb2000537083559522</string>
+
 </resources>
