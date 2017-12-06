@@ -102,6 +102,12 @@
 
             </LinearLayout>
 
+            <Button
+                android:id="@+id/password_Recovery"
+                android:text="Password Recovery"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+
 
         </LinearLayout>
     </ScrollView>

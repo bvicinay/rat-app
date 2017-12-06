@@ -23,7 +23,6 @@ public class LoginActivity extends AppCompatActivity {
 
     private EditText emailField;
     private EditText passwordField;
-
     private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener mAuthListener;
     private static final String TAG = "LoginActivity";
@@ -45,6 +44,12 @@ public class LoginActivity extends AppCompatActivity {
         Button toRegisterButton = findViewById(R.id.toRegister_button);
         toRegisterButton.setOnClickListener(view -> {
             Intent intent = new Intent(getOuter(), RegisterActivity.class);
+            startActivity(intent);
+        });
+
+        Button resetPassword = findViewById(R.id.password_Recovery);
+        resetPassword.setOnClickListener(view -> {
+            Intent intent = new Intent(getOuter(), ResetPasswordActivity.class);
             startActivity(intent);
         });
 

@@ -102,8 +102,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 }
             }
             getLocationPermission();
-            getDeviceLocation();
             updateLocationUI();
+            getDeviceLocation();
         } catch(Exception e) {
             Log.d("Exception", "no data in the range", e);
         }
