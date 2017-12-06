@@ -13,6 +13,8 @@ import android.widget.Spinner;
 //Firebase
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import android.util.Log;
 import android.widget.SpinnerAdapter;
@@ -20,6 +22,7 @@ import android.widget.Toast;
 
 import cs2340.rat_app.R;
 import cs2340.rat_app.model.AccountType;
+import cs2340.rat_app.model.User;
 
 /**
  * A login screen that offers login via email/password.
@@ -239,6 +242,8 @@ public class RegisterActivity extends AppCompatActivity {
      * @param password the password of the account being created
      */
     private void createAccount(final String email, final String password) {
+        FirebaseDatabase mDatabase = FirebaseDatabase.getInstance();
+        DatabaseReference mDatabaseRef = mDatabase.getReference();
         // Data is already validated
         Log.d(TAG, "createAccount:" + email);
 
@@ -246,6 +251,8 @@ public class RegisterActivity extends AppCompatActivity {
         mAuth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this, task -> {
                     if (task.isSuccessful()) {
+                        DatabaseReference newRequestReference2 = mDatabaseRef.child("security_logging").push();
+                        newRequestReference2.setValue(email + " created an account!");
                         // Registration successful, proceed passing user as parameter
                         Log.d(TAG, "createUserWithEmail:success");
                         FirebaseUser user = mAuth.getCurrentUser();
@@ -254,6 +261,8 @@ public class RegisterActivity extends AppCompatActivity {
                         toast.show();
                         proceedRegister();
                     } else {
+                        DatabaseReference newRequestReference2 = mDatabaseRef.child("security_logging").push();
+                        newRequestReference2.setValue(email + " failed to create an account");
                         // Registration failed, display message to the user, abort.
                         Log.w(TAG, "createUserWithEmail:failure", task.getException());
                         Toast toast = Toast.makeText(RegisterActivity.this, "Failed to register",

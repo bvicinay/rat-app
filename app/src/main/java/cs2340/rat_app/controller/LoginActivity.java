@@ -8,9 +8,12 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
-
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import com.facebook.FacebookSdk;
 import com.facebook.appevents.AppEventsLogger;
@@ -19,6 +22,7 @@ import android.util.Log;
 import android.widget.Toast;
 
 import cs2340.rat_app.R;
+import cs2340.rat_app.model.User;
 
 /**
  * A login screen that offers login via email/password.
@@ -177,6 +181,9 @@ public class LoginActivity extends AppCompatActivity {
                     // If sign in succeeds the auth state listener will be notified and logic
                     // to handle the signed in user can be handled in the listener.
                     if (task.isSuccessful()) {
+                        Log.d(TAG, "signInWithEmail:onComplete:" + task.isSuccessful());
+                        DatabaseReference newRequestReference = mDatabaseRef.child("security_logging").push();
+                        newRequestReference.setValue(email + "logged in");
                         // Sign-in successful, proceed passing user as parameter
                         FirebaseUser user = mAuth.getCurrentUser();
                         proceedLogin();
@@ -184,6 +191,8 @@ public class LoginActivity extends AppCompatActivity {
                     else {
                         // Sign-in failed, display message to user
                         Log.w(TAG, "signInWithEmail:failed", task.getException());
+                        DatabaseReference newRequestReference = mDatabaseRef.child("security_logging").push();
+                        newRequestReference.setValue("failed login attempt");
                         Toast toast = Toast.makeText(LoginActivity.this, "Sign-in failed",
                                 Toast.LENGTH_SHORT);
                         toast.show();

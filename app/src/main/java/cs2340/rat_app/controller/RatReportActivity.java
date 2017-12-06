@@ -66,12 +66,7 @@ public class RatReportActivity extends AppCompatActivity {
                 shareIntent.putExtra(Intent.EXTRA_TEXT, body);
                 startActivity(Intent.createChooser(shareIntent, "Share Rat Sighting: "));
             }
-
-
         });
-
-
-
     }
 
     /*

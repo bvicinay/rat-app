@@ -14,6 +14,8 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import cs2340.rat_app.R;
 
@@ -88,6 +90,8 @@ public class ResetPasswordActivity extends AppCompatActivity {
     }
 
     private void authenticateEmail(String email) {
+        FirebaseDatabase mDatabase = FirebaseDatabase.getInstance();
+        DatabaseReference mDatabaseRef = mDatabase.getReference();
         FirebaseAuth auth = FirebaseAuth.getInstance();
         auth.sendPasswordResetEmail(email)
                 .addOnCompleteListener(new OnCompleteListener<Void>() {
@@ -97,10 +101,14 @@ public class ResetPasswordActivity extends AppCompatActivity {
                             Toast toast = Toast.makeText(ResetPasswordActivity.this,
                                     "Password Reset Sent", Toast.LENGTH_SHORT);
                             toast.show();
+                            DatabaseReference newRequestReference = mDatabaseRef.child("security_logging").push();
+                            newRequestReference.setValue(email + " reset their password");
                             Log.d(TAG, "Email sent.");
                             Intent intent = new Intent(getOuter(), LoginActivity.class);
                             startActivity(intent);
                         } else {
+                            DatabaseReference newRequestReference = mDatabaseRef.child("security_logging").push();
+                            newRequestReference.setValue(email + " failed to reset their password");
                             Log.d(TAG, "Invalid email");
                         }
                     }

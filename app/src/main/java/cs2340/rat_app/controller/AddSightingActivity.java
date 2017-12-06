@@ -21,6 +21,7 @@ import cs2340.rat_app.R;
 import cs2340.rat_app.model.RatSighting;
 import cs2340.rat_app.model.RatSightingRaw;
 import cs2340.rat_app.model.RatList;
+import cs2340.rat_app.model.User;
 
 /**
  * Activity for the User to add a rat sighting
@@ -248,6 +249,8 @@ public class AddSightingActivity extends AppCompatActivity {
     @SuppressLint("SetTextI18n")
     private void createRat() {
 
+        FirebaseDatabase mDatabase = FirebaseDatabase.getInstance();
+        DatabaseReference mDatabaseRef = mDatabase.getReference();
         if (validateData()) {
 
             try {
@@ -271,10 +274,10 @@ public class AddSightingActivity extends AppCompatActivity {
                         lat.toString(),
                         lon.toString());
                 RatSightingRaw raw = new RatSightingRaw(newSighting);
-                FirebaseDatabase mDatabase = FirebaseDatabase.getInstance();
-                DatabaseReference mDatabaseRef = mDatabase.getReference();
                 DatabaseReference newRequestReference = mDatabaseRef.child("rat_sightings").push();
                 newRequestReference.setValue(raw);
+                DatabaseReference newRequestReference2 = mDatabaseRef.child("security_logging").push();
+                newRequestReference2.setValue(User.getInstance() + " added a rat sighting");
                 Toast toast = Toast.makeText(AddSightingActivity.this,
                         "Rat Report Added", Toast.LENGTH_SHORT);
                 toast.show();
@@ -283,9 +286,13 @@ public class AddSightingActivity extends AppCompatActivity {
                 startActivity(intent);
                 endActivity();
             } catch (Exception e) {
+                DatabaseReference newRequestReference2 = mDatabaseRef.child("security_logging").push();
+                newRequestReference2.setValue(User.getInstance() + " attempted to add an invalid sighting");
                 errorText.setText("Please enter valid data");
             }
         } else {
+            DatabaseReference newRequestReference2 = mDatabaseRef.child("security_logging").push();
+            newRequestReference2.setValue(User.getInstance() + " attempted to add an invalid sighting");
             errorText.setText("Please fill in all fields");
         }
     }
