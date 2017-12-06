@@ -10,8 +10,13 @@ import android.view.View;
 import android.widget.TextView;
 import android.location.Location;
 import android.widget.Button;
+import android.os.Parcel;
+
+import com.facebook.share.widget.ShareButton;
+import com.facebook.share.model.ShareContent;
 
 import cs2340.rat_app.R;
+import cs2340.rat_app.model.FBUser;
 import cs2340.rat_app.model.RatSighting;
 
 /**
@@ -35,7 +40,13 @@ public class RatReportActivity extends AppCompatActivity {
             Log.d("null pointer exception" , "Caught a null pointer");
         }
 
-
+        if (FBUser.getInstance()) {
+            View fbShare = findViewById(R.id.fb_share_btn);
+            fbShare.setVisibility(View.VISIBLE);
+        } else {
+            View fbShare = findViewById(R.id.fb_share_btn);
+            fbShare.setVisibility(View.INVISIBLE);
+        }
         Button shareButton = (Button) findViewById(R.id.sharebutton);
         shareButton.setOnClickListener(new View.OnClickListener() {
 

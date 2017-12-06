@@ -6,12 +6,15 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
+import com.facebook.login.LoginManager;
+
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.Calendar;
 
 import cs2340.rat_app.R;
+import cs2340.rat_app.model.FBUser;
 import cs2340.rat_app.model.RatSighting;
 import cs2340.rat_app.model.User;
 
@@ -34,6 +37,11 @@ public class HomeActivity extends AppCompatActivity {
         });
         Button backButton = findViewById(R.id.logout);
         backButton.setOnClickListener(v -> {
+            //logs out fb user if is one
+            if (FBUser.getInstance()) {
+                LoginManager.getInstance().logOut();
+                FBUser.setIsFBUser(false);
+            }
             FirebaseDatabase mDatabase = FirebaseDatabase.getInstance();
             DatabaseReference mDatabaseRef = mDatabase.getReference();
             Intent intent = new Intent(getOuter(), LoginActivity.class);

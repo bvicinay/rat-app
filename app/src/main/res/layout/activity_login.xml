@@ -111,7 +111,7 @@
                 android:layout_height="match_parent" />
 
             <com.facebook.login.widget.LoginButton
-                android:id="@+id/login_button"
+                android:id="@+id/fb_login_button"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_gravity="center_horizontal"

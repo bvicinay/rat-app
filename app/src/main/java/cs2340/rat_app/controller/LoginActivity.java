@@ -8,6 +8,10 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
+
+import com.facebook.CallbackManager;
+import com.facebook.login.LoginManager;
+import com.facebook.login.widget.LoginButton;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
@@ -17,6 +21,9 @@ import com.google.firebase.database.FirebaseDatabase;
 
 import com.facebook.FacebookSdk;
 import com.facebook.appevents.AppEventsLogger;
+import com.facebook.login.LoginResult;
+import com.facebook.FacebookCallback;
+import com.facebook.FacebookException;
 
 import android.util.Log;
 import android.widget.Toast;
@@ -26,6 +33,7 @@ import java.util.Calendar;
 import cs2340.rat_app.R;
 import cs2340.rat_app.model.RatSighting;
 import cs2340.rat_app.model.User;
+import cs2340.rat_app.model.FBUser;
 
 /**
  * A login screen that offers login via email/password.
@@ -37,6 +45,7 @@ public class LoginActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener mAuthListener;
     private static final String TAG = "LoginActivity";
+    private CallbackManager callbackManager;
 
 
     @Override
@@ -75,6 +84,43 @@ public class LoginActivity extends AppCompatActivity {
                 Log.d(TAG, "onAuthStateChanged:signed_out");
             }
         };
+
+        //Facebook login stuff
+        FacebookSdk.sdkInitialize(getApplicationContext());
+
+        LoginButton fbLoginButton = (LoginButton) findViewById(R.id.fb_login_button);
+
+        callbackManager = CallbackManager.Factory.create();
+
+        FacebookCallback<LoginResult> fbCallback = new FacebookCallback<LoginResult>() {
+            @Override
+            public void onSuccess(LoginResult loginResult) {
+                proceedLogin();
+                FBUser.setIsFBUser(true);
+            }
+
+            @Override
+            public void onCancel() {
+                abortLogin();
+            }
+
+            @Override
+            public void onError(FacebookException error) {
+                abortLogin();
+            }
+
+        };
+
+        fbLoginButton.registerCallback(callbackManager, fbCallback);
+
+
+
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        callbackManager.onActivityResult(requestCode, resultCode, data);
 
     }
 

@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
 
     <TextView
@@ -27,37 +28,37 @@
         android:id="@+id/loc_type"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:text="@string/loc_type_label"
+        android:layout_alignStart="@+id/date"
         android:layout_below="@+id/date"
-        android:layout_alignStart="@+id/date" />
+        android:layout_marginTop="20dp"
+        android:text="@string/loc_type_label" />
 
     <TextView
         android:id="@+id/zip_code"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:text="@string/zip_code_label"
+        android:layout_alignStart="@+id/loc_type"
         android:layout_below="@+id/loc_type"
-        android:layout_alignStart="@+id/loc_type" />
+        android:layout_marginTop="20dp"
+        android:text="@string/zip_code_label" />
 
     <TextView
         android:id="@+id/address"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="21dp"
-        android:text="@string/address_label_rr"
+        android:layout_alignStart="@+id/zip_code"
         android:layout_below="@+id/zip_code"
-        android:layout_alignStart="@+id/zip_code" />
+        android:layout_marginTop="21dp"
+        android:text="@string/address_label_rr" />
 
     <TextView
         android:id="@+id/city"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:text="@string/city_label_rr"
+        android:layout_alignStart="@+id/address"
         android:layout_below="@+id/address"
-        android:layout_alignStart="@+id/address" />
+        android:layout_marginTop="20dp"
+        android:text="@string/city_label_rr" />
 
     <TextView
         android:id="@+id/borough"
@@ -71,10 +72,10 @@
         android:id="@+id/latitude"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:text="@string/latitude_label"
+        android:layout_alignStart="@+id/borough"
         android:layout_below="@+id/borough"
-        android:layout_alignStart="@+id/borough" />
+        android:layout_marginTop="24dp"
+        android:text="@string/latitude_label" />
 
     <TextView
         android:id="@+id/longitude"
@@ -93,5 +94,15 @@
         android:layout_below="@+id/longitude"
         android:layout_marginTop="27dp"
         android:text="Share Rat Sighting" />
+
+    <com.facebook.share.widget.ShareButton
+        android:id="@+id/fb_share_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignEnd="@+id/sharebutton"
+        android:layout_alignStart="@+id/sharebutton"
+        android:layout_below="@+id/sharebutton"
+        android:contentDescription="@string/share"
+        android:visibility="invisible" />
 
 </RelativeLayout>
